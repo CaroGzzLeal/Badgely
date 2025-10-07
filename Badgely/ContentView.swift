@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    
+    @State private var navigate = false
+    
     let places: [Place] = Bundle.main.decode("places.json")
     
     
@@ -56,6 +59,17 @@ struct ContentView: View {
                 }*/
                 
             }
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("My Badgeds", systemImage: "person.crop.circle") {
+                        navigate.toggle()
+                    }
+                }
+            }
+            .sheet(isPresented: $navigate) {
+               BadgesView()
+                    .presentationDetents([.medium,.large])
+            }
         }
         
     }
@@ -67,6 +81,15 @@ struct PlaceDetailView: View {
         VStack {
             Text(place.displayName)
             Image(place.image)
+        }
+    }
+}
+
+
+struct BadgesView: View {
+    var body: some View {
+        VStack {
+            Text("My Badges")
         }
     }
 }
