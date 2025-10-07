@@ -24,5 +24,3 @@ struct Place: Codable, Identifiable {
     }
 }
 
-
-

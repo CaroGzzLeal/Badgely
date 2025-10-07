@@ -19,10 +19,10 @@ struct ContentView: View {
         GridItem(.adaptive(minimum: 150))
     ]
     
-    
+    // organizar por el type
     private var grouped: [(type: String, items: [Place])] {
         Dictionary(grouping: places, by: { $0.type })
-            .sorted { $0.key < $1.key }   // alphabetical sections
+            .sorted { $0.key < $1.key }   // organizado alfabéticamente
             .map { ($0.key.capitalized, $0.value) }
     }
     

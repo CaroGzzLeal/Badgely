@@ -20,6 +20,3 @@ class User {
         self.joinDate = joinDate
     }
 }
-
-
-

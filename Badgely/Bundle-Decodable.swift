@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Para leer la info del json
 extension Bundle {
     func decode<T: Codable>(_ file: String) -> T { // T = [String: Astronaut]
         guard let url = self.url(forResource: file, withExtension: nil) else {
