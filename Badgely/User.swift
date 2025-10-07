@@ -1,3 +1,13 @@
+//
+//  User.swift
+//  Badgely
+//
+//  Created by Martha Mendoza Alfaro on 07/10/25.
+//
+import SwiftUI
+import SwiftData
+
+// solo para el user y sus badges
 @Model
 class User {
     var name: String
@@ -10,3 +20,6 @@ class User {
         self.joinDate = joinDate
     }
 }
+
+
+

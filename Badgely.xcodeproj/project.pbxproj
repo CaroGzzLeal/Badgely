@@ -39,9 +39,22 @@
 		25D042A42E94006E00E4E29F /* BadgelyWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BadgelyWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		4B2D56032E9577E50023F6FE /* Exceptions for "Badgely" folder in "BadgelyWatch Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				missions.json,
+			);
+			target = 25D042A32E94006E00E4E29F /* BadgelyWatch Watch App */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		25D0428D2E93F5C600E4E29F /* Badgely */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				4B2D56032E9577E50023F6FE /* Exceptions for "Badgely" folder in "BadgelyWatch Watch App" target */,
+			);
 			path = Badgely;
 			sourceTree = "<group>";
 		};
