@@ -10,28 +10,18 @@ import SwiftData
 
 @main
 struct BadgelyApp: App {
-    @State private var showUserSetup = true
     
-    /*var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            User.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+    /*let container: ModelContainer = {
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try ModelContainer(for: User.self)
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            fatalError("Failed to create ModelContainer: \(error.localizedDescription)")
         }
     }()*/
     
     var body: some Scene {
         WindowGroup {
-            if showUserSetup {
-                UserView(showUserSetup: $showUserSetup)
-            } else {
-                ContentView()
-            }
+            UserView()
         }
         .modelContainer(for: User.self)
     }

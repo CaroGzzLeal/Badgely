@@ -14,15 +14,13 @@ import SwiftData
 class User {
     var name: String
     var city: String
-    var avatarName: String
     var badges: [String] = []
     var favoritePlaces: [String] = []
     
 
-    init(name: String, city: String, avatarName: String ) {
+    init(name: String, city: String ) {
         self.name = name
         self.city = city
-        self.avatarName = avatarName
     }
     
 }

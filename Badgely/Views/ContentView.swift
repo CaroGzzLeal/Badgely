@@ -10,7 +10,8 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var users: [User] 
+    //@Query private var users: [User]
+    @Query(sort: \User.name) private var users: [User]
     
     @State private var navigate = false
     @State private var searchText = ""
