@@ -11,6 +11,8 @@ import SwiftData
 @main
 struct BadgelyApp: App {
     
+    @StateObject private var locationManager = LocationManager()
+    
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             User.self
@@ -27,6 +29,7 @@ struct BadgelyApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(locationManager)
         }
         .modelContainer(for: User.self)
     }

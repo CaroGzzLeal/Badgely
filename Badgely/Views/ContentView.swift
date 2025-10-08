@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    
+    @EnvironmentObject private var locationManager: LocationManager
     @State private var navigate = false
     @State private var searchText = ""
     
@@ -27,6 +27,18 @@ struct ContentView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
+                    
+                    //Botón para probar la ubicación
+                    Button(action: {
+                        requestNotification()
+                    }, label: {
+                        Text("Prueba ubicación")
+                            .font(.caption)
+                            .foregroundColor(.blue)
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                    })
                     
                     //Filtros de botón de icono
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -48,6 +60,9 @@ struct ContentView: View {
                     }
                 }
                 .padding(.vertical, 16)
+                .onAppear {
+                    requestNotification()
+                }
             } //ScrollView
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -57,14 +72,20 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $navigate) {
-               BadgesView()
-                    //.presentationDetents([.medium,.large])
+                BadgesView()
+                //.presentationDetents([.medium,.large])
             }
             .navigationTitle("Monterrey")
             .navigationBarTitleDisplayMode(.inline)
         } //Nav Stack
         .searchable(text: $searchText, prompt: "Busca con Badgley")
     }
+    
+    func requestNotification() {
+        locationManager.validateLocationAuthorizationStatus()
+        locationManager.requestNotificationAuthorization()
+    }
+    
 }
 
 
