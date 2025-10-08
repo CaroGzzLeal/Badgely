@@ -6,7 +6,9 @@
         "address": "Av. del Roble 660-Local A2-111, Valle del Campestre, 66265 San Pedro Garza García, N.L.",
         "latitude": 25.648984986698732,
         "longitude": -100.35522425264874,
-        "description": "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera."
+        "description": "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera.",
+        "badge": "badge1",
+        "specialBadge": "sbadge1"
     },
     {
         "id": 2,
@@ -15,7 +17,8 @@
         "address": "Miguel Hidalgo y Costilla 1171, Mirador, 64000 Nuevo León, N.L.",
         "latitude": 25.670337001671307,
         "longitude": -100.33175918691522,
-        "description": "Espacio que combina una librería con cafetería de especialidad, ideal para leer, estudiar o trabajar. Ofrece café, repostería, chilaquiles y un ambiente tranquilo rodeado de libros y buena música."
+        "description": "Espacio que combina una librería con cafetería de especialidad, ideal para leer, estudiar o trabajar. Ofrece café, repostería, chilaquiles y un ambiente tranquilo rodeado de libros y buena música.",
+        "badge": "badge2"
     },
     {
         "id": 3,
@@ -24,7 +27,8 @@
         "address": "Av. Del Estado 203 A, Tecnológico, 64700 Monterrey, N.L.",
         "latitude": 25.650452316765524,
         "longitude": -100.29355876432308,
-        "description": "Cafetería artesanal con ambiente acogedor y moderno, perfecta para reuniones o trabajo. Sirve café de especialidad, tés, y panadería fresca con opciones dulces y saladas como focaccias y panqués."
+        "description": "Cafetería artesanal con ambiente acogedor y moderno, perfecta para reuniones o trabajo. Sirve café de especialidad, tés, y panadería fresca con opciones dulces y saladas como focaccias y panqués.",
+        "badge": "badge3"
     },
     {
         "id": 4,
@@ -33,7 +37,8 @@
         "address": "Av. Junco de la Vega 308, Nueva España, 64840 Monterrey, N.L.",
         "latitude": 25.647734958464582,
         "longitude": -100.28506656770391,
-        "description": "Cafetería con un ambiente fresco y moderno, ideal para desayunos y tardes tranquilas. Ofrece café de especialidad, repostería artesanal y opciones saludables como bowls y tostadas, en un entorno luminoso y acogedor."
+        "description": "Cafetería con un ambiente fresco y moderno, ideal para desayunos y tardes tranquilas. Ofrece café de especialidad, repostería artesanal y opciones saludables como bowls y tostadas, en un entorno luminoso y acogedor.",
+        "badge": "badge4"
     },
     {
         "id": 5,
@@ -42,7 +47,8 @@
         "address": "Bruselas 902, Mirador, 64070 Monterrey, N.L.",
         "latitude": 25.669204417520078,
         "longitude": -100.33326077342582,
-        "description": "Espacio contemporáneo dedicado al café de especialidad, reconocido por su atención al detalle en métodos de extracción. Su ambiente minimalista y tranquilo lo convierte en un punto ideal para trabajar, conversar o disfrutar de postres caseros."
+        "description": "Espacio contemporáneo dedicado al café de especialidad, reconocido por su atención al detalle en métodos de extracción. Su ambiente minimalista y tranquilo lo convierte en un punto ideal para trabajar, conversar o disfrutar de postres caseros.",
+        "badge": "badge5"
     },
     {
         "id": 6,
@@ -51,7 +57,8 @@
         "address": "Eje Metropolitano 10 2400, Zona Loma Larga Oriente, 66278 Monterrey, N.L.",
         "latitude": 25.650524126964658,
         "longitude": -100.33367626772403,
-        "description": "Restaurante contemporáneo de cocina mexicana con un toque moderno, donde los ingredientes locales se combinan con técnicas innovadoras. Su ambiente elegante y cálido lo hace ideal para cenas o reuniones especiales."
+        "description": "Restaurante contemporáneo de cocina mexicana con un toque moderno, donde los ingredientes locales se combinan con técnicas innovadoras. Su ambiente elegante y cálido lo hace ideal para cenas o reuniones especiales.",
+        "badge": "badge6"
     },
     {
         "id": 7,
@@ -60,7 +67,8 @@
         "address": "Padre Mier 859, Barrio Antiguo, Centro, 64000 Monterrey, N.L.",
         "latitude": 25.667360066142738,
         "longitude": -100.30810691324342,
-        "description": "Ubicado en el corazón del Barrio Antiguo, ofrece una propuesta gastronómica moderna con influencia mediterránea. Su ambiente íntimo y su carta de vinos cuidadosamente seleccionada crean una experiencia relajada y sofisticada."
+        "description": "Ubicado en el corazón del Barrio Antiguo, ofrece una propuesta gastronómica moderna con influencia mediterránea. Su ambiente íntimo y su carta de vinos cuidadosamente seleccionada crean una experiencia relajada y sofisticada.",
+        "badge": "badge7"
     },
     {
         "id": 8,
@@ -69,7 +77,8 @@
         "address": "Av Lázaro Cárdenas 2400, Zona Loma Larga Oriente, 66260 Monterrey, N.L.",
         "latitude": 25.65050624588425,
         "longitude": -100.3333265470413,
-        "description": "Restaurante sonorense de alta cocina reconocido por sus cortes de carne, mariscos y mixología. Ofrece un ambiente elegante y vibrante, ideal para comidas de negocio o cenas especiales en Monterrey."
+        "description": "Restaurante sonorense de alta cocina reconocido por sus cortes de carne, mariscos y mixología. Ofrece un ambiente elegante y vibrante, ideal para comidas de negocio o cenas especiales en Monterrey.",
+        "badge": "badge8"
     },
     {
         "id": 9,
@@ -78,7 +87,8 @@
         "address": "Av Lázaro Cárdenas 2660, Zona Valle Oriente, 66266 San Pedro Garza García, N.L.",
         "latitude": 25.64729864327241,
         "longitude": -100.32718832777034,
-        "description": "Clásico restaurante regiomontano especializado en cortes y comida mexicana tradicional. Su servicio atento y su ambiente familiar lo han convertido en un referente para disfrutar de una buena carne asada."
+        "description": "Clásico restaurante regiomontano especializado en cortes y comida mexicana tradicional. Su servicio atento y su ambiente familiar lo han convertido en un referente para disfrutar de una buena carne asada.",
+        "badge": "badge9"
     },
     {
         "id": 10,
@@ -87,7 +97,8 @@
         "address": "Guillermo Prieto 938, entre Mina y Diego de Montemayor, Barrio Antiguo, Centro, 64000 Monterrey, N.L.",
         "latitude": 25.663984026823993,
         "longitude": -100.30759487620364,
-        "description": "Restaurante de cocina mexicana tradicional con ambiente rústico y hogareño. Ofrece platillos caseros, desayunos completos y aguas frescas, evocando el sabor de las fondas típicas de México."
+        "description": "Restaurante de cocina mexicana tradicional con ambiente rústico y hogareño. Ofrece platillos caseros, desayunos completos y aguas frescas, evocando el sabor de las fondas típicas de México.",
+        "badge": "badge10"
     },
     {
         "id": 11,
@@ -96,7 +107,8 @@
         "address": "Centro, 64000 Monterrey, N.L.",
         "latitude": 25.67199501251882,
         "longitude": -100.29784878731996,
-        "description": "Canal artificial y paseo turístico icónico de Monterrey que conecta el Parque Fundidora con el centro. Ofrece recorridos en lancha, áreas para caminar y vistas urbanas únicas."
+        "description": "Canal artificial y paseo turístico icónico de Monterrey que conecta el Parque Fundidora con el centro. Ofrece recorridos en lancha, áreas para caminar y vistas urbanas únicas.",
+        "badge": "badge11"
     },
     {
         "id": 12,
@@ -105,7 +117,8 @@
         "address": "Centro, 64000 Monterrey, N.L.",
         "latitude": 25.666948562632818,
         "longitude": -100.306173009285,
-        "description": "Zona histórica y cultural del centro de Monterrey, famosa por su arquitectura colonial, galerías, bares y restaurantes. Es un punto clave para el arte, la música y la vida nocturna."
+        "description": "Zona histórica y cultural del centro de Monterrey, famosa por su arquitectura colonial, galerías, bares y restaurantes. Es un punto clave para el arte, la música y la vida nocturna.",
+        "badge": "badge12"
     },
     {
         "id": 13,
@@ -114,7 +127,8 @@
         "address": "Juan Zuazua, Padre Raymundo Jardón y, Centro, 64000 Monterrey, N.L.",
         "latitude": 25.664729733577616,
         "longitude": -100.30979191188067,
-        "description": "Espacio dedicado al arte moderno y contemporáneo, reconocido por su arquitectura icónica. Exhibe obras nacionales e internacionales y cuenta con un ambiente cultural vibrante."
+        "description": "Espacio dedicado al arte moderno y contemporáneo, reconocido por su arquitectura icónica. Exhibe obras nacionales e internacionales y cuenta con un ambiente cultural vibrante.",
+        "badge": "badge13"
     },
     {
         "id": 14,
@@ -123,7 +137,8 @@
         "address": "Dr. José Ma. Coss 445, Centro, 64000 Monterrey, N.L.",
         "latitude": 25.671674225087937,
         "longitude": -100.30645552888112,
-        "description": "Museo que ofrece una visión completa de la historia de México desde las civilizaciones prehispánicas hasta la actualidad. Ideal para conocer la identidad cultural del país."
+        "description": "Museo que ofrece una visión completa de la historia de México desde las civilizaciones prehispánicas hasta la actualidad. Ideal para conocer la identidad cultural del país.",
+        "badge": "badge14"
     },
     {
         "id": 15,
@@ -132,7 +147,8 @@
         "address": "Adolfo Prieto S/N, Obrera, 64010 Monterrey, N.L.",
         "latitude": 25.67858972056601,
         "longitude": -100.28420744667727,
-        "description": "Antiguo complejo industrial transformado en un parque urbano emblemático. Alberga museos, foros, áreas verdes y eventos culturales, siendo uno de los principales atractivos de Monterrey."
+        "description": "Antiguo complejo industrial transformado en un parque urbano emblemático. Alberga museos, foros, áreas verdes y eventos culturales, siendo uno de los principales atractivos de Monterrey.",
+        "badge": "badge15"
     },
     {
         "id": 16,
@@ -141,7 +157,8 @@
         "address": "Parque Bosques, Bosque del Olivo, Avenida Bosques del Valle, Av Alfonso Reyes y, San Pedro Garza García, N.L.",
         "latitude": 25.645361788477604,
         "longitude": -100.37671259188197,
-        "description": "Evento de cine al aire libre en San Pedro, donde se proyectan películas en un entorno natural. Ofrece un ambiente familiar y relajado, con opciones de comida y actividades recreativas."
+        "description": "Evento de cine al aire libre en San Pedro, donde se proyectan películas en un entorno natural. Ofrece un ambiente familiar y relajado, con opciones de comida y actividades recreativas.",
+        "badge": "badge16"
     },
     {
         "id": 17,
@@ -150,7 +167,8 @@
         "address": "Dr. José Ma. Coss 732, Centro, 64000 Monterrey, N.L.",
         "latitude": 25.66903889855954,
         "longitude": -100.30888800186995,
-        "description": "Disfruta de un ballet por la compañía insignia de Monterrey, reconocida por su calidad artística y producciones clásicas y contemporáneas, presenta espectáculos de danza profesional en los principales teatros de la ciudad."
+        "description": "Disfruta de un ballet por la compañía insignia de Monterrey, reconocida por su calidad artística y producciones clásicas y contemporáneas, presenta espectáculos de danza profesional en los principales teatros de la ciudad.",
+        "badge": "badge17"
     },
     {
         "id": 18,
@@ -159,7 +177,8 @@
         "address": "Av. Eugenio Garza Sada 2501, Tecnológico, 64700 Monterrey, N.L.",
         "latitude": 25.6506502315807,
         "longitude": -100.28541554481367,
-        "description": "Asiste a las diferentes funciones teatrales presentadas en espacios culturales de Monterrey, con propuestas locales y nacionales. Promueve el arte escénico y la participación del público en experiencias en vivo."
+        "description": "Asiste a las diferentes funciones teatrales presentadas en espacios culturales de Monterrey, con propuestas locales y nacionales. Promueve el arte escénico y la participación del público en experiencias en vivo.",
+        "badge": "badge18"
     },
     {
         "id": 19,
@@ -168,7 +187,8 @@
         "address": "Juan Zuazua, Padre Raymundo Jardón y, Centro, 64000 Monterrey, N.L.",
         "latitude": 25.664729733577616,
         "longitude": -100.30979191188067,
-        "description": "Disfruta de un concierto íntimo a la luz de las velas que combina música clásica y contemporánea en locaciones emblemáticas. Ofrecen una experiencia sensorial y elegante."
+        "description": "Disfruta de un concierto íntimo a la luz de las velas que combina música clásica y contemporánea en locaciones emblemáticas. Ofrecen una experiencia sensorial y elegante.",
+        "badge": "badge19"
     },
     {
         "id": 20,
@@ -177,7 +197,18 @@
         "address": "Priciliano Elizondo, Av. Francisco I. Madero, 64000 Monterrey, N.L.",
         "latitude": 25.68277779881671,
         "longitude": -100.28324291925867,
-        "description": "Goza de este evento cultural que celebra la música tradicional mexicana con mariachis en directo. Ideal para disfrutar de canciones emblemáticas y un ambiente festivo y familiar."
+        "description": "Goza de este evento cultural que celebra la música tradicional mexicana con mariachis en directo. Ideal para disfrutar de canciones emblemáticas y un ambiente festivo y familiar.",
+        "badge": "badge20"
+    },
+    {
+        "id": 21,
+        "name": "Limpieza de Parques",
+        "type": "voluntariado",
+        "address": "Av. Fuentes del Valle, Fuentes del Valle, 66220 San Pedro Garza García, N.L.",
+        "latitude": 25.665067418079577,
+        "longitude": -100.36144939148897,
+        "description": "Actividad comunitaria enfocada en conservar áreas verdes y fomentar la conciencia ambiental. Ideal para participar en familia o con amigos contribuyendo al bienestar urbano.",
+        "badge": "badge21"
     },
     {
         "id": 22,
@@ -186,7 +217,8 @@
         "address": "Calle Castelar 1490, Pío X, 64710 Monterrey, N.L.",
         "latitude": 25.660234600748733,
         "longitude": -100.32983146566436,
-        "description": "Iniciativa social que brinda alimentos nutritivos a comunidades vulnerables. Promueve el consumo responsable y la solidaridad a través del voluntariado activo."
+        "description": "Iniciativa social que brinda alimentos nutritivos a comunidades vulnerables. Promueve el consumo responsable y la solidaridad a través del voluntariado activo.",
+        "badge": "badge22"
     },
     {
         "id": 23,
@@ -195,7 +227,8 @@
         "address": "José Antonio Rodríguez 1702, La Esperanza, 64237 Monterrey, N.L.",
         "latitude": 25.743971891602403,
         "longitude": -100.34795503210403,
-        "description": "Actividad recreativa y de voluntariado para pasear perros rescatados, fomentando su socialización y bienestar. Ideal para amantes de los animales y la adopción responsable."
+        "description": "Actividad recreativa y de voluntariado para pasear perros rescatados, fomentando su socialización y bienestar. Ideal para amantes de los animales y la adopción responsable.",
+        "badge": "badge23"
     },
     {
         "id": 24,
@@ -204,7 +237,8 @@
         "address": "Valparaíso 801, Sin Nombre de Col 33, 67140 Guadalupe, N.L.",
         "latitude": 25.669534313541163,
         "longitude": -100.25241658365948,
-        "description": "Programa solidario que conecta voluntarios con niños en situación vulnerable, ofreciendo apoyo educativo y emocional. Busca generar impacto positivo en su desarrollo."
+        "description": "Programa solidario que conecta voluntarios con niños en situación vulnerable, ofreciendo apoyo educativo y emocional. Busca generar impacto positivo en su desarrollo.",
+        "badge": "badge24"
     },
     {
         "id": 25,
@@ -213,6 +247,7 @@
         "address": "C. San Luis 302, La Pastora, 67140 Guadalupe, N.L.",
         "latitude": 25.66616822743072,
         "longitude": -100.26151948670619,
-        "description": "Actividad de acompañamiento a adultos mayores mediante visitas, donaciones y apoyo emocional. Promueve la empatía, la escucha y el bienestar en la tercera edad."
+        "description": "Actividad de acompañamiento a adultos mayores mediante visitas, donaciones y apoyo emocional. Promueve la empatía, la escucha y el bienestar en la tercera edad.",
+        "badge": "badge25"
     }
 ]

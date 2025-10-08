@@ -14,6 +14,8 @@ struct Place: Codable, Identifiable {
     let latitude: Double
     let longitude: Double
     let description: String
+    let badge: String
+    let specialBadge: String?
     
     var displayName: String {
         "\(name)"
@@ -23,4 +25,3 @@ struct Place: Codable, Identifiable {
         "\(type)\(id)"
     }
 }
-
