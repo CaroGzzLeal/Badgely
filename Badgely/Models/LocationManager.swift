@@ -10,113 +10,164 @@ import CoreLocation
 import UserNotifications
 
 class LocationManager: NSObject, ObservableObject {
+    private let locationManager = CLLocationManager()
+    private let notificationCenter = UNUserNotificationCenter.current()
     
-    let location = CLLocationCoordinate2D(latitude: 37.33182000, longitude: -122.03118000)
-    lazy var storeRegion = makeStoreRegion()
-    let notificationCenter = UNUserNotificationCenter.current()
+    // Lista completa de lugares cargados desde el JSON
+    @Published var places: [Place] = []
+    
+    @Published var nearestFive: [Place] = []
+    
+    // Mantiene las regiones ya notificadas
+    private var notifiedRegions: Set<String> = []
     
     override init() {
         super.init()
+        locationManager.delegate = self
         notificationCenter.delegate = self
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.pausesLocationUpdatesAutomatically = false
     }
     
-    lazy var locationManager = makeLocationManager()
-    
-    private func makeLocationManager() -> CLLocationManager {
-        let manager = CLLocationManager()
-        manager.allowsBackgroundLocationUpdates = true
+    // MARK: - Cargar lugares y empezar el monitoreo dinámico
+    func loadPlacesAndRegisterRegions() {
+        places = Bundle.main.decode("places2.json")
+        validateLocationAuthorizationStatus()
+        requestNotificationAuthorization()
         
-        return manager
+        // Iniciar monitoreo de cambios significativos
+        startMonitoringSignificantChanges()
     }
-    
-    private func makeStoreRegion() -> CLCircularRegion {
-        
-        let region = CLCircularRegion(
-            center: location,
-            radius: 2,
-            identifier: UUID().uuidString)
-        
-        region.notifyOnEntry = true
-        
-        return region
-    }
-    
+
+    // MARK: - Pedir permisos de ubicación
     func validateLocationAuthorizationStatus() {
-        
         switch locationManager.authorizationStatus {
-            
-        case .notDetermined, .denied, .restricted:
-            print("Location Services Not Authorized")
-            locationManager.requestWhenInUseAuthorization()
-            
-        case .authorizedWhenInUse, .authorizedAlways:
-            print("Location Services Authorized")
-            
-        default:
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        case .authorizedAlways, .authorizedWhenInUse:
+            print("Location Authorized")
+        case .denied, .restricted:
+            print("Location Denied")
+        @unknown default:
             break
         }
     }
     
+    // MARK: - Pedir permisos de notificación
     func requestNotificationAuthorization() {
-        
-        let options: UNAuthorizationOptions = [.sound, .alert]
-        
-        notificationCenter
-            .requestAuthorization(options: options) { [weak self] result, _ in
-                print("Notification Auth Request result: \(result)")
-                if result {
-                    self?.registerNotification()
-                }
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { [weak self] granted, _ in
+            if granted {
+                print("Notifications Authorized")
+            } else {
+                print("Notifications Denied")
             }
+        }
     }
-    
-    private func registerNotification() {
+
+    // MARK: - Iniciar monitoreo de cambios significativos
+    private func startMonitoringSignificantChanges() {
+        //print("Iniciando monitoreo de cambios significativos de ubicación...")
+        locationManager.startMonitoringSignificantLocationChanges()
+    }
+
+    // MARK: - Evaluar y actualizar las regiones más cercanas
+    private func evaluateClosestRegions(from location: CLLocation) {
+        // Ordenar los lugares por distancia al usuario
+        let sortedPlaces = places.sorted {
+            let loc1 = CLLocation(latitude: $0.latitude, longitude: $0.longitude)
+            let loc2 = CLLocation(latitude: $1.latitude, longitude: $1.longitude)
+            return loc1.distance(from: location) < loc2.distance(from: location)
+        }
         
-        let notificationContent = UNMutableNotificationContent()
-        notificationContent.title = "Welcome to Swifty TakeOut"
-        notificationContent.body = "Your order will be ready shortly."
-        notificationContent.sound = .default
+        // Tomar solo las 20 más cercanas
+        let closestPlaces = Array(sortedPlaces.prefix(20))
+        nearestFive = Array(sortedPlaces.prefix(5))
         
-        let trigger = UNLocationNotificationTrigger(
-            region: storeRegion,
-            repeats: false)
+        // Detener monitoreo anterior
+        for region in locationManager.monitoredRegions {
+            locationManager.stopMonitoring(for: region)
+        }
+        
+        // Iniciar monitoreo solo para las 20 más cercanas
+        for place in closestPlaces {
+            let center = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+            let region = CLCircularRegion(center: center, radius: 50, identifier: place.name)
+            region.notifyOnEntry = true
+            region.notifyOnExit = true
+            locationManager.startMonitoring(for: region)
+        }
+        
+        //print("Actualizadas las regiones más cercanas. Ahora se monitorean \(closestPlaces.count) lugares.")
+    }
+
+    // MARK: - Enviar notificación
+    private func sendArrivalNotification(for placeName: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Llegaste a \(placeName)"
+        content.body = "¡Bienvenido a \(placeName)!"
+        content.sound = .default
         
         let request = UNNotificationRequest(
             identifier: UUID().uuidString,
-            content: notificationContent,
-            trigger: trigger)
+            content: content,
+            trigger: nil
+        )
         
-        notificationCenter
-            .add(request) { error in
-                if error != nil {
-                    print("Error: \(String(describing: error))")
-                }
+        notificationCenter.add(request) { error in
+            if let error = error {
+                print("Error enviando notificación: \(error)")
+            } else {
+                print("Notificación enviada para \(placeName)")
             }
+        }
     }
 }
 
-extension LocationManager: UNUserNotificationCenterDelegate {
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        didReceive response: UNNotificationResponse,
-        withCompletionHandler completionHandler: @escaping () -> Void
-    ) {
-        print("Received Notification")
-        completionHandler()
+// MARK: - CLLocationManagerDelegate
+extension LocationManager: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        validateLocationAuthorizationStatus()
     }
-    
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let latestLocation = locations.last else { return }
+        //print("Nueva ubicación significativa: \(latestLocation.coordinate.latitude), \(latestLocation.coordinate.longitude)")
+        evaluateClosestRegions(from: latestLocation)
+    }
+
+    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        guard let circularRegion = region as? CLCircularRegion else { return }
+
+        if !notifiedRegions.contains(circularRegion.identifier) {
+            notifiedRegions.insert(circularRegion.identifier)
+            sendArrivalNotification(for: circularRegion.identifier)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+        guard let circularRegion = region as? CLCircularRegion else { return }
+        notifiedRegions.remove(circularRegion.identifier)
+
+        if let currentLocation = manager.location {
+            //print("Saliste de \(circularRegion.identifier) en lat: \(currentLocation.coordinate.latitude), lon: \(currentLocation.coordinate.longitude)")
+            // Re-evaluar regiones cercanas al salir de una zona
+            evaluateClosestRegions(from: currentLocation)
+        }
+    }
+
+    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+        print("Error al monitorear región: \(error.localizedDescription)")
+    }
+}
+
+// MARK: - UNUserNotificationCenterDelegate
+extension LocationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,
         willPresent notification: UNNotification,
-        withCompletionHandler completionHandler:
-        @escaping (UNNotificationPresentationOptions) -> Void
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
-        print("Received Notification in Foreground")
-        completionHandler(.sound)
+        completionHandler([.banner, .sound])
     }
-    
 }
-
-
 

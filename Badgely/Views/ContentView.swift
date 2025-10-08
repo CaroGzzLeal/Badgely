@@ -25,20 +25,19 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
+            
+            NavigationLink(destination: {NearYouView()}, label: {
+                Text("Places near you")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+            })
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
-                    
-                    //Botón para probar la ubicación
-                    Button(action: {
-                        requestNotification()
-                    }, label: {
-                        Text("Prueba ubicación")
-                            .font(.caption)
-                            .foregroundColor(.blue)
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-                    })
                     
                     //Filtros de botón de icono
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -61,7 +60,7 @@ struct ContentView: View {
                 }
                 .padding(.vertical, 16)
                 .onAppear {
-                    requestNotification()
+                    locationManager.loadPlacesAndRegisterRegions()
                 }
             } //ScrollView
             .toolbar {
@@ -79,11 +78,6 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
         } //Nav Stack
         .searchable(text: $searchText, prompt: "Busca con Badgley")
-    }
-    
-    func requestNotification() {
-        locationManager.validateLocationAuthorizationStatus()
-        locationManager.requestNotificationAuthorization()
     }
     
 }

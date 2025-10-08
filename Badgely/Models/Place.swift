@@ -11,8 +11,8 @@ struct Place: Codable, Identifiable {
     let name: String
     let type: String
     let address: String
-    let lat: String
-    let long: String
+    let latitude: Double
+    let longitude: Double
     let description: String
     
     var displayName: String {
