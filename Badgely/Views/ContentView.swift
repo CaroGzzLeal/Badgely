@@ -13,6 +13,8 @@ struct ContentView: View {
     @State private var navigate = false
     @State private var searchText = ""
     
+    //@ObservedObject var user: User
+    
     let emojiData = EmojiData.examples()
     let places: [Place] = Bundle.main.decode("places2.json")
     

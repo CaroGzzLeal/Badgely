@@ -23,20 +23,8 @@ struct RowView: View {
                 LazyHGrid(rows: rows) {
                     ForEach(places) { place in
                         NavigationLink(destination: PlaceDetailView(place: place)) {
-                            ZStack{
-                                //Esto es el diseño de la card ahorita, deberia ser otro componente
-                                Image(place.image)
-                                    .resizable()
-                                    .scaledToFill()
-                                //.frame(width: 100, height: 100)
-                                    .frame(width: 200, height: 150)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .padding(.horizontal, 7)
-                                Text(place.displayName)
-                                    .font(.caption)
-                                    .fontWeight(.bold)
-                                    
-                            }
+                            
+                            CardView(place: place)
                         }
                     }
                 }
@@ -44,4 +32,53 @@ struct RowView: View {
             }
         }
     }
+}
+
+
+struct CardView: View {
+    let place: Place
+    var body: some View {
+        ZStack{
+            //Esto es el diseño de la card ahorita, deberia ser otro componente
+            
+            VStack(alignment: .leading) {
+                
+                Image(place.image)
+                    .resizable()
+                //.scaledToFill()
+                    .aspectRatio(contentMode: .fill)
+                //.frame(width: 100, height: 100)
+                    .frame(width: 250, height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 15))
+                    .padding(7)
+                Text(place.displayName)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .padding(.horizontal, 10)
+                    .padding(.bottom, 10)
+                    
+            }
+            .background(.gray.opacity(0.5))
+            .cornerRadius(8)
+            .padding()
+                
+        }
+    }
+    
+}
+
+
+
+
+#Preview {
+    let samplePlace = Place(
+        id: 1,
+        name: "Café Laurel",
+        type: "cafeteria",
+        address: "Av. del Roble 660-Local A2-111, Valle del Campestre, 66265 San Pedro Garza García, N.L.",
+        lat: "25.648984986698732",
+        long: "-100.35522425264874",
+        description: "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera."
+    )
+    CardView(place: samplePlace)
 }
