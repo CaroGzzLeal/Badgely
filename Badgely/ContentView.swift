@@ -11,9 +11,11 @@ import SwiftData
 struct ContentView: View {
     
     @State private var navigate = false
+    @State private var searchText = ""
     
-    let places: [Place] = Bundle.main.decode("places.json")
+    let emojiData = EmojiData.examples()
     
+    let places: [Place] = Bundle.main.decode("places2.json")
     
     let columns = [
         GridItem(.adaptive(minimum: 150))
@@ -28,50 +30,46 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            //Text(String(astronauts.count))
             ScrollView {
+                
+                LazyVStack(alignment: .leading) {
+                    ScrollView(.horizontal) {
+                        VStack{
+                            LazyHStack(spacing: 20) {
+                                ForEach(emojiData) { inspiration in
+                                    EmojiCardView(emoji: inspiration)
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                
                 VStack(alignment: .leading, spacing: 24) {
                     ForEach(grouped, id: \.type) { group in
+                        Text(group.type.capitalized)
+                            .font(.headline)
+                            .padding(.horizontal, 7)
                         RowView(title: group.type, places: group.items)
                     }
                 }
                 .padding(.vertical, 16)
-                /*LazyVGrid(columns: columns) {
-                    ForEach (places, id: \.id) { place in
-                        NavigationLink(destination: PlaceDetailView(place: place)) {
-                            VStack {
-                                Image(place.image)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 100, height: 100)
-
-                                VStack {
-                                    Text(place.displayName)
-                                        .font(.headline)
-                                    Text(place.address)
-                                        .font(.caption)
-                                }
-                                .frame(maxWidth: .infinity)
-                            }
-                        }
-                    }
-                    
-                }*/
-                
-            }
+            } //ScrollView
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
-                    Button("My Badgeds", systemImage: "person.crop.circle") {
+                    Button("My Badges", systemImage: "person.crop.circle") {
                         navigate.toggle()
                     }
                 }
             }
             .sheet(isPresented: $navigate) {
                BadgesView()
-                    .presentationDetents([.medium,.large])
+                    //.presentationDetents([.medium,.large])
             }
-        }
-        
+            .navigationTitle("Monterrey")
+            .navigationBarTitleDisplayMode(.inline)
+        } //Nav Stack
+        .searchable(text: $searchText, prompt: "Busca con Badgley")
     }
 }
 
@@ -121,3 +119,27 @@ struct RowView: View {
 #Preview {
     ContentView()
 }
+
+
+
+/*LazyVGrid(columns: columns) {
+    ForEach (places, id: \.id) { place in
+        NavigationLink(destination: PlaceDetailView(place: place)) {
+            VStack {
+                Image(place.image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+
+                VStack {
+                    Text(place.displayName)
+                        .font(.headline)
+                    Text(place.address)
+                        .font(.caption)
+                }
+                .frame(maxWidth: .infinity)
+            }
+        }
+    }
+    
+}*/
