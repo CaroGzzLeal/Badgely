@@ -4,7 +4,7 @@
 //
 //  Created by Paul Perez on 06/10/25.
 //
-
+//Documento de Mariel que podemos usar de referencia. Lo unico que no he utilizado es el diseño del PlaceDetailView cuando haces click a cada place y te muestra una vista nueva. - Martha 7/10/25
 import SwiftUI
 
 struct BusinessData: Identifiable {
@@ -23,14 +23,6 @@ struct BusinessData: Identifiable {
     }
 }
 
-struct EmojiData: Identifiable {
-    let name: String
-    let id = UUID()
-
-    static func examples() -> [EmojiData] {
-        [EmojiData(name: "amsterdam"), EmojiData(name: "paris"), EmojiData(name: "ghent"), EmojiData(name: "cafe"), EmojiData(name: "cafe"), EmojiData(name: "cafe"), EmojiData(name: "cafe")]
-    }
-}
 
 struct BusinessCardView: View {
     let negocio: BusinessData
@@ -43,25 +35,6 @@ struct BusinessCardView: View {
                 .frame(width: 200, height: 150)
                 .clipShape(RoundedRectangle(cornerRadius: 15))
                 .padding(.horizontal, 7)
-        }
-    }
-}
-
-struct EmojiCardView: View {
-    
-    let emoji: EmojiData
-    
-    var body: some View {
-        Button(action: {
-            print("click")
-        }){
-            Image(emoji.name)
-                .resizable()
-                .frame(width: 20, height: 20)
-                .foregroundColor(.white)
-                .padding(20)
-                .background(Color.yellow)
-                .clipShape(Circle())
         }
     }
 }

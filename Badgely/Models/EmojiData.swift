@@ -1,0 +1,19 @@
+//
+//  EmojiData.swift
+//  Badgely
+//
+//  Created by Mariel Perez on 07/10/25.
+//
+import SwiftUI
+
+//EMOJI - FILTROS POR ICONO
+struct EmojiData: Identifiable {
+    let name: String
+    let icon: String
+    let id = UUID()
+
+    static func examples() -> [EmojiData] {
+        [EmojiData(name: "cafeteria", icon: "cup.and.heat.waves.fill"), EmojiData(name: "emblematico", icon: "building.columns.fill"), EmojiData(name: "evento", icon: "party.popper.fill"), EmojiData(name: "restaurante", icon: "fork.knife"), EmojiData(name: "voluntariado", icon: "globe.americas"), EmojiData(name: "bar", icon: "wineglass")]
+    }
+}
+
