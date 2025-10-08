@@ -5,7 +5,7 @@
 //  Created by Martha Mendoza y Mariel Perez on 07/10/25.
 //
 import SwiftUI
-
+import SwiftData
 
 
 
@@ -14,6 +14,8 @@ import SwiftUI
 struct RowView: View {
     let title: String
     let places: [Place]
+    //let user: User? //?
+    
     let rows = [
         GridItem(.adaptive(minimum: 150))
     ]
@@ -72,13 +74,15 @@ struct CardView: View {
 
 #Preview {
     let samplePlace = Place(
-        id: 1,
+        id: 2,
         name: "Café Laurel",
         type: "cafeteria",
         address: "Av. del Roble 660-Local A2-111, Valle del Campestre, 66265 San Pedro Garza García, N.L.",
         lat: "25.648984986698732",
         long: "-100.35522425264874",
-        description: "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera."
+        description: "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera.",
+        badge: "badge",
+        specialBadge: "specialBadge"
     )
     CardView(place: samplePlace)
 }

@@ -10,8 +10,9 @@ import SwiftData
 
 @main
 struct BadgelyApp: App {
+    @State private var showUserSetup = true
     
-    var sharedModelContainer: ModelContainer = {
+    /*var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             User.self
         ])
@@ -22,11 +23,15 @@ struct BadgelyApp: App {
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
-    }()
+    }()*/
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if showUserSetup {
+                UserView(showUserSetup: $showUserSetup)
+            } else {
+                ContentView()
+            }
         }
         .modelContainer(for: User.self)
     }

@@ -14,6 +14,8 @@ struct Place: Codable, Identifiable {
     let lat: String
     let long: String
     let description: String
+    let badge: String
+    let specialBadge: String?
     
     var displayName: String {
         "\(name)"

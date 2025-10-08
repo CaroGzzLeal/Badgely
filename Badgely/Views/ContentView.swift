@@ -9,6 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var users: [User] 
     
     @State private var navigate = false
     @State private var searchText = ""
@@ -59,21 +61,32 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $navigate) {
-               BadgesView()
+                if let user = users.first {
+                    BadgesView(user: user)
+                }
+               //BadgesView()
                     //.presentationDetents([.medium,.large])
             }
-            .navigationTitle("Monterrey")
+            //.navigationTitle("Monterrey")
+            .navigationTitle(users.first?.city ?? "Badgely")
             .navigationBarTitleDisplayMode(.inline)
         } //Nav Stack
+        //.searchable(text: $searchText, prompt: "Search in \(user?.city ?? "Badgely")")
         .searchable(text: $searchText, prompt: "Busca con Badgley")
     }
 }
 
 
+/*#Preview {
+    
+    ContentView()
+}*/
+
+
 #Preview {
     ContentView()
+        .modelContainer(for: User.self)
 }
-
 
 
 /*LazyVGrid(columns: columns) {

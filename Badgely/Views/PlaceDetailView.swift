@@ -23,7 +23,7 @@ struct PlaceDetailView: View {
                 .font(.subheadline)
             Text(place.address)
                 .font(.subheadline)
-            
+            //if place.badge  {
             
         }
     }
