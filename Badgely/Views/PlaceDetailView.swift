@@ -11,8 +11,20 @@ struct PlaceDetailView: View {
     var place: Place
     var body: some View {
         VStack {
-            Text(place.displayName)
             Image(place.image)
+                .resizable()
+                .scaledToFit()
+                .cornerRadius(10)
+                .shadow(radius: 5)
+                .padding()
+            Text(place.displayName)
+                .font(Font.largeTitle.bold())
+            Text(place.description)
+                .font(.subheadline)
+            Text(place.address)
+                .font(.subheadline)
+            
+            
         }
     }
 }
