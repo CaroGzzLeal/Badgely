@@ -14,6 +14,11 @@ final class PlacesViewModel: ObservableObject {
         loadPlaces()
     }
     
+    // Convenience init for previews/tests
+    init(places: [Place]) {
+        self.places = places
+    }
+    
     private func loadPlaces() {
         places = Bundle.main.decode("places2.json")
     }

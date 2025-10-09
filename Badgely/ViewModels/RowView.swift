@@ -51,7 +51,6 @@ struct CardView: View {
     var body: some View {
         ZStack{
             //Esto es el diseño de la card ahorita, deberia ser otro componente
-            
             VStack(alignment: .leading) {
                 
                 Image(place.image)
@@ -61,25 +60,29 @@ struct CardView: View {
                 //.frame(width: 100, height: 100)
                     .frame(width: 250, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
-                    .padding(7)
-                Text(place.displayName)
-                    .font(.caption)
-                    .fontWeight(.bold)
-                    .padding(.horizontal, 10)
-                    .padding(.bottom, 10)
+                    .padding(5)
                 
-                Button {
-                    toggleFavorite()
-                } label: {
-                    Image(systemName: isFavorite ? "heart.fill" : "heart")
-                        .symbolRenderingMode(.hierarchical)
+                HStack {
+                    Text(place.displayName)
+                        .foregroundStyle(.black)
+                        .fontWeight(.bold)
+                        .font(.system(size: 15))
+                    
+                    Button {
+                        toggleFavorite()
+                    } label: {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart")
+                            .symbolRenderingMode(.hierarchical)
+                    }
+                    .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
                 }
-                .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
                     
             }
-            .background(.gray.opacity(0.5))
-            .cornerRadius(8)
-            .padding()
+            .aspectRatio(contentMode: .fit)
+            .padding(12)
+            .background(Color(red: 245/255, green: 245/255, blue: 245/255))
+            .cornerRadius(15)
+            .padding(.horizontal, 7)
                 
         }
     }

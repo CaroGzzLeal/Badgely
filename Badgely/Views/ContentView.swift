@@ -32,6 +32,12 @@ struct ContentView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
+                    Text("Explora México")
+                        .foregroundStyle(.black)
+                        .fontWeight(.bold)
+                        .font(.system(size: 30))
+                        .font(.custom("SF Pro", size: 30))
+                        .padding(.horizontal, 10)
                     
                     //Filtros de botón de icono
                     ScrollView(.horizontal, showsIndicators: false) {
@@ -44,34 +50,80 @@ struct ContentView: View {
                     }
                     
                     //For por cada grupo
-                    ForEach(grouped, id: \.type) { group in
+                    /*ForEach(grouped, id: \.type) { group in
                         //Cada grupo row
                         Text(group.type.capitalized)
                             .font(.headline)
                             .padding(.horizontal, 7)
                         RowView(title: group.type, places: group.items)
                     }
+                    */
+                    
+                    ForEach(grouped, id: \.type) { group in
+                        //Cada grupo row
+                        Text(group.type.capitalized)
+                            .font(.headline)
+                            .padding(.horizontal, 9)
+                            .foregroundColor(.black)
+                            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+                            .font(.system(size: 20))
+                        RowView(title: group.type, places: group.items)
+                    }
                 }
                 .padding(.vertical, 16)
             } //ScrollView
+            /*.toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button("My Badges", systemImage: "person.crop.circle") {
+                        navigate.toggle()
+                    }
+                }
+            }*/
+            .sheet(isPresented: $navigate) {
+                if let user = users.first {
+                    FavoritesView(user: user)
+                    //BadgesView(user:user)
+                }
+                    //.presentationDetents([.medium,.large])
+            }
+            .navigationTitle(users.first?.city ?? "Badgely")
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button("My Badges", systemImage: "person.crop.circle") {
                         navigate.toggle()
                     }
                 }
-            }
-            .sheet(isPresented: $navigate) {
-                if let user = users.first {
-                    FavoritesView(user: user)
-                    BadgesView(user:user)
+                ToolbarItem(placement: .principal) {
+                    HStack(spacing: 8) {
+                        
+                        Text(users.first?.city ?? "Badgely")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundStyle(.black)
+                        
+                        Image(systemName: "location")
+                            .foregroundColor(.black.opacity(0.8))
+                            .font(.system(size: 18))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(Color.black, lineWidth: 2)
+                            .shadow(radius: 4)
+                    )
                 }
-               //BadgesView()
-                    //.presentationDetents([.medium,.large])
             }
+            .navigationBarTitleDisplayMode(.inline)
+            
+            
+            /*
             //.navigationTitle("Monterrey")
             .navigationTitle(users.first?.city ?? "Badgely")
             .navigationBarTitleDisplayMode(.inline)
+             
+             */
+            
+            
         } //Nav Stack
         //.searchable(text: $searchText, prompt: "Search in \(user?.city ?? "Badgely")")
         .searchable(text: $searchText, prompt: "Busca con Badgley")
@@ -90,5 +142,6 @@ struct ContentView: View {
 #Preview {
     ContentView()
         .modelContainer(for: User.self)
+        .environmentObject(PlacesViewModel(places: Place.samples))
 }
 
