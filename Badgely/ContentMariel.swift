@@ -91,8 +91,8 @@ struct BusinessInfoView: View {
             }
         }
         .sheet(isPresented: $navigate) {
-           BadgesView()
-        .presentationDetents([.medium,.large])
+           //BadgesView(u)
+        //.presentationDetents([.medium,.large])
         }
     }
 }

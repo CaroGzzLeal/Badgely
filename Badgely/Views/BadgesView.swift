@@ -7,9 +7,11 @@
 import SwiftUI
 
 struct BadgesView: View {
+    let user: User
     var body: some View {
         VStack {
-            Text("My Badges")
+            Text(user.name)
+            Text(user.city)
         }
     }
 }
