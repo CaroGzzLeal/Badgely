@@ -15,15 +15,16 @@ struct ContentView: View {
     
     @State private var navigate = false
     @State private var searchText = ""
-    
     //@ObservedObject var user: User
     
     let emojiData = EmojiData.examples()
-    let places: [Place] = Bundle.main.decode("places2.json")
+    //let places: [Place] = Bundle.main.decode("places2.json")
+    
+    @EnvironmentObject var placesViewModel: PlacesViewModel
     
     // organizar por el tipo de lugar (cafeteria, emblematico, evento, etc)
     private var grouped: [(type: String, items: [Place])] {
-        Dictionary(grouping: places, by: { $0.type })
+        Dictionary(grouping: placesViewModel.places, by: { $0.type })
             .sorted { $0.key < $1.key }   // organizado alfabéticamente
             .map { ($0.key.capitalized, $0.value) }
     }
@@ -63,7 +64,8 @@ struct ContentView: View {
             }
             .sheet(isPresented: $navigate) {
                 if let user = users.first {
-                    BadgesView(user: user)
+                    FavoritesView(user: user)
+                    BadgesView(user:user)
                 }
                //BadgesView()
                     //.presentationDetents([.medium,.large])
