@@ -10,16 +10,15 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    //@Query private var users: [User]
-    @Query(sort: \User.name) private var users: [User]
+    @Query private var users: [User]
+    //@Query(sort: \User.name) private var users: [User]
     
     @State private var navigate = false
     @State private var searchText = ""
-    //@ObservedObject var user: User
     
     let emojiData = EmojiData.examples()
-    //let places: [Place] = Bundle.main.decode("places2.json")
     
+    //let places: [Place] = Bundle.main.decode("places2.json")
     @EnvironmentObject var placesViewModel: PlacesViewModel
     
     // organizar por el tipo de lugar (cafeteria, emblematico, evento, etc)
@@ -76,14 +75,16 @@ struct ContentView: View {
         } //Nav Stack
         //.searchable(text: $searchText, prompt: "Search in \(user?.city ?? "Badgely")")
         .searchable(text: $searchText, prompt: "Busca con Badgley")
+        .toolbarBackground(.visible, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("My Badges", systemImage: "person.crop.circle") {
+                    navigate.toggle()
+                }
+            }
+        }
     }
 }
-
-
-/*#Preview {
-    
-    ContentView()
-}*/
 
 
 #Preview {
@@ -91,25 +92,3 @@ struct ContentView: View {
         .modelContainer(for: User.self)
 }
 
-
-/*LazyVGrid(columns: columns) {
-    ForEach (places, id: \.id) { place in
-        NavigationLink(destination: PlaceDetailView(place: place)) {
-            VStack {
-                Image(place.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 100)
-
-                VStack {
-                    Text(place.displayName)
-                        .font(.headline)
-                    Text(place.address)
-                        .font(.caption)
-                }
-                .frame(maxWidth: .infinity)
-            }
-        }
-    }
-    
-}*/

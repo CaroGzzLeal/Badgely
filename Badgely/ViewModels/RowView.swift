@@ -38,7 +38,16 @@ struct RowView: View {
 
 
 struct CardView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var users: [User]
+    
+    private var user: User? { users.first }
+    private var isFavorite: Bool {
+        user?.favorites.contains(place.id) ?? false
+    }
+    
     let place: Place
+    
     var body: some View {
         ZStack{
             //Esto es el diseño de la card ahorita, deberia ser otro componente
@@ -58,6 +67,14 @@ struct CardView: View {
                     .fontWeight(.bold)
                     .padding(.horizontal, 10)
                     .padding(.bottom, 10)
+                
+                Button {
+                    toggleFavorite()
+                } label: {
+                    Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        .symbolRenderingMode(.hierarchical)
+                }
+                .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
                     
             }
             .background(.gray.opacity(0.5))
@@ -65,6 +82,17 @@ struct CardView: View {
             .padding()
                 
         }
+    }
+    
+    private func toggleFavorite() {
+        guard let user else { return }
+        if let idx = user.favorites.firstIndex(of: place.id) {
+            user.favorites.remove(at: idx)
+        } else {
+            user.favorites.append(place.id)
+        }
+        // Guardar explicitamente just to be sure
+        try? modelContext.save()
     }
     
 }

@@ -11,14 +11,15 @@ import SwiftData
 struct PlaceDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
-    @EnvironmentObject var placesViewModel: PlacesViewModel
     
     private var user: User? { users.first }
+    
     private var isFavorite: Bool {
         user?.favorites.contains(place.id) ?? false
     }
     
     var place: Place
+    
     var body: some View {
         VStack {
             Image(place.image)
@@ -56,7 +57,7 @@ struct PlaceDetailView: View {
         } else {
             user.favorites.append(place.id)
         }
-        // SwiftData autosaves, but this is fine if you want to be explicit:
+        // Guardar explicitamente just to be sure
         try? modelContext.save()
     }
 }

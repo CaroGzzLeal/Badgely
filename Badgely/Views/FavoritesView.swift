@@ -11,6 +11,7 @@ import SwiftUI
 struct FavoritesView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject var placesViewModel: PlacesViewModel
+    
     @Bindable var user: User
 
     private var favoritePlaces: [Place] {
