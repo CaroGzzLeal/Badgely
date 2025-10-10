@@ -15,7 +15,7 @@ class User {
     var name: String
     var city: String
     var badges: [String] = []
-    var favoritePlaces: [String] = []
+    var favorites: [Int] = []
     
 
     init(name: String, city: String ) {
@@ -24,5 +24,3 @@ class User {
     }
     
 }
-
-

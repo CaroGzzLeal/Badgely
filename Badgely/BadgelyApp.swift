@@ -10,6 +10,7 @@ import SwiftData
 
 @main
 struct BadgelyApp: App {
+    @StateObject private var placesViewModel = PlacesViewModel()
     
     /*let container: ModelContainer = {
         do {
@@ -22,7 +23,9 @@ struct BadgelyApp: App {
     var body: some Scene {
         WindowGroup {
             UserView()
+                .environmentObject(placesViewModel)
         }
         .modelContainer(for: User.self)
+        
     }
 }

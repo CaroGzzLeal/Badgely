@@ -12,7 +12,8 @@ import SwiftData
 struct UserView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
-    //@Binding var showUserSetup: Bool
+    
+    @EnvironmentObject var placesViewModel: PlacesViewModel
     
     @State private var name = ""
     @State private var selectedCity = "Monterrey"
@@ -39,7 +40,6 @@ struct UserView: View {
                                 }
                             }
                         }
-                        .frame(height: 150)
 
                         Button("Start Exploring") {
                             createUser()
@@ -50,7 +50,7 @@ struct UserView: View {
                     .padding(.top, 8)
                 }
             } else {
-                // User exists → go straight to app
+                //Directo a ContentView si user ya existe
                 ContentView()
             }
         }
@@ -62,7 +62,7 @@ struct UserView: View {
         modelContext.insert(user)
         do {
             try modelContext.save()
-            // No manual navigation needed — the @Query will update and show ContentView
+            // No manual navigation needed — the @Query will update and show ContentView 
             print("User created: \(user.name) in \(user.city)")
         } catch {
             print("Error creating user: \(error.localizedDescription)")

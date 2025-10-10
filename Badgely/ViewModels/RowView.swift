@@ -38,7 +38,16 @@ struct RowView: View {
 
 
 struct CardView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var users: [User]
+    
+    private var user: User? { users.first }
+    private var isFavorite: Bool {
+        user?.favorites.contains(place.id) ?? false
+    }
+    
     let place: Place
+    
     var body: some View {
         ZStack{
             //Esto es el diseño de la card ahorita, deberia ser otro componente
@@ -52,10 +61,21 @@ struct CardView: View {
                     .frame(width: 250, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding(5)
-                Text(place.displayName)
-                    .foregroundStyle(.black)
-                    .fontWeight(.bold)
-                    .font(.system(size: 15))
+                
+                HStack {
+                    Text(place.displayName)
+                        .foregroundStyle(.black)
+                        .fontWeight(.bold)
+                        .font(.system(size: 15))
+                    
+                    Button {
+                        toggleFavorite()
+                    } label: {
+                        Image(systemName: isFavorite ? "heart.fill" : "heart")
+                            .symbolRenderingMode(.hierarchical)
+                    }
+                    .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
+                }
                     
             }
             .aspectRatio(contentMode: .fit)
@@ -65,6 +85,17 @@ struct CardView: View {
             .padding(.horizontal, 7)
                 
         }
+    }
+    
+    private func toggleFavorite() {
+        guard let user else { return }
+        if let idx = user.favorites.firstIndex(of: place.id) {
+            user.favorites.remove(at: idx)
+        } else {
+            user.favorites.append(place.id)
+        }
+        // Guardar explicitamente just to be sure
+        try? modelContext.save()
     }
     
 }
