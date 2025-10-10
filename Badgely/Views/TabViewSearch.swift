@@ -11,6 +11,7 @@ import SwiftData
 struct TabViewSearch: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
+
     
     @EnvironmentObject var placesViewModel: PlacesViewModel
     
@@ -36,16 +37,17 @@ struct TabViewSearch: View {
             }
             
             Tab("Badges", systemImage: "person") {
-                if let user = currentUser {
+                NearYouView()
+                /*if let user = currentUser {
                     BadgesView(user: user)
                 } else {
                     Text("No user found")
                         .foregroundStyle(.secondary)
-                }
+                }*/
             }
             
             Tab("Logs", systemImage: "photo.on.rectangle.angled") {
-                ContentView()
+                LogView()
             }
             
             Tab (role: .search) {

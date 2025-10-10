@@ -1,12 +1,13 @@
 [
     {
-        "id": 101,
+        "id": 100,
         "name": "Café Ejemplo Guadalajara",
         "type": "cafeteria",
         "address": "Av. Chapultepec 123, Americana, 44160 Guadalajara, Jal.",
-        "lat": "20.6736",
-        "long": "-103.3568",
+        "latitude": 20.6736,
+        "longitude": -103.3568,
         "description": "Cafetería de ejemplo para Guadalajara. Reemplaza este archivo con lugares reales de Guadalajara.",
-        "badge": "badge101"
+        "badge": "badge100",
+        "specialBadge": "sBadge100"
     }
 ]

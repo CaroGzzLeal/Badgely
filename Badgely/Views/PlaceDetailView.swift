@@ -10,6 +10,7 @@ import SwiftData
 //Vista de detalle de cada place, cuando le haces click esto es lo que te muestra TO DO - DARLE DISEÑO
 struct PlaceDetailView: View {
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var users: [User]
     
     private var user: User? { users.first }
@@ -20,7 +21,7 @@ struct PlaceDetailView: View {
     
     var place: Place
     @State var showCamera = false
-    @Query private var users: [User]
+    
     
     var body: some View {
         
@@ -42,7 +43,6 @@ struct PlaceDetailView: View {
                 Text(place.description)
                     .font(.subheadline)
                     .padding(.horizontal, 10)
-                
                 
                 Button(action: {
                     
@@ -134,13 +134,17 @@ struct PlaceDetailView: View {
     }
     
     private func toggleFavorite() {
+        print("toggle function entered")
         guard let user else { return }
         if let idx = user.favorites.firstIndex(of: place.id) {
             user.favorites.remove(at: idx)
+            print("removed")
         } else {
             user.favorites.append(place.id)
+            print("added")
         }
         // Guardar explicitamente just to be sure
         try? modelContext.save()
+        print("toggle success!")
     }
 }

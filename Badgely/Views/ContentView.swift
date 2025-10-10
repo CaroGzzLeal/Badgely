@@ -10,10 +10,12 @@ import SwiftData
 
 struct ContentView: View {
     @EnvironmentObject private var locationManager: LocationManager
+    
     @State private var navigate = false
     @State private var searchText = ""
     
     @Environment(\.modelContext) private var modelContext
+    
     @Query private var users: [User]
     
     //@ObservedObject var user: User
@@ -34,26 +36,6 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            
-            NavigationLink(destination: {NearYouView()}, label: {
-                Text("Places near you")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-            })
-            
-            NavigationLink(destination: {LogView()}, label: {
-                Text("Gallery")
-                    .font(.headline)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .shadow(radius: 5)
-            })
             
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
@@ -85,11 +67,7 @@ struct ContentView: View {
                     }
                 }
                 .padding(.vertical, 16)
-                .onAppear {
-                    locationManager.loadPlacesAndRegisterRegions()
-                }
             }
-            
             .sheet(isPresented: $showLocationPicker) {
                 if let user = users.first {
                     LocationPickerView(user: user, placesViewModel: placesViewModel)
@@ -100,6 +78,8 @@ struct ContentView: View {
                 if let city = users.first?.city {
                     placesViewModel.loadPlaces(for: city)
                 }
+                locationManager.loadPlacesAndRegisterRegions()
+                    
             }
             .onChange(of: users.first?.city) { oldValue, newValue in
                 // Reload places when city changes
