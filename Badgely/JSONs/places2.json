@@ -8,7 +8,7 @@
         "longitude": -100.35522425264874,
         "description": "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera.",
         "badge": "badge1",
-        "specialBadge": "sbadge1"
+        "specialBadge": "sBadge1"
     },
     {
         "id": 2,
@@ -19,7 +19,7 @@
         "longitude": -100.33175918691522,
         "description": "Espacio que combina una librería con cafetería de especialidad, ideal para leer, estudiar o trabajar. Ofrece café, repostería, chilaquiles y un ambiente tranquilo rodeado de libros y buena música.",
         "badge": "badge2",
-        "specialBadge": "sbadge2"
+        "specialBadge": "sBadge2"
     },
     {
         "id": 3,
