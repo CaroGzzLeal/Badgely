@@ -32,15 +32,16 @@ struct PlaceDetailView: View {
             if users[0].specialBadges.contains(place.specialBadge) {
                 Text(place.specialBadge)
             }
-            
-            Button("Add Photo") {
-                showCamera = true
+            if !users[0].specialBadges.contains(place.specialBadge) {
+                Button("Add Photo") {
+                    showCamera = true
+                }
+                .font(.caption)
+                .foregroundColor(.blue)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
             }
-            .font(.caption)
-            .foregroundColor(.blue)
-            .padding()
-            .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
         }
         .fullScreenCover(isPresented: $showCamera) {
             AugmentedRealityContainer(place: place, selectedBadges: users[0].specialBadges, showCamera: $showCamera)
