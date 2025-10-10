@@ -17,13 +17,14 @@ struct EmojiCardView: View {
         }){
             Image(systemName: emoji.icon)
                 .resizable()
-                .frame(width: 20, height: 20)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40, height: 40)
                 .foregroundColor(.white)
-                .padding(20)
-                .background(Color.yellow)
+                .padding(15)
+                .background(Color(red: 30/255, green: 94/255, blue: 54/255))
                 .clipShape(Circle())
                 .symbolRenderingMode(.monochrome)
-            
+
         }
     }
 }

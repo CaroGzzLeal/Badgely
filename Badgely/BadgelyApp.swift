@@ -10,24 +10,16 @@ import SwiftData
 
 @main
 struct BadgelyApp: App {
-    
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            User.self
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    @StateObject private var placesViewModel = PlacesViewModel()
+    @StateObject private var locationManager = LocationManager()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UserView()
+                .environmentObject(placesViewModel)
+                .environmentObject(locationManager)
         }
-        .modelContainer(for: User.self)
+        .modelContainer(for: [User.self, Photo.self])
+        
     }
 }

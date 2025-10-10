@@ -1,0 +1,13 @@
+[
+    {
+        "id": 50,
+        "name": "Café Ejemplo CDMX",
+        "type": "cafeteria",
+        "address": "Av. Reforma 123, Cuauhtémoc, 06600 Ciudad de México, CDMX",
+        "latitude": 19.4326,
+        "longitude": -99.1332,
+        "description": "Cafetería de ejemplo para Ciudad de México. Reemplaza este archivo con lugares reales de CDMX.",
+        "badge": "badge50",
+        "specialBadge": "sBadge50"
+    }
+]

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="Xcode">
+  <wpt lat="25.647688423378927" lon="-100.358673009763">
+    <name>Super Salads</name>
+    <time>2021-01-23T14:00:00Z</time>
+  </wpt>
+  <wpt lat="25.648984986698732" lon="-100.35522425264874">
+    <name>Café Laurel</name>
+    <time>2021-01-23T14:00:05Z</time>
+  </wpt>
+</gpx>
