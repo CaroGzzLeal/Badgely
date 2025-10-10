@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct BadgelyApp: App {
     @StateObject private var placesViewModel = PlacesViewModel()
-    
+    @StateObject private var locationManager = LocationManager()
     /*let container: ModelContainer = {
         do {
             return try ModelContainer(for: User.self)
@@ -24,8 +24,9 @@ struct BadgelyApp: App {
         WindowGroup {
             UserView()
                 .environmentObject(placesViewModel)
+                .environmentObject(placesViewModel)
         }
-        .modelContainer(for: User.self)
+        .modelContainer(for: [User.self, Photo.self])
         
     }
 }

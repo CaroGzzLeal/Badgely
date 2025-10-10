@@ -9,12 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var users: [User]
-    //@Query(sort: \User.name) private var users: [User]
-    
+    @EnvironmentObject private var locationManager: LocationManager
     @State private var navigate = false
     @State private var searchText = ""
+    
+    @Environment(\.modelContext) private var modelContext
+    @Query private var users: [User]
+    
+    //@ObservedObject var user: User
     
     let emojiData = EmojiData.examples()
     
@@ -32,6 +34,27 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
+            
+            NavigationLink(destination: {NearYouView()}, label: {
+                Text("Places near you")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+            })
+            
+            NavigationLink(destination: {LogView()}, label: {
+                Text("Gallery")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+            })
+            
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
                     Text("Explora México")
@@ -62,6 +85,9 @@ struct ContentView: View {
                     }
                 }
                 .padding(.vertical, 16)
+                .onAppear {
+                    locationManager.loadPlacesAndRegisterRegions()
+                }
             }
             
             .sheet(isPresented: $showLocationPicker) {
@@ -128,6 +154,9 @@ struct ContentView: View {
                         RoundedRectangle(cornerRadius: 15)
                             .stroke(Color.black, lineWidth: 2)
                             .shadow(radius: 4)
+                    )
+                }
+            }
                     )
                 }
             }
@@ -230,6 +259,7 @@ struct FilterListView: View {
             }
         }
     }
+    
 }
 
 

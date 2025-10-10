@@ -11,11 +11,11 @@ struct Place: Codable, Identifiable {
     let name: String
     let type: String
     let address: String
-    let lat: String
-    let long: String
+    let latitude: Double
+    let longitude: Double
     let description: String
     let badge: String
-    let specialBadge: String?
+    let specialBadge: String
     
     var displayName: String {
         "\(name)"
@@ -33,11 +33,11 @@ extension Place {
         name: "Café Azul",
         type: "cafe",
         address: "Av. Siempre Viva 123, Monterrey",
-        lat: "25.6866",
-        long: "-100.3161",
+        latitude: 25.6866,
+        longitude: -100.3161,
         description: "Great coffee and pastries.",
         badge: "Open late",
-        specialBadge: nil
+        specialBadge: ""
     )
     
     static let sample2 = Place(
@@ -45,8 +45,8 @@ extension Place {
         name: "Parque Fundidora",
         type: "park",
         address: "Av. Fundidora S/N, Monterrey",
-        lat: "25.6778",
-        long: "-100.2856",
+        latitude: 25.6778,
+        longitude: -100.2856,
         description: "Iconic urban park with museums and lakes.",
         badge: "Family friendly",
         specialBadge: "Must see"

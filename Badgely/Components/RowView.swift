@@ -102,7 +102,7 @@ struct CardView: View {
 
 
 
-
+/*
 #Preview {
     let samplePlace = Place(
         id: 2,
@@ -117,3 +117,4 @@ struct CardView: View {
     )
     CardView(place: samplePlace)
 }
+*/

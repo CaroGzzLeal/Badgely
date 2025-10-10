@@ -19,8 +19,11 @@ struct PlaceDetailView: View {
     }
     
     var place: Place
+    @State var showCamera = false
+    @Query private var users: [User]
     
     var body: some View {
+        
         VStack {
             Spacer()
             VStack(spacing: 30) {
@@ -39,6 +42,8 @@ struct PlaceDetailView: View {
                 Text(place.description)
                     .font(.subheadline)
                     .padding(.horizontal, 10)
+                
+                
                 Button(action: {
                     
                 }) {
@@ -49,6 +54,20 @@ struct PlaceDetailView: View {
                 Text(place.address)
                     .font(.subheadline)
                     .padding(.horizontal, 7)
+                
+                if users[0].specialBadges.contains(place.specialBadge) {
+                    Text(place.specialBadge)
+                }
+                if !users[0].specialBadges.contains(place.specialBadge) {
+                    Button("Add Photo") {
+                        showCamera = true
+                    }
+                    .font(.caption)
+                    .foregroundColor(.blue)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
+                }
             }
             
             Spacer()
@@ -97,6 +116,9 @@ struct PlaceDetailView: View {
                 }
             }
             
+        }
+        .fullScreenCover(isPresented: $showCamera) {
+            AugmentedRealityContainer(place: place, selectedBadges: users[0].specialBadges, showCamera: $showCamera)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
