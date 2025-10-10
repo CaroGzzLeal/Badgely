@@ -9,7 +9,11 @@ import SwiftUI
 import SwiftData
 
 struct LogView: View {
+    @Environment(\.modelContext) private var context
     @Query var photos: [Photo]
+    @Query var users: [User]
+    @State var showDelete: Bool = false
+    @State private var showDeleteAlert = false
     
     var body: some View {
         ScrollView(.horizontal) {
@@ -17,15 +21,27 @@ struct LogView: View {
                 ForEach(photos) { photo in
                     if let uiImage = UIImage(data: photo.photo) {
                         VStack {
-                            ZStack {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipped()
-                                    .cornerRadius(20)
-                                    .shadow(radius: 5)
-                                    .animation(.spring(), value: photos.count)
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .clipped()
+                                .cornerRadius(20)
+                                .shadow(radius: 5)
+                                .onTapGesture {
+                                    showDelete.toggle()
                                 }
+                                .overlay(content: {
+                                    if showDelete {
+                                        Button(action: {
+                                            showDeleteAlert = true
+                                        }, label: {
+                                            Image(systemName: "trash.circle")
+                                                .foregroundColor(.red)
+                                                .font(.title)
+                                                .padding()
+                                        })
+                                    }
+                                })
                         
                             Text(photo.name)
                                 .font(.title)
@@ -47,10 +63,29 @@ struct LogView: View {
                                 }
                             }
                         }
+                        .alert(isPresented: $showDeleteAlert) {
+                            Alert(title: Text("Delete Photo"), message: Text("Are you sure you want to delete this photo?"), primaryButton: .destructive(Text("Delete")) {
+                                deletePhoto(photo: photo)
+                                showDelete = false
+                            }, secondaryButton: .cancel())
+                        }
                     }
                 }
             }
         }
+    }
+    
+    func deletePhoto(photo: Photo) {
+        
+        if let badgeName = photo.badgeName, badgeName != "" {
+            if let index = users[0].specialBadges.firstIndex(of: badgeName) {
+                users[0].specialBadges.remove(at: index)
+                print(users[0].specialBadges)
+            }
+        }
+        
+        let photoToDelete = photo
+        context.delete(photoToDelete)
     }
 }
 

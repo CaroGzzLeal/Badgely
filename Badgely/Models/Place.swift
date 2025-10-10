@@ -15,7 +15,7 @@ struct Place: Codable, Identifiable {
     let longitude: Double
     let description: String
     let badge: String
-    let specialBadge: String?
+    let specialBadge: String
     
     var displayName: String {
         "\(name)"
@@ -37,7 +37,7 @@ extension Place {
         longitude: -100.3161,
         description: "Great coffee and pastries.",
         badge: "Open late",
-        specialBadge: nil
+        specialBadge: ""
     )
     
     static let sample2 = Place(

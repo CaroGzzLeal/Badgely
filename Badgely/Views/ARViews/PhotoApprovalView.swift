@@ -54,17 +54,18 @@ struct PhotoApprovalView: View {
     private func savePhoto() {
         let imageData = image.pngData()
         
-        let newPhoto = Photo(name: "Photo from \(place.displayName)", photo: imageData!, badgeName: place.specialBadge ?? "")
-
+        let newPhoto = Photo(name: "Photo from \(place.displayName)", photo: imageData!, badgeName: place.specialBadge)
         context.insert(newPhoto)
         
-        do {
-            try context.save()
-            print("Photo added")
-        } catch {
-            print("Error adding photo")
+        if place.specialBadge != "" {
+            users[0].specialBadges.append(place.specialBadge)
+        }
+        else {
+            dismiss()
+            return
         }
         
+        try? context.save()
         dismiss()
     }
 }

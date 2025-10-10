@@ -76,8 +76,6 @@ struct ContentView: View {
                 .padding(.vertical, 16)
                 .onAppear {
                     locationManager.loadPlacesAndRegisterRegions()
-                    let user = User(name: "Caro", city: "Monterrey")
-                    modelContext.insert(user)
                 }
             } //ScrollView
             .toolbar {

@@ -29,6 +29,10 @@ struct PlaceDetailView: View {
             Text(place.address)
                 .font(.subheadline)
             
+            if users[0].specialBadges.contains(place.specialBadge) {
+                Text(place.specialBadge)
+            }
+            
             Button("Add Photo") {
                 showCamera = true
             }
