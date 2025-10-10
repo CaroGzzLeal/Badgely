@@ -1,0 +1,23 @@
+//
+//  Badge.swift
+//  Badgely
+//
+//  Created by Carolina Nicole Gonzalez Leal on 09/10/25.
+//
+
+import Foundation
+import SwiftData
+
+@Model
+class Photo: Identifiable {
+    var name: String
+    @Attribute(.externalStorage) var photo: Data
+    var date: Date = Date()
+    var badgeName: String?
+    
+    init(name: String, photo: Data, badgeName: String) {
+        self.name = name
+        self.photo = photo
+        self.badgeName = badgeName
+    }
+}

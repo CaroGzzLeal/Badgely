@@ -15,7 +15,8 @@ struct BadgelyApp: App {
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            User.self
+            User.self,
+            Photo.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -31,6 +32,6 @@ struct BadgelyApp: App {
             ContentView()
                 .environmentObject(locationManager)
         }
-        .modelContainer(for: User.self)
+        .modelContainer(for: [User.self, Photo.self])
     }
 }

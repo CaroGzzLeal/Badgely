@@ -13,6 +13,9 @@ struct ContentView: View {
     @State private var navigate = false
     @State private var searchText = ""
     
+    @Environment(\.modelContext) private var modelContext
+    @Query private var users: [User]
+    
     //@ObservedObject var user: User
     
     let emojiData = EmojiData.examples()
@@ -30,6 +33,16 @@ struct ContentView: View {
             
             NavigationLink(destination: {NearYouView()}, label: {
                 Text("Places near you")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+            })
+            
+            NavigationLink(destination: {LogView()}, label: {
+                Text("Gallery")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding()
@@ -63,6 +76,8 @@ struct ContentView: View {
                 .padding(.vertical, 16)
                 .onAppear {
                     locationManager.loadPlacesAndRegisterRegions()
+                    let user = User(name: "Caro", city: "Monterrey")
+                    modelContext.insert(user)
                 }
             } //ScrollView
             .toolbar {
