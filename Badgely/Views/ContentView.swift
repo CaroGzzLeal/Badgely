@@ -88,16 +88,17 @@ struct ContentView: View {
     
             
         } //Nav Stack
-        //.searchable(text: $searchText, prompt: "Search in \(user?.city ?? "Badgely")")
-        .searchable(text: $searchText, prompt: "Busca con Badgley")
-        .toolbarBackground(.visible, for: .navigationBar)
-        .toolbar {
+        .searchable(text: $searchText, prompt: "Search in \(users.first?.city ?? "Badgely")")
+        //.searchable(text: $searchText, prompt: "Busca con Badgley")
+        //.toolbarBackground(.visible, for: .navigationBar)
+       /* .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("My Badges", systemImage: "person.crop.circle") {
                     navigate.toggle()
                 }
             }
         }
+        */
     }
 }
 

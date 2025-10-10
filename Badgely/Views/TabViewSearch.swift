@@ -50,6 +50,7 @@ struct TabViewSearch: View {
             
             Tab (role: .search) {
                 ContentView()
+                
             }
             
             
