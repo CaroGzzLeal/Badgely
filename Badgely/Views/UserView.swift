@@ -51,7 +51,8 @@ struct UserView: View {
                 }
             } else {
                 //Directo a ContentView si user ya existe
-                ContentView()
+                //ContentView()
+                TabViewSearch()
             }
         }
         .animation(.default, value: users.count) // smooth switch when user gets created
