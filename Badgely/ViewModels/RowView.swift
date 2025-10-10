@@ -19,6 +19,7 @@ struct RowView: View {
     let rows = [
         GridItem(.adaptive(minimum: 150))
     ]
+    
     var body: some View {
         VStack {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -53,6 +54,7 @@ struct CardView: View {
             //Esto es el diseño de la card ahorita, deberia ser otro componente
             VStack(alignment: .leading) {
                 
+                
                 Image(place.image)
                     .resizable()
                 //.scaledToFill()
@@ -61,20 +63,24 @@ struct CardView: View {
                     .frame(width: 250, height: 150)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding(5)
+                    .overlay(alignment: .topTrailing) {
+                        Button {
+                            toggleFavorite()
+                        } label: {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                .symbolRenderingMode(.hierarchical)
+                                .padding(8)
+                                .background(.white, in: Circle())  
+                        }
+                        .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
+                    }
+                    .clipped()
                 
                 HStack {
                     Text(place.displayName)
                         .foregroundStyle(.black)
                         .fontWeight(.bold)
                         .font(.system(size: 15))
-                    
-                    Button {
-                        toggleFavorite()
-                    } label: {
-                        Image(systemName: isFavorite ? "heart.fill" : "heart")
-                            .symbolRenderingMode(.hierarchical)
-                    }
-                    .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
                 }
                     
             }

@@ -22,25 +22,75 @@ struct UserView: View {
     let cities = ["Monterrey", "Guadalajara", "Mexico City"]
     let avatars = ["avatar1", "avatar2", "avatar3", "avatar4"]
     
+    @State private var isLogin = true
+    
     var body: some View {
         Group {
             if users.isEmpty {
                 // Onboarding
                 NavigationStack {
                     VStack {
-                        Text("Badgely")
+                        Image("icon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 85, height: 85)
+                        
+                        Text("Bienvenido Explorador")
+                            .foregroundStyle(.black)
+                            .fontWeight(.bold)
+                            .font(.system(size: 28))
+                            .font(.custom("SF Pro", size: 28))
+                            .padding(.horizontal, 10)
+                        /*
+                        HStack {
+                            Button("Iniciar sesión") { isLogin = true }
+                                .frame(maxWidth: .infinity, minHeight: 40)
+                                .background(isLogin ? Color(red: 30/255, green: 94/255, blue: 54/255) : Color(.systemGray6))
+                                .foregroundColor(isLogin ? .white : .black)
+                                .font(.system(size: 20))
+                                .font(.custom("SF Pro", size: 20))
 
+                            Button("Registrarse") { isLogin = false }
+                                .frame(maxWidth: .infinity, minHeight: 40)
+                                .background(isLogin ? Color(.systemGray6) : Color(red: 30/255, green: 94/255, blue: 54/255))
+                                .foregroundColor(isLogin ? .black : .white)
+                                .font(.system(size: 20))
+                                .font(.custom("SF Pro", size: 20))
+                        }
+                        .clipShape(RoundedRectangle(cornerRadius: 35))
+                        .shadow(radius: 2)
+                        .padding(10)
+                        */
+                        
                         Form {
-                            TextField("Your name", text: $name)
-                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                            TextField("Ingresa tu nombre", text: $name)
+                                .textFieldStyle(.roundedBorder)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color(.black))
+                                }
+                                .font(.custom("SF Pro", size: 20))
+                            
 
-                            Picker("City", selection: $selectedCity) {
+                            Picker("Ciudad", selection: $selectedCity) {
                                 ForEach(cities, id: \.self) { city in
                                     Text(city).tag(city)
                                 }
                             }
-                        }
+                            //.textFieldStyle(.roundedBorder)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color(.black))
+                            }
+                            .font(.custom("SF Pro", size: 20))
+                            .padding(20)
 
+                        }
+                        .scrollContentBackground(.hidden)
+
+                        
                         Button("Start Exploring") {
                             createUser()
                         }
