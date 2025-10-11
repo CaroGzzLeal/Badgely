@@ -20,6 +20,7 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             PlaceListView(searchText: searchText)
+                //Everything needed for changing the location CDMX, MTY O GDL
                 .sheet(isPresented: $showLocationPicker) {
                     if let user = users.first {
                         LocationPickerView(user: user, placesViewModel: placesViewModel)
@@ -65,13 +66,12 @@ struct SearchView: View {
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
+                // TO HERE, COPY IT WHERE YOU NEED TO CHANGE THE LOCATION
         }
         .searchable(text: $searchText, prompt: "Search in \(users.first?.city ?? "Badgely")")
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }
-
-
 
 // Separate view to handle filtered places based on search
 struct PlaceListView: View {
@@ -86,17 +86,7 @@ struct PlaceListView: View {
     }
     
     @State private var selectedCategory: String? = nil // Track selected category
-    
-    // Muestra en orden de mayor importancia (nomnre, type, descr
-    /*private func score(for place: Place, q: String) -> Int {
-        var s = 0
-        if place.name.localizedCaseInsensitiveContains(q) { s += 8 }      // title > everything
-        if place.type.localizedCaseInsensitiveContains(q) { s += 3 }
-        if place.address.localizedCaseInsensitiveContains(q) { s += 2 }
-        if place.description.localizedCaseInsensitiveContains(q) { s += 1 }
-        return s
-    }*/
-    
+
     // Muestra en orden de mayor importancia (nomnre, type, descr
     private func searchPriority(for place: Place) -> Int {
         if place.name.localizedStandardContains(searchText) {
@@ -144,18 +134,6 @@ struct PlaceListView: View {
         }
         
         return places
-        /*if searchText.isEmpty {
-            return places
-        } else {
-            return places.filter { place in
-                // primero que muestre el q lo tiene en el titulo y luego los que lo tienen en la descripcion
-                
-                place.name.localizedStandardContains(searchText) ||
-                place.type.localizedStandardContains(searchText) ||
-                place.address.localizedStandardContains(searchText) ||
-                place.description.localizedStandardContains(searchText)
-            }
-        }*/
     }
     
     // Group filtered places by type
@@ -168,51 +146,54 @@ struct PlaceListView: View {
     var body: some View {
         Group {
             if !searchText.isEmpty {
-                // Searching → show a Column grid
-                if filteredPlaces.isEmpty {
-                    ContentUnavailableView(
-                        "No Results",
-                        systemImage: "magnifyingglass",
-                        description: Text("No places match '\(searchText)'")
-                    )
-                } else {
-                    ScrollView {
-                        VStack(alignment: .leading, spacing: 15) {
-                            Text("Explora México")
-                                .foregroundStyle(.black)
-                                .fontWeight(.bold)
-                                .font(.system(size: 30))
-                                .font(.custom("SF Pro", size: 30))
-                                .padding(.horizontal, 10)
-                            
-                            // Category filter buttons
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                LazyHStack(spacing: 20) {
-                                    ForEach(emojiData) { inspiration in
-                                        EmojiCardView(
-                                            emoji: inspiration,
-                                            isSelected: selectedCategory == inspiration.name,
-                                            isAnySelected: selectedCategory != nil,
-                                            action: {
-                                                // Toggle category selection
-                                                if selectedCategory == inspiration.name {
-                                                    selectedCategory = nil // Deselect if already selected
-                                                } else {
-                                                    selectedCategory = inspiration.name
-                                                }
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 15) {
+                        Text("Explora México")
+                            .foregroundStyle(.black)
+                            .fontWeight(.bold)
+                            .font(.system(size: 30))
+                            .font(.custom("SF Pro", size: 30))
+                            .padding(.horizontal, 10)
+                        
+                        // Category filter buttons
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack(spacing: 20) {
+                                ForEach(emojiData) { inspiration in
+                                    EmojiCardView(
+                                        emoji: inspiration,
+                                        isSelected: selectedCategory == inspiration.name,
+                                        isAnySelected: selectedCategory != nil,
+                                        action: {
+                                            // Toggle category selection
+                                            if selectedCategory == inspiration.name {
+                                                selectedCategory = nil // Deselect if already selected
+                                            } else {
+                                                selectedCategory = inspiration.name
                                             }
-                                        )
-                                    }
+                                        }
+                                    )
                                 }
-                                .padding(.horizontal)
                             }
+                            .padding(.horizontal)
+                        }
+                        
+                        
+                        if filteredPlaces.isEmpty {
+                            
+                            ContentUnavailableView(
+                                "No Results",
+                                systemImage: "magnifyingglass",
+                                description: Text("No places match '\(searchText)'")
+                            )
+                        } else {
                             
                             ColumnView(title: "Results", places: filteredPlaces)
                                 .padding(.top, 8)
                         }
-                        .padding(.vertical, 16)
                     }
+                    .padding(.vertical, 16)
                 }
+                
             } else {
                 // Not searching → your original home with RowView sections
                 if placesViewModel.places.isEmpty {
@@ -253,7 +234,6 @@ struct PlaceListView: View {
                                 }
                                 .padding(.horizontal)
                             }
-                            
                             
                             // Grouped places by category
                             ForEach(grouped, id: \.type) { group in
