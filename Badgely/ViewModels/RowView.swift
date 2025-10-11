@@ -90,7 +90,7 @@ struct CardView: View {
             }
             .aspectRatio(contentMode: .fit)
             .padding(12)
-            .background(Color(colorScheme == .dark ? Color(red: 58/255, green: 58/255, blue: 60/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
+            .background(Color(colorScheme == .dark ? Color(red: 64/255, green: 64/255, blue: 64/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
             //.background(Color(red: 245/255, green: 245/255, blue: 245/255))
             .cornerRadius(15)
             .padding(.horizontal, 7)

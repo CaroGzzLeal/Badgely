@@ -29,83 +29,126 @@ struct UserView: View {
         Group {
             if users.isEmpty {
                 // Onboarding
-                NavigationStack {
-                    
-                    VStack {
-                        
-                        Image("icon")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 130, height: 130)
-                        
-                        Text("¡Bienvenido Explorador!")
-                            //.foregroundStyle(.black)
-                            .fontWeight(.bold)
-                            .font(.system(size: 28))
-                            .font(.custom("SF Pro", size: 28))
-                            .padding(.horizontal, 10)
-                            .foregroundStyle(colorScheme == .dark ? .white : .black)
-                            //.background(colorScheme == .dark ? .black : .white)
-                        /*
-                        HStack {
-                            Button("Iniciar sesión") { isLogin = true }
-                                .frame(maxWidth: .infinity, minHeight: 40)
-                                .background(isLogin ? Color(red: 30/255, green: 94/255, blue: 54/255) : Color(.systemGray6))
-                                .foregroundColor(isLogin ? .white : .black)
-                                .font(.system(size: 20))
-                                .font(.custom("SF Pro", size: 20))
-
-                            Button("Registrarse") { isLogin = false }
-                                .frame(maxWidth: .infinity, minHeight: 40)
-                                .background(isLogin ? Color(.systemGray6) : Color(red: 30/255, green: 94/255, blue: 54/255))
-                                .foregroundColor(isLogin ? .black : .white)
-                                .font(.system(size: 20))
-                                .font(.custom("SF Pro", size: 20))
+                VStack{
+                        VStack {
+                            Image("icon")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 120, height: 120)
                         }
-                        .clipShape(RoundedRectangle(cornerRadius: 35))
-                        .shadow(radius: 2)
-                        .padding(10)
-                        */
-                        
-                        Form {
+                    Form {
                             Section {
-                                TextField("Ingresa tu nombre", text: $name)
-                                    .textFieldStyle(.roundedBorder)
-                                    .clipShape(RoundedRectangle(cornerRadius: 10))
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .stroke(Color(colorScheme == .dark ? .white : .black))
-                                    }
-                                    .font(.custom("SF Pro", size: 25))
-                                    .lineLimit(1)
-                                
-                                VStack{
-                                    Picker("Ciudad", selection: $selectedCity) {
-                                        ForEach(cities, id: \.self) { city in
-                                            Text(city).tag(city)
-                                                .foregroundColor(Color(red: 211/255, green: 211/255, blue: 211/255))
-                                                .font(.custom("SF Pro", size: 25))
+                                VStack(spacing:35) {
+                                    Text("¡Bienvenido a la comunidad Badgely!")
+                                        .fontWeight(.bold)
+                                        .font(.title).bold()
+                                        .font(.system(size: 32))
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .listRowSeparator(.hidden)
+                                    
+                                    VStack(spacing:10) {
+                                        Text("Ingresa tu nombre:")
+                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 20))
+                                            .listRowSeparator(.hidden)
+                                        
+                                        TextField("", text: $name)
+                                            .textFieldStyle(.roundedBorder)
+                                            .clipShape(RoundedRectangle(cornerRadius: 20))
+                                            .overlay {
+                                                RoundedRectangle(cornerRadius: 20)
+                                                    .stroke(Color(colorScheme == .dark ? .white : .black))
+                                            }
+                                            .font(.custom("SF Pro", size: 25))
+                                            .lineLimit(1)
+                                    } .listRowSeparator(.hidden)
+                                    
+                                    VStack(spacing:10){
+                                        Text("País de tu proximo destino:")
+                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 18))
+                                            .listRowSeparator(.hidden)
+                                        
+                                        VStack {
+                                            Picker("", selection: $selectedCity) {
+                                                ForEach(cities, id: \.self) { city in
+                                                    Text(city).tag(city)
+                                                }
+                                            }
+                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, 8)
+                                            .font(.custom("SF Pro", size: 25))
+                                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                                            )
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                                    .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                                            )
+
                                         }
+
                                     }
                                     
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 8)
-                                    .foregroundColor(Color(red: 211/255, green: 211/255, blue: 211/255))
-                                    .font(.custom("SF Pro", size: 25))
+                                    VStack(spacing:10) {
+                                        Text("Ciudad de tu proximo destino:")
+                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 20))
+                                            .listRowSeparator(.hidden)
+                                        
+                                        VStack {
+                                            Picker("", selection: $selectedCity) {
+                                                ForEach(cities, id: \.self) { city in
+                                                    Text(city).tag(city)
+                                                }
+                                            }
+                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, 8)
+                                            .font(.custom("SF Pro", size: 25))
+                                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                                            .background(
+                                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                                            )
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                                    .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                                            )
+
+                                        }
+                                    }  .listRowSeparator(.hidden)
+                                    
+                                    VStack(spacing:10) {
+                                        Text("Selecciona tu avatar:")
+                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                            .fontWeight(.bold)
+                                            .font(.system(size: 20))
+                                            .listRowSeparator(.hidden)
+                                        
+                                        Button(action: {
+                                            print("click")
+                                        }){
+                                            Image("seleccionAvatar")
+                                                .resizable()
+                                                .frame(width: 100, height: 100)
+                                            
+                                        }
+                                    }
                                 }
-                                //.textFieldStyle(.roundedBorder)
-                                //.clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color(colorScheme == .dark ? .white : .black))
-                                }
-                                .font(.custom("SF Pro", size: 25))
-                                .padding(.vertical, 10)
-                                //.padding(.horizontal, 16)
-                                .foregroundColor(Color.primary)
-                            } //Section
+                                //tiene q ir aqui
+                            }
                             .listRowBackground(Color.clear)
-                        } //Form
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        .listStyle(.plain)
+                        .contentMargins(.top, 0)
+                        .listSectionSpacing(.compact)
                         .scrollContentBackground(.hidden)
                         .background(Color.clear)
                         .listRowSeparator(.hidden)
@@ -125,7 +168,7 @@ struct UserView: View {
                         .background(Color(red: 30/255, green: 94/255, blue: 54/255))
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                         */
-                        
+                        Spacer()
                         Button {
                             createUser()
                         } 
@@ -137,14 +180,12 @@ struct UserView: View {
                                 .foregroundColor(.white)
                         }
                         .background(
-                            RoundedRectangle(cornerRadius: 15)
+                            RoundedRectangle(cornerRadius: 17)
                                 .fill(Color(red: 30/255, green: 94/255, blue: 54/255))
                         )
                         .disabled(name.isEmpty)
                     } //VStack
-                    //.padding(.top, 8)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                } //NavigationStack
+                    .frame(maxWidth: .infinity, alignment: .leading)
             } //if
             else {
                 //Directo a ContentView si user ya existe
@@ -153,6 +194,14 @@ struct UserView: View {
             }
         }
         .animation(.default, value: users.count) // smooth switch when user gets created
+        .background {
+            Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
+        }
     }
     
     private func createUser() {

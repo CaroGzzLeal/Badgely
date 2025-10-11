@@ -66,53 +66,37 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack{
-                Image(colorScheme == .dark ? "backgroundDarkmode" : "background" )
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .allowsHitTesting(false)
-                
-                VStack {
-
-                    if user.favorites.isEmpty {
-                        Text("Aún no tienes favoritos.")
-                            .foregroundColor(.gray)
-                            .italic()
-                    } else {
-                        
-                        ZStack{
+            Group{
+                if user.favorites.isEmpty {
+                    Text("Aún no tienes favoritos.")
+                        .foregroundColor(.gray)
+                        .italic()
+                } else {
+                    
+                    VStack() {
+                        ScrollView(.vertical) {
+                            Text("¡Tus Favoritos!")
+                                .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                .fontWeight(.bold)
+                                .font(.system(size: 32))
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .font(.title).bold()
                             
-                            VStack() {
-                                Spacer()
-                                ScrollView(.vertical, showsIndicators: false) {
-                                    Text("Tus Favoritos")
-                                        .padding(.top, 100)
-                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                        .fontWeight(.bold)
-                                        .font(.system(size: 32))
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                        .font(.title).bold()
-                                    
-                                    VStack {
-                                        ScrollView() {
-                                            ForEach(favoritePlaces) { place in
-                                                NavigationLink(destination: PlaceDetailView(place: place)) {
-                                                    CardView(width: 300, height: 180, place: place)
-                                                        .padding(20)
-                                                }
-                                            }
-                                            
-                                        }
+                            VStack {
+                                ForEach(favoritePlaces) { place in
+                                    NavigationLink(destination: PlaceDetailView(place: place)) {
+                                        CardView(width: 300, height: 180, place: place)
+                                            .padding(20)
                                     }
                                 }
-                                
-                                
-                            }//VStack
-                        }//ZStack
-                    }//else
-                } //VStack
-            } //ZStack
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                }
+            }
             .navigationTitle(users.first?.city ?? "Badgely")
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -136,7 +120,14 @@ struct FavoritesView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-        }
-
+            .background {
+                Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+                    .accessibilityHidden(true)
+            }
+        } //nav
     }
 }

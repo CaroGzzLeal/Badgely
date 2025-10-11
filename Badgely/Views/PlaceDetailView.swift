@@ -23,13 +23,6 @@ struct PlaceDetailView: View {
     
     var place: Place
     
-    let startPosition = MapCameraPosition.region(
-        MKCoordinateRegion(
-            center: CLLocationCoordinate2D(latitude: 27.33, longitude: 100.00), // Center of the map
-            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05) // Zoom level
-        )
-    )
-    
     var body: some View {
         VStack {
             Image(place.image)
@@ -76,7 +69,7 @@ struct PlaceDetailView: View {
                 }
                 .padding(.horizontal, 15)
                 
-                Map(initialPosition: startPosition)
+                Map(initialPosition: makeMap(latitude: Double(place.lat), longitude: Double(place.long)))
                     .frame(maxWidth: .infinity, maxHeight: 150)
                     .padding(5)
                     .mapStyle(.standard(elevation: .flat, emphasis: .muted))
@@ -146,6 +139,18 @@ struct PlaceDetailView: View {
         } //.TOOLBAR
     } //body
     
+   private func makeMap(latitude: Double?, longitude: Double?) -> MapCameraPosition {
+            let lat = latitude ?? 0.0
+            let long = longitude ?? 0.0
+            let annotation = MKPointAnnotation()
+       
+            return MapCameraPosition.region(
+                MKCoordinateRegion(
+                    center: CLLocationCoordinate2D(latitude: lat, longitude: long),
+                    span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                )
+            )        }
+
     private func toggleFavorite() {
         guard let user else { return }
         if let idx = user.favorites.firstIndex(of: place.id) {
@@ -156,4 +161,5 @@ struct PlaceDetailView: View {
         // Guardar explicitamente just to be sure
         try? modelContext.save()
     }
+    
 } //VIEW
