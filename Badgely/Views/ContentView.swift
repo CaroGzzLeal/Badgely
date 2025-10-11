@@ -115,47 +115,8 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)//ScrollView
-            /*.navigationTitle(users.first?.city ?? "Badgely")
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    HStack(spacing: 8) {
-                        
-                        Text(users.first?.city ?? "Badgely")
-                            .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(.black)
-                        
-                        Image(systemName: "location")
-                            .foregroundColor(.black.opacity(0.8))
-                            .font(.system(size: 18))
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 6)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.black, lineWidth: 2)
-                            .shadow(radius: 4)
-                    )
-                }
-            }
-                    )
-                }
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            */
-    
             
         } //Nav Stack
-        //.searchable(text: $searchText, prompt: "Search in \(users.first?.city ?? "Badgely")")
-        //.searchable(text: $searchText, prompt: "Busca con Badgley")
-        //.toolbarBackground(.visible, for: .navigationBar)
-       /* .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("My Badges", systemImage: "person.crop.circle") {
-                    navigate.toggle()
-                }
-            }
-        }
-        */
     }
 }
 
