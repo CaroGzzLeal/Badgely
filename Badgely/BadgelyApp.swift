@@ -11,21 +11,15 @@ import SwiftData
 @main
 struct BadgelyApp: App {
     @StateObject private var placesViewModel = PlacesViewModel()
-    
-    /*let container: ModelContainer = {
-        do {
-            return try ModelContainer(for: User.self)
-        } catch {
-            fatalError("Failed to create ModelContainer: \(error.localizedDescription)")
-        }
-    }()*/
+    @StateObject private var locationManager = LocationManager()
     
     var body: some Scene {
         WindowGroup {
             UserView()
                 .environmentObject(placesViewModel)
+                .environmentObject(locationManager)
         }
-        .modelContainer(for: User.self)
+        .modelContainer(for: [User.self, Photo.self])
         
     }
 }

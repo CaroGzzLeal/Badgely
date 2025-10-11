@@ -13,14 +13,25 @@ import SwiftData
 @Model
 class User {
     var name: String
+    var avatar: String
     var city: String
     var badges: [String] = []
+    var specialBadges: [String] = []
     var favorites: [Int] = []
-    
 
-    init(name: String, city: String ) {
-        self.name = name
-        self.city = city
-    }
-    
+    init(
+         name: String,
+         avatar: String,
+         city: String,
+         badges: [String] = [],
+         specialBadges: [String] = [],
+         favorites: [Int] = []
+     ) {
+         self.name = name
+         self.avatar = avatar
+         self.city = city
+         self.badges = badges
+         self.specialBadges = specialBadges
+         self.favorites = favorites
+     }
 }

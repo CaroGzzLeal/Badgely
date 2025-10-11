@@ -11,6 +11,7 @@ import SwiftData
 struct TabViewSearch: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
+
     
     @EnvironmentObject var placesViewModel: PlacesViewModel
     
@@ -19,7 +20,7 @@ struct TabViewSearch: View {
     
     var body: some View {
         TabView {
-            Tab("Home Page", systemImage: "house") {
+            Tab("Home", systemImage: "house") {
                 ContentView()
             }
             
@@ -45,11 +46,12 @@ struct TabViewSearch: View {
             }
             
             Tab("Logs", systemImage: "photo.on.rectangle.angled") {
-                ContentView()
+                LogView()
             }
             
             Tab (role: .search) {
-                ContentView()
+                SearchView()
+                
             }
             
             
