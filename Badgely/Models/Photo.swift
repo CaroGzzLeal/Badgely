@@ -14,10 +14,12 @@ class Photo: Identifiable {
     @Attribute(.externalStorage) var photo: Data
     var date: Date = Date()
     var badgeName: String?
+    var place: String
     
-    init(name: String, photo: Data, badgeName: String) {
+    init(name: String, photo: Data, badgeName: String, place: String) {
         self.name = name
         self.photo = photo
         self.badgeName = badgeName
+        self.place = place
     }
 }
