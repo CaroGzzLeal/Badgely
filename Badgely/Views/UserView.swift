@@ -16,12 +16,24 @@ struct UserView: View {
     @EnvironmentObject var placesViewModel: PlacesViewModel
     @Environment(\.colorScheme) var colorScheme
     
+    
     @State private var name = ""
     @State private var selectedCity = "Monterrey"
     @State private var selectedAvatar = "avatar1"
     
+    @State private var showPopover = false
+    @State private var avatarselected: String? = nil
+
+    //let images = ["sun.max.fill", "moon.fill", "star.fill"]
+    
     let cities = ["Monterrey", "Guadalajara", "Mexico City"]
     let avatars = ["avatar1", "avatar2", "avatar3", "avatar4"]
+    
+    let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+
+    ]
     
     @State private var isLogin = true
     
@@ -123,29 +135,12 @@ struct UserView: View {
 
                                         }
                                     }  .listRowSeparator(.hidden)
-                                    
-                                    VStack(spacing:10) {
-                                        Text("Selecciona tu avatar:")
-                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                                            .fontWeight(.bold)
-                                            .font(.system(size: 20))
-                                            .listRowSeparator(.hidden)
-                                        
-                                        Button(action: {
-                                            print("click")
-                                        }){
-                                            Image("seleccionAvatar")
-                                                .resizable()
-                                                .frame(width: 100, height: 100)
-                                            
-                                        }
-                                    }
                                 }
-                                //tiene q ir aqui
                             }
                             .listRowBackground(Color.clear)
                             .frame(maxWidth: .infinity, alignment: .center)
                         }
+                        .scrollDisabled(true)
                         .listStyle(.plain)
                         .contentMargins(.top, 0)
                         .listSectionSpacing(.compact)
@@ -154,24 +149,55 @@ struct UserView: View {
                         .listRowSeparator(.hidden)
                         .listSectionSeparator(.hidden)
 
-                        /*
-                        Button("Empezar a Explorar") {
-                            createUser()
+
+                    
+                    VStack(spacing:35) {
+                        Text("Selecciona tu avatar:")
+                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                            .fontWeight(.bold)
+                            .font(.system(size: 20))
+                            .listRowSeparator(.hidden)
+                        
+                        Button(action: {
+                            print("click")
+                            showPopover.toggle()
+                        }){
+                            if let imageName = avatarselected {
+                                Image(imageName)
+                                    .resizable()
+                                    .frame(width: 110, height: 110)
+                                
+                            } else {
+                                Image("icon")
+                                    .resizable()
+                                    .frame(width: 110, height: 110)
+                            }
                             
                         }
-                        // .buttonStyle(.borderedProminent)
-                        .disabled(name.isEmpty)
-                        .buttonStyle(.bordered)
-                        //.buttonBorderShape(.roundedRectangle(radius: 10))
-                        .foregroundColor(.white)
-                        .font(.custom("SF Pro", size:20))
-                        .background(Color(red: 30/255, green: 94/255, blue: 54/255))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        */
-                        Spacer()
+                        .popover(isPresented: $showPopover) {
+                            LazyVGrid(columns: columns) {
+                                ForEach(avatars, id: \.self) { name in
+                                    Button(action: {
+                                        avatarselected = name
+                                        showPopover = false
+                                    }) {
+                                        Image(name)
+                                            .resizable()
+                                            .frame(width: 110, height: 110)
+                                    }
+                                }
+                                
+                            }
+                            .padding()
+                            .frame(width: 300, height: 300)
+                            .presentationCompactAdaptation(.popover)
+                            
+                        }
+                        
+                        
                         Button {
                             createUser()
-                        } 
+                        }
                         label: {
                             Text("Empezar a Explorar")
                                 .padding(.vertical, 10)
@@ -184,8 +210,11 @@ struct UserView: View {
                                 .fill(Color(red: 30/255, green: 94/255, blue: 54/255))
                         )
                         .disabled(name.isEmpty)
+                    }
+                    
                     } //VStack
                     .frame(maxWidth: .infinity, alignment: .leading)
+                
             } //if
             else {
                 //Directo a ContentView si user ya existe
@@ -215,6 +244,8 @@ struct UserView: View {
             print("Error creating user: \(error.localizedDescription)")
         }
     }
+    
+    
 }
 
 #Preview {
