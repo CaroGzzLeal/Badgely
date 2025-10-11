@@ -27,7 +27,7 @@ struct RowView: View {
                     ForEach(places) { place in
                         NavigationLink(destination: PlaceDetailView(place: place)) {
                             
-                            CardView(place: place)
+                            CardView(width: 250, height: 150, place: place)
                         }
                     }
                 }
@@ -41,6 +41,10 @@ struct RowView: View {
 struct CardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
+    @Environment(\.colorScheme) var colorScheme
+
+    var width: CGFloat? = nil
+    var height: CGFloat? = nil
     
     private var user: User? { users.first }
     private var isFavorite: Bool {
@@ -60,7 +64,7 @@ struct CardView: View {
                 //.scaledToFill()
                     .aspectRatio(contentMode: .fill)
                 //.frame(width: 100, height: 100)
-                    .frame(width: 250, height: 150)
+                    .frame(width: width, height: height)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding(5)
                     .overlay(alignment: .topTrailing) {
@@ -78,7 +82,7 @@ struct CardView: View {
                 
                 HStack {
                     Text(place.displayName)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                         .fontWeight(.bold)
                         .font(.system(size: 15))
                 }
@@ -86,7 +90,8 @@ struct CardView: View {
             }
             .aspectRatio(contentMode: .fit)
             .padding(12)
-            .background(Color(red: 245/255, green: 245/255, blue: 245/255))
+            .background(Color(colorScheme == .dark ? Color(red: 58/255, green: 58/255, blue: 60/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
+            //.background(Color(red: 245/255, green: 245/255, blue: 245/255))
             .cornerRadius(15)
             .padding(.horizontal, 7)
                 

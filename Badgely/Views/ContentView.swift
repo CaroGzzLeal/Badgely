@@ -11,6 +11,7 @@ import SwiftData
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
+    @Environment(\.colorScheme) var colorScheme
     //@Query(sort: \User.name) private var users: [User]
     
     @State private var navigate = false
@@ -33,7 +34,7 @@ struct ContentView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 15) {
                     Text("Explora México")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                         .fontWeight(.bold)
                         .font(.system(size: 30))
                         .font(.custom("SF Pro", size: 30))
@@ -53,8 +54,7 @@ struct ContentView: View {
                         Text(group.type.capitalized)
                             .font(.headline)
                             .padding(.horizontal, 9)
-                            .foregroundColor(.black)
-                            .shadow(color: .gray, radius: 1, x: 1, y: 1)
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                             .font(.system(size: 20))
                         RowView(title: group.type, places: group.items)
                     }
@@ -68,17 +68,17 @@ struct ContentView: View {
                         
                         Text(users.first?.city ?? "Badgely")
                             .font(.system(size: 18, weight: .bold))
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                         
                         Image(systemName: "location")
-                            .foregroundColor(.black.opacity(0.8))
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black).opacity(0.8))
                             .font(.system(size: 18))
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.black, lineWidth: 2)
+                            .stroke(Color(colorScheme == .dark ? .white : .black), lineWidth: 2)
                             .shadow(radius: 4)
                     )
                 }

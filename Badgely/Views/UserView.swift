@@ -14,6 +14,7 @@ struct UserView: View {
     @Query private var users: [User]
     
     @EnvironmentObject var placesViewModel: PlacesViewModel
+    @Environment(\.colorScheme) var colorScheme
     
     @State private var name = ""
     @State private var selectedCity = "Monterrey"
@@ -29,18 +30,22 @@ struct UserView: View {
             if users.isEmpty {
                 // Onboarding
                 NavigationStack {
+                    
                     VStack {
+                        
                         Image("icon")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 85, height: 85)
+                            .frame(width: 130, height: 130)
                         
-                        Text("Bienvenido Explorador")
-                            .foregroundStyle(.black)
+                        Text("¡Bienvenido Explorador!")
+                            //.foregroundStyle(.black)
                             .fontWeight(.bold)
                             .font(.system(size: 28))
                             .font(.custom("SF Pro", size: 28))
                             .padding(.horizontal, 10)
+                            .foregroundStyle(colorScheme == .dark ? .white : .black)
+                            //.background(colorScheme == .dark ? .black : .white)
                         /*
                         HStack {
                             Button("Iniciar sesión") { isLogin = true }
@@ -63,43 +68,85 @@ struct UserView: View {
                         */
                         
                         Form {
-                            TextField("Ingresa tu nombre", text: $name)
-                                .textFieldStyle(.roundedBorder)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                            Section {
+                                TextField("Ingresa tu nombre", text: $name)
+                                    .textFieldStyle(.roundedBorder)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color(colorScheme == .dark ? .white : .black))
+                                    }
+                                    .font(.custom("SF Pro", size: 25))
+                                    .lineLimit(1)
+                                
+                                VStack{
+                                    Picker("Ciudad", selection: $selectedCity) {
+                                        ForEach(cities, id: \.self) { city in
+                                            Text(city).tag(city)
+                                                .foregroundColor(Color(red: 211/255, green: 211/255, blue: 211/255))
+                                                .font(.custom("SF Pro", size: 25))
+                                        }
+                                    }
+                                    
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 8)
+                                    .foregroundColor(Color(red: 211/255, green: 211/255, blue: 211/255))
+                                    .font(.custom("SF Pro", size: 25))
+                                }
+                                //.textFieldStyle(.roundedBorder)
+                                //.clipShape(RoundedRectangle(cornerRadius: 10))
                                 .overlay {
                                     RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color(.black))
+                                        .stroke(Color(colorScheme == .dark ? .white : .black))
                                 }
-                                .font(.custom("SF Pro", size: 20))
-                            
-
-                            Picker("Ciudad", selection: $selectedCity) {
-                                ForEach(cities, id: \.self) { city in
-                                    Text(city).tag(city)
-                                }
-                            }
-                            //.textFieldStyle(.roundedBorder)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color(.black))
-                            }
-                            .font(.custom("SF Pro", size: 20))
-                            .padding(20)
-
-                        }
+                                .font(.custom("SF Pro", size: 25))
+                                .padding(.vertical, 10)
+                                //.padding(.horizontal, 16)
+                                .foregroundColor(Color.primary)
+                            } //Section
+                            .listRowBackground(Color.clear)
+                        } //Form
                         .scrollContentBackground(.hidden)
+                        .background(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listSectionSeparator(.hidden)
 
-                        
-                        Button("Start Exploring") {
+                        /*
+                        Button("Empezar a Explorar") {
                             createUser()
+                            
                         }
-                        .buttonStyle(.borderedProminent)
+                        // .buttonStyle(.borderedProminent)
                         .disabled(name.isEmpty)
-                    }
-                    .padding(.top, 8)
-                }
-            } else {
+                        .buttonStyle(.bordered)
+                        //.buttonBorderShape(.roundedRectangle(radius: 10))
+                        .foregroundColor(.white)
+                        .font(.custom("SF Pro", size:20))
+                        .background(Color(red: 30/255, green: 94/255, blue: 54/255))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                        */
+                        
+                        Button {
+                            createUser()
+                        } 
+                        label: {
+                            Text("Empezar a Explorar")
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 16)
+                                .font(.custom("SF Pro", size:20))
+                                .foregroundColor(.white)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 15)
+                                .fill(Color(red: 30/255, green: 94/255, blue: 54/255))
+                        )
+                        .disabled(name.isEmpty)
+                    } //VStack
+                    //.padding(.top, 8)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                } //NavigationStack
+            } //if
+            else {
                 //Directo a ContentView si user ya existe
                 //ContentView()
                 TabViewSearch()
