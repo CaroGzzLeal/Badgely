@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25055FA42E96239E00F3FDD4 /* SimulatedLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */; };
+		2556918D2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */; };
 		25D042B12E94006F00E4E29F /* BadgelyWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 25D042A42E94006E00E4E29F /* BadgelyWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -35,12 +37,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
+		2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocationsWrong.gpx; sourceTree = "<group>"; };
 		25D0428B2E93F5C600E4E29F /* Badgely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badgely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D042A42E94006E00E4E29F /* BadgelyWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BadgelyWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		4B63B9642E99BDA500917275 /* Exceptions for "Badgely" folder in "Badgely" target */ = {
+		25055FA62E9624D300F3FDD4 /* Exceptions for "Badgely" folder in "Badgely" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -53,7 +57,7 @@
 		25D0428D2E93F5C600E4E29F /* Badgely */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				4B63B9642E99BDA500917275 /* Exceptions for "Badgely" folder in "Badgely" target */,
+				25055FA62E9624D300F3FDD4 /* Exceptions for "Badgely" folder in "Badgely" target */,
 			);
 			path = Badgely;
 			sourceTree = "<group>";
@@ -86,6 +90,8 @@
 		25D042822E93F5C600E4E29F = {
 			isa = PBXGroup;
 			children = (
+				25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */,
+				2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */,
 				25D0428D2E93F5C600E4E29F /* Badgely */,
 				25D042A52E94006E00E4E29F /* BadgelyWatch Watch App */,
 				25D0428C2E93F5C600E4E29F /* Products */,
@@ -193,6 +199,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25055FA42E96239E00F3FDD4 /* SimulatedLocations.gpx in Resources */,
+				2556918D2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,15 +370,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Badgely/Preview Content\"";
-				DEVELOPMENT_TEAM = 6299S224BY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Badgely/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Access camera for photos";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "For photos location";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Allow use of location v2";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "For Location";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save photos";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow use of camera";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Allow use of location";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Allow use of location always";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow use of location when in use";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -397,15 +404,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Badgely/Preview Content\"";
-				DEVELOPMENT_TEAM = 6299S224BY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Badgely/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Access camera for photos";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "For photos location";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Allow use of location v2";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "For Location";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Save photos";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Allow use of camera";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Allow use of location";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Allow use of location always";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow use of location when in use";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to photo library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -432,7 +438,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BadgelyWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 6299S224BY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = BadgelyWatch;
@@ -462,7 +467,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BadgelyWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 6299S224BY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = BadgelyWatch;

@@ -37,13 +37,12 @@ struct TabViewSearch: View {
             }
             
             Tab("Badges", systemImage: "person") {
-                NearYouView()
-                /*if let user = currentUser {
+                if let user = currentUser {
                     BadgesView(user: user)
                 } else {
                     Text("No user found")
                         .foregroundStyle(.secondary)
-                }*/
+                }
             }
             
             Tab("Logs", systemImage: "photo.on.rectangle.angled") {
