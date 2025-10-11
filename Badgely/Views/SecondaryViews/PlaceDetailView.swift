@@ -21,7 +21,12 @@ struct PlaceDetailView: View {
         user?.favorites.contains(place.id) ?? false
     }
     
+    var placeCoordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+    }
+    
     var place: Place
+    
     @State var showCamera = false
     
     let startPosition = MapCameraPosition.region(
@@ -34,7 +39,6 @@ struct PlaceDetailView: View {
     var body: some View {
         
         VStack {
-            
             Image(place.image)
                 .resizable()
                 .ignoresSafeArea()
@@ -79,11 +83,29 @@ struct PlaceDetailView: View {
                 }
                 .padding(.horizontal, 15)
                 
-                Map(initialPosition: startPosition)
+                /*Map(initialPosition: startPosition)
                     .frame(maxWidth: .infinity, maxHeight: 150)
                     .padding(5)
                     .mapStyle(.standard(elevation: .flat, emphasis: .muted))
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                    .clipShape(RoundedRectangle(cornerRadius: 30))*/
+                
+                Map(initialPosition: makeMap(latitude: place.latitude, longitude: place.longitude))
+                {
+                    Marker(place.displayName, coordinate: placeCoordinate)
+                }
+                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .padding(5)
+                        .mapStyle(.standard(elevation: .flat, emphasis: .muted))
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(Color.white)
+                                .opacity(0.2)
+//                                .frame(maxWidth: .infinity, maxHeight: 150)
+                                .onTapGesture {
+                                    openAppleMaps()
+                                }
+                        }
                 
                 HStack{
                     
@@ -158,6 +180,28 @@ struct PlaceDetailView: View {
             }
         }
     }
+    
+    private func makeMap(latitude: Double?, longitude: Double?) -> MapCameraPosition {
+             let lat = latitude ?? 0.0
+             let long = longitude ?? 0.0
+        
+             return MapCameraPosition.region(
+                 MKCoordinateRegion(
+                     center: CLLocationCoordinate2D(latitude: lat, longitude: long),
+                     span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+                 )
+             )        }
+     
+     func openAppleMaps() {
+         let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+         print("Entre a la funcion para el lugar", place.displayName)
+         let placemark = MKPlacemark(coordinate: coordinate)
+         let mapItem = MKMapItem(placemark: placemark)
+         mapItem.name = place.displayName
+         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+
+         mapItem.openInMaps(launchOptions: launchOptions)
+     }
     
     private func toggleFavorite() {
         print("toggle function entered")
