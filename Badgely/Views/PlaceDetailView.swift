@@ -55,26 +55,16 @@ struct PlaceDetailView: View {
                     .font(.subheadline)
                     .padding(.horizontal, 7)
                 
-                if users[0].specialBadges.contains(place.specialBadge) {
-                    Text(place.specialBadge)
-                }
-                if !users[0].specialBadges.contains(place.specialBadge) {
-                    Button("Add Photo") {
-                        showCamera = true
-                    }
-                    .font(.caption)
-                    .foregroundColor(.blue)
-                    .padding()
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1))
-                }
+                /*if users[0].specialBadges.contains(place.specialBadge) {
+                 Text(place.specialBadge)
+                 }*/
             }
             
             Spacer()
             //if place.badge  {
             HStack{
                 Button(action: {
-                //la imagen cambiaria si ya se tomo TODO
+                    //la imagen cambiaria si ya se tomo TODO
                 }) {
                     Image("testBadge") // NO EXISTE AHORITA
                         .resizable()
@@ -85,9 +75,7 @@ struct PlaceDetailView: View {
                     
                 }
                 
-                Button(action: {
-                    //la imagen cambiaria si ya se tomo TODO
-                }) {
+                if users[0].specialBadges.contains(place.specialBadge) {
                     Image("testBadge")
                         .resizable()
                         .scaledToFit()
@@ -95,27 +83,29 @@ struct PlaceDetailView: View {
                         .scaleEffect(1.1)
                         .clipped()
                 }
+                
                 Spacer()
                 
-                ZStack {
-                    Button(action: {
-                    //apareceria la imagen en vez del icono de la camara TODO
-                    }) {
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.white)
-                            .frame(width: 120, height: 50)
-                            .shadow(radius: 4)
+                if !users[0].specialBadges.contains(place.specialBadge) {
+                    ZStack {
+                        Button(action: {
+                            showCamera = true
+                        }) {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.white)
+                                .frame(width: 120, height: 50)
+                                .shadow(radius: 4)
+                                .padding(.trailing, 20)
+                            
+                        }
+                        
+                        Image(systemName: "camera")
+                            .foregroundColor(.black.opacity(0.80))
+                            .font(.system(size: 40))
                             .padding(.trailing, 20)
-
                     }
-                    
-                    Image(systemName: "camera")
-                        .foregroundColor(.black.opacity(0.80))
-                        .font(.system(size: 40))
-                        .padding(.trailing, 20)
                 }
             }
-            
         }
         .fullScreenCover(isPresented: $showCamera) {
             AugmentedRealityContainer(place: place, selectedBadges: users[0].specialBadges, showCamera: $showCamera)

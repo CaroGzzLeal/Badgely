@@ -17,10 +17,10 @@ struct UserView: View {
     
     @State private var name = ""
     @State private var selectedCity = "Monterrey"
-    @State private var selectedAvatar = "avatar1"
+    @State private var selectedAvatar = "profile1"
     
     let cities = ["Monterrey", "Guadalajara", "Mexico City"]
-    let avatars = ["avatar1", "avatar2", "avatar3", "avatar4"]
+    let avatars = ["profile1", "profile2", "profile3", "profile4"]
     
     var body: some View {
         Group {
@@ -33,6 +33,15 @@ struct UserView: View {
                         Form {
                             TextField("Your name", text: $name)
                                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                            
+                            Picker("Avatar", selection: $selectedAvatar) {
+                                ForEach(avatars, id: \.self) { avatar in
+                                    Image(avatar)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 50)
+                                }
+                            }
 
                             Picker("City", selection: $selectedCity) {
                                 ForEach(cities, id: \.self) { city in
@@ -59,7 +68,7 @@ struct UserView: View {
     }
     
     private func createUser() {
-        let user = User(name: name, city: selectedCity)
+        let user = User(name: name, avatar: selectedAvatar, city: selectedCity)
         modelContext.insert(user)
         do {
             try modelContext.save()
