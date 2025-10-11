@@ -26,7 +26,7 @@ struct RowView: View {
                     ForEach(places) { place in
                         NavigationLink(destination: PlaceDetailView(place: place)) {
                             
-                            CardView(place: place)
+                            CardView(width: 250, height: 150, place: place)
                         }
                     }
                 }
@@ -37,9 +37,15 @@ struct RowView: View {
 }
 
 
+
+
 struct CardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]
+    @Environment(\.colorScheme) var colorScheme
+    
+    var width: CGFloat? = nil
+    var height: CGFloat? = nil
     
     private var user: User? { users.first }
     private var isFavorite: Bool {
@@ -58,29 +64,34 @@ struct CardView: View {
                 //.scaledToFill()
                     .aspectRatio(contentMode: .fill)
                 //.frame(width: 100, height: 100)
-                    .frame(width: 250, height: 150)
+                    .frame(width: width, height: height)
                     .clipShape(RoundedRectangle(cornerRadius: 15))
                     .padding(5)
+                    .overlay(alignment: .topTrailing) {
+                        Button {
+                            toggleFavorite()
+                        } label: {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                .symbolRenderingMode(.hierarchical)
+                                .padding(8)
+                                .background(.white, in: Circle())
+                        }
+                        .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
+                    }
+                    .clipped()
                 
                 HStack {
                     Text(place.displayName)
-                        .foregroundStyle(.black)
+                        .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                         .fontWeight(.bold)
                         .font(.system(size: 15))
-                    
-                    Button {
-                        toggleFavorite()
-                    } label: {
-                        Image(systemName: isFavorite ? "heart.fill" : "heart")
-                            .symbolRenderingMode(.hierarchical)
-                    }
-                    .accessibilityLabel(isFavorite ? "Remove from favorites" : "Add to favorites")
                 }
                     
             }
             .aspectRatio(contentMode: .fit)
             .padding(12)
-            .background(Color(red: 245/255, green: 245/255, blue: 245/255))
+            .background(Color(colorScheme == .dark ? Color(red: 58/255, green: 58/255, blue: 60/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
+            //.background(Color(red: 245/255, green: 245/255, blue: 245/255))
             .cornerRadius(15)
             .padding(.horizontal, 7)
                 
@@ -102,19 +113,17 @@ struct CardView: View {
 
 
 
-/*
 #Preview {
     let samplePlace = Place(
         id: 2,
         name: "Café Laurel",
         type: "cafeteria",
         address: "Av. del Roble 660-Local A2-111, Valle del Campestre, 66265 San Pedro Garza García, N.L.",
-        lat: "25.648984986698732",
-        long: "-100.35522425264874",
+        latitude: 25.648984986698732,
+        longitude: -100.35522425264874,
         description: "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera.",
         badge: "badge",
         specialBadge: "specialBadge"
     )
     CardView(place: samplePlace)
 }
-*/
