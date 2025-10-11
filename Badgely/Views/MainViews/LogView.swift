@@ -16,6 +16,8 @@ struct LogView: View {
     @State private var showDeleteAlert = false
     @State private var scrollID: Int?
     
+    @State private var showLocationPicker = false
+    
     @Environment(\.colorScheme) var colorScheme
     
     
