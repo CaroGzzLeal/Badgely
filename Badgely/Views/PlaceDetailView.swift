@@ -21,6 +21,11 @@ struct PlaceDetailView: View {
         user?.favorites.contains(place.id) ?? false
     }
     
+    var placeCoordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: Double(place.lat)!, longitude: Double(place.long)!)
+    }
+
+    
     var place: Place
     
     var body: some View {
@@ -69,11 +74,27 @@ struct PlaceDetailView: View {
                 }
                 .padding(.horizontal, 15)
                 
+
                 Map(initialPosition: makeMap(latitude: Double(place.lat), longitude: Double(place.long)))
-                    .frame(maxWidth: .infinity, maxHeight: 150)
-                    .padding(5)
-                    .mapStyle(.standard(elevation: .flat, emphasis: .muted))
-                    .clipShape(RoundedRectangle(cornerRadius: 30))
+                {
+                    Marker(place.displayName, coordinate: placeCoordinate)
+                }
+                        .frame(maxWidth: .infinity, maxHeight: 150)
+                        .padding(5)
+                        .mapStyle(.standard(elevation: .flat, emphasis: .muted))
+                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 30)
+                                .fill(Color.white)
+                                .opacity(0.2)
+//                                .frame(maxWidth: .infinity, maxHeight: 150)
+                                .onTapGesture {
+                                    openAppleMaps()
+                                }
+                        }
+
+  
+                
                 
                 //if place.badge  {
                 HStack{
@@ -142,7 +163,6 @@ struct PlaceDetailView: View {
    private func makeMap(latitude: Double?, longitude: Double?) -> MapCameraPosition {
             let lat = latitude ?? 0.0
             let long = longitude ?? 0.0
-            let annotation = MKPointAnnotation()
        
             return MapCameraPosition.region(
                 MKCoordinateRegion(
@@ -150,6 +170,17 @@ struct PlaceDetailView: View {
                     span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
                 )
             )        }
+    
+    func openAppleMaps() {
+        let coordinate = CLLocationCoordinate2D(latitude: Double(place.lat)!, longitude: Double(place.long)!)
+        print("Entre a la funcion para el lugar", place.displayName)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = place.displayName
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+
+        mapItem.openInMaps(launchOptions: launchOptions)
+    }
 
     private func toggleFavorite() {
         guard let user else { return }
