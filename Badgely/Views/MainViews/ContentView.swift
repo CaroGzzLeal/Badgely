@@ -8,24 +8,22 @@
 import SwiftUI
 import SwiftData
 
+
+
+
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query private var users: [User]
+    @EnvironmentObject var placesViewModel: PlacesViewModel
+    
     @EnvironmentObject private var locationManager: LocationManager
     
     @State private var navigate = false
     @State private var searchText = ""
-    
-    @Environment(\.modelContext) private var modelContext
-    
-    @Query private var users: [User]
-    
-    //@ObservedObject var user: User
-    
-    let emojiData = EmojiData.examples()
-    
     @State private var showLocationPicker = false
     
-    //let places: [Place] = Bundle.main.decode("places2.json")
-    @EnvironmentObject var placesViewModel: PlacesViewModel
+    //@ObservedObject var user: User
+    let emojiData = EmojiData.examples()
     
     // organizar por el tipo de lugar (cafeteria, emblematico, evento, etc)
     private var grouped: [(type: String, items: [Place])] {
@@ -209,4 +207,8 @@ struct FilterListView: View {
         .modelContainer(for: User.self)
         .environmentObject(PlacesViewModel(places: Place.samples))
 }
+
+
+
+
 

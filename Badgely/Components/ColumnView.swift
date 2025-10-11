@@ -39,3 +39,37 @@ struct ColumnView: View {
         }//ZStack
     }
 }
+
+
+
+
+struct EmojisView: View {
+    let title: String
+    let places: [Place]
+    //let user: User? //?
+    
+    var body: some View {
+        ZStack{
+            VStack() {
+                Spacer()
+                ScrollView(.vertical, showsIndicators: false) {
+                    
+                    VStack {
+                        ScrollView() {
+                            ForEach(places) { place in
+                                NavigationLink(destination: PlaceDetailView(place: place)) {
+                                    
+                                    CardView(width: 300, height: 180, place: place)
+                                        .padding(20)
+                                }
+                            }
+                            
+                        }
+                    }
+                }
+                
+                
+            }//VStack
+        }//ZStack
+    }
+}
