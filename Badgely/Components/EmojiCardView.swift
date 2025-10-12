@@ -2,7 +2,7 @@
 //  EmojiCardView.swift
 //  Badgely
 //
-//  Created by Martha Mendoza Alfaro on 07/10/25.
+//  Created by Martha Mendoza Alfaro on 07/10/25. happy times
 //
 import SwiftUI
 
