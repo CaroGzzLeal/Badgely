@@ -18,13 +18,18 @@ struct BadgesView: View {
     @State var showEdit: Bool = false
     
     let allBadgesNames: [String] = [
-        "profile1", "profile1", "profile3", "profile3", "profile3", "profile4", "profile2",
+        "badge1", "badge2", "badge3", "badge4", "badge5", "sBadge1", "profile2",
         "badge8", "badge9", "badge10", "badge11", "badge12", "sBadge3", "sBadge4",
         "badge13", "badge14", "badge15", "badge16", "badge17", "sBadge5", "sBadge6",
         "badge18", "badge19", "badge20", "badge21", "badge22", "sBadge7", "sBadge8",
         "badge23", "badge24", "badge25", "badge26", "badge27", "sBadge9", "sBadge10",
         "badge28", "badge29", "badge30", "badge31", "badge32", "sBadge11", "sBadge12",
         "badge32", "badge33", "badge34", "badge35", "badge36", "sBadge13", "sBadge14",
+    ]
+    
+    let responsibleBadges: [String] = [
+            
+    
     ]
     
     let columns: [GridItem] = [
