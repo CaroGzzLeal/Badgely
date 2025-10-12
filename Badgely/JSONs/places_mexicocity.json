@@ -8,7 +8,7 @@
         "longitude": -99.15543663484596,
         "description": "Cafetería de especialidad con ambiente minimalista y relajado. Ideal para leer, trabajar o disfrutar un espresso bien preparado con granos mexicanos seleccionados.",
         "badge": "badge200",
-        "specialBadge": "sBadge200"
+        "responsibleBadge": "sBadge200"
     },
     {
         "id": 201,
@@ -19,7 +19,7 @@
         "longitude": -99.18602187779477,
         "description": "Espacio moderno con café de origen y opciones saludables. Perfecto para pasar la mañana con un flat white y pan artesanal.",
         "badge": "badge201",
-        "specialBadge": "sBadge201"
+        "responsibleBadge": "sBadge201"
     },
     {
         "id": 205,
@@ -30,7 +30,7 @@
         "longitude": -99.19483466180543,
         "description": "Restaurante insignia del chef Enrique Olvera, reconocido mundialmente por su reinterpretación de la cocina mexicana con técnicas contemporáneas.",
         "badge": "badge205",
-        "specialBadge": "sBadge205"
+        "responsibleBadge": "sBadge205"
     },
     {
         "id": 206,
@@ -41,7 +41,7 @@
         "longitude": -99.19170920582904,
         "description": "Cocina mexicana moderna con ingredientes locales y de temporada. Elegante y con servicio excepcional, ideal para experiencias gastronómicas únicas.",
         "badge": "badge206",
-        "specialBadge": "sBadge206"
+        "responsibleBadge": "sBadge206"
     },
     {
         "id": 210,
@@ -52,7 +52,7 @@
         "longitude": -99.141482,
         "description": "Majestuoso edificio cultural y arquitectónico símbolo de la Ciudad de México. Alberga conciertos, exposiciones y espectáculos de danza.",
         "badge": "badge210",
-        "specialBadge": "sBadge210"
+        "responsibleBadge": "sBadge210"
     },
     {
         "id": 211,
@@ -63,7 +63,7 @@
         "longitude": -99.13308587332332,
         "description": "Principal templo católico del país. Obra maestra del arte virreinal que combina estilos gótico, barroco y neoclásico.",
         "badge": "badge211",
-        "specialBadge": "sBadge211"
+        "responsibleBadge": "sBadge211"
     },
     {
         "id": 215,
@@ -74,7 +74,7 @@
         "longitude": -99.1396499634486,
         "description": "Evento literario anual que reúne editoriales, autores y lectores. Se realiza en uno de los edificios históricos más bellos de la ciudad.",
         "badge": "badge215",
-        "specialBadge": "sBadge215"
+        "responsibleBadge": "sBadge215"
     },
     {
         "id": 216,
@@ -85,7 +85,7 @@
         "longitude": -99.16382123895728,
         "description": "Festival cinematográfico con proyecciones nacionales e internacionales. Punto de encuentro para amantes del séptimo arte.",
         "badge": "badge216",
-        "specialBadge": "sBadge216"
+        "responsibleBadge": "sBadge216"
     },
     {
         "id": 220,
@@ -96,7 +96,7 @@
         "longitude": -99.2088450947435,
         "description": "Organización humanitaria que brinda atención médica, rescate y capacitación. Acepta voluntarios en distintas áreas de servicio social.",
         "badge": "badge220",
-        "specialBadge": "sBadge220"
+        "responsibleBadge": "sBadge220"
     },
     {
         "id": 221,
@@ -107,7 +107,7 @@
         "longitude": -99.20076067336876,
         "description": "Organización ambientalista internacional con sede en CDMX. Ofrece oportunidades de voluntariado en campañas ecológicas y educación ambiental.",
         "badge": "badge221",
-        "specialBadge": "sBadge221"
+        "responsibleBadge": "sBadge221"
     },
     {
         "id": 225,
@@ -118,7 +118,7 @@
         "longitude": -99.185,
         "description": "El parque urbano más grande de América Latina. Alberga museos, lagos, jardines y rutas para caminar o andar en bicicleta.",
         "badge": "badge225",
-        "specialBadge": "sBadge225"
+        "responsibleBadge": "sBadge225"
     },
     {
         "id": 226,
@@ -129,7 +129,7 @@
         "longitude": -99.1696898279751,
         "description": "Espacio verde emblemático de la Condesa. Con senderos, fuentes y áreas para descansar entre arquitectura art déco.",
         "badge": "badge226",
-        "specialBadge": "sBadge226"
+        "responsibleBadge": "sBadge226"
     },
     {
         "id": 230,
@@ -140,7 +140,7 @@
         "longitude": -99.13710619839463,
         "description": "Club de jazz en un antiguo banco del centro histórico. Ofrece música en vivo de artistas nacionales e internacionales.",
         "badge": "badge230",
-        "specialBadge": "sBadge230"
+        "responsibleBadge": "sBadge230"
     },
     {
         "id": 231,
@@ -151,6 +151,6 @@
         "longitude": -99.16917145398827,
         "description": "Bar de mezcal artesanal con ambiente relajado y decoración rústica. Ideal para degustar bebidas mexicanas y conversar.",
         "badge": "badge231",
-        "specialBadge": "sBadge231"
+        "responsibleBadge": "sBadge231"
     }
 ]

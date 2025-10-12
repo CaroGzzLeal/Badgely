@@ -15,7 +15,7 @@ struct Place: Codable, Identifiable {
     let longitude: Double
     let description: String
     let badge: String
-    let specialBadge: String
+    let responsibleBadge: String?
     
     var displayName: String {
         "\(name)"
@@ -37,7 +37,7 @@ extension Place {
         longitude: -100.3161,
         description: "Great coffee and pastries.",
         badge: "Open late",
-        specialBadge: ""
+        responsibleBadge: ""
     )
     
     static let sample2 = Place(
@@ -49,7 +49,7 @@ extension Place {
         longitude: -100.2856,
         description: "Iconic urban park with museums and lakes.",
         badge: "Family friendly",
-        specialBadge: "Must see"
+        responsibleBadge: "Must see"
     )
     
     static let samples: [Place] = [.sample1, .sample2]

@@ -16,7 +16,9 @@ class User {
     var avatar: String
     var city: String
     var badges: [String] = []
+    var comunBadges: [String : Int] = [:]
     var specialBadges: [String] = []
+    var responsibleBadges: [String] = []
     var favorites: [Int] = []
 
     init(
