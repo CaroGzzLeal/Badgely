@@ -174,11 +174,25 @@ struct PlaceListView: View {
                             
                             // Grouped places x category
                             ForEach(grouped, id: \.type) { group in
-                                Text(group.type)
-                                    .font(.headline)
-                                    .padding(.horizontal, 9)
-                                    .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                    .font(.system(size: 20))
+                                if group.type == "Cafeteria" {
+                                    Text("Cafetería")
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                } else if group.type == "Emblematico" {
+                                    Text("Emblemático")
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                } else {
+                                    Text(group.type)
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                }
                                 RowView(title: group.type, places: group.items)
                             }
                         }

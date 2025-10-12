@@ -175,11 +175,12 @@
 				};
 			};
 			buildConfigurationList = 25D042862E93F5C600E4E29F /* Build configuration list for PBXProject "Badgely" */;
-			developmentRegion = en;
+			developmentRegion = "es-419";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"es-419",
 			);
 			mainGroup = 25D042822E93F5C600E4E29F;
 			minimizedProjectReferenceProxies = 1;
@@ -374,11 +375,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Badgely/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow use of camera";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Allow use of location";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Allow use of location always";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow use of location when in use";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to photo library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Permite que Badgely acceda a tu cámara para tomar fotos desde la app.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Permite que Badgely use tu ubicación para brindarte servicios basados en tu ubicación.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Permite que Badgely use tu ubicación incluso cuando la app esté en segundo plano para ofrecerte experiencias personalizadas.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permite que Badgely use tu ubicación mientras usas la app para mostrarte información relevante cerca de ti.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permite que Badgely acceda a tu galería de fotos para guardar fotos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -409,11 +410,11 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Badgely/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Allow use of camera";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Allow use of location";
-				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Allow use of location always";
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Allow use of location when in use";
-				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Allow access to photo library";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Permite que Badgely acceda a tu cámara para tomar fotos desde la app.";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Permite que Badgely use tu ubicación para brindarte servicios basados en tu ubicación.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Permite que Badgely use tu ubicación incluso cuando la app esté en segundo plano para ofrecerte experiencias personalizadas.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Permite que Badgely use tu ubicación mientras usas la app para mostrarte información relevante cerca de ti.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Permite que Badgely acceda a tu galería de fotos para guardar fotos.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
