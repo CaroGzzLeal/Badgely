@@ -185,13 +185,5 @@
         "description": "Asociación dedicada al acompañamiento de niños hospitalizados. Los voluntarios ayudan a mejorar su bienestar emocional a través del juego.",
         "badge": "badge121",
         "specialBadge": "sBadge121"
-    },
-    {
-        "id": 125,
-        "name": "Bosque Los Colomos",
-        "type": "area_verde",
-        "address": "C. El Chaco 3200, Providencia, 44630 Guadalajara, Jal.",
-        "latitude": 20.70489969311298,
-        "longitude": -103.39117216565853,
-
+    }
 ]
