@@ -48,9 +48,8 @@ struct AugmentedRealityScene: UIViewRepresentable {
                     }
                 }
                 
-                banda.position = SIMD3(x: 0, y: -0.3, z: 0.02)
-                //banda.scale = SIMD3(x: 2, y: 0.7, z: 0.1)
-                //banda.orientation = simd_quatf(angle: .pi / -5, axis: SIMD3<Float>(0, 0, 1))
+                banda.position = SIMD3(x: -0.1, y: -0.4, z: 0.02)
+                banda.scale = SIMD3(x: 0.2, y: 0.2, z: 0.15)
             }
             else {
                 print("No se encontró la entidad de la banda")

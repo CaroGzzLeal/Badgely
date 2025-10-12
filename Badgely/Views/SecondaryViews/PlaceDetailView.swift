@@ -37,6 +37,10 @@ struct PlaceDetailView: View {
         )
     )
     
+    var allShowingBadges: [String] {
+        users[0].specialBadges + users[0].responsibleBadges
+    }
+    
     var body: some View {
         
         VStack {
@@ -113,7 +117,7 @@ struct PlaceDetailView: View {
                             .opacity(place.responsibleBadge != nil && users[0].responsibleBadges.contains(place.responsibleBadge!) ? 1.0 : 0.2)
                     })
                     .popover(isPresented: $showingPopover) {
-                        Text("Lleva tu termo y obten una insignia de responsabilidad.")
+                        Text("Lleva tu termo y obten una insignia.")
                             .font(.headline)
                             .padding()
                             .frame(minWidth: 300, maxHeight: 300)
@@ -161,7 +165,7 @@ struct PlaceDetailView: View {
             
         }
         .fullScreenCover(isPresented: $showCamera) {
-            AugmentedRealityContainer(place: place, selectedBadges: users[0].specialBadges, showCamera: $showCamera)
+            AugmentedRealityContainer(place: place, selectedBadges: allShowingBadges, showCamera: $showCamera)
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
