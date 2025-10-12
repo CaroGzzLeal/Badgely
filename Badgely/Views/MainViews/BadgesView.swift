@@ -10,7 +10,7 @@ struct BadgesView: View {
     
     let user: User
     var totalBadges: Int {
-        user.badges.count + user.specialBadges.count
+        user.badges.count + user.specialBadges.count + user.responsibleBadges.count
     }
     var avatar: String {
         user.avatar
