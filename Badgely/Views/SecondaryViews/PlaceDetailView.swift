@@ -63,7 +63,7 @@ struct PlaceDetailView: View {
                 
                 HStack {
                     
-                    Image(systemName: "mappin.circle")
+                    Image(systemName: "location.circle")
                         .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                         
                         .foregroundColor(.black)
