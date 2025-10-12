@@ -23,6 +23,16 @@ struct UserView: View {
     let cities = ["Monterrey", "Guadalajara", "Mexico City"]
     let avatars = ["profile1", "profile2", "profile3", "profile4"]
     //let avatars = ["avatar1", "avatar2", "avatar3", "avatar4"]
+        
+    @State private var showPopover = false
+    @State private var avatarselected: String? = nil
+    
+    let columns: [GridItem] = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+
+    ]
+        
     
     var body: some View {
         Group {
@@ -37,7 +47,7 @@ struct UserView: View {
                         }
                     Form {
                             Section {
-                                VStack(spacing:35) {
+                                VStack(spacing:50) {
                                     Text("¡Bienvenido a la comunidad Badgely!")
                                         .fontWeight(.bold)
                                         .font(.title).bold()
@@ -63,8 +73,8 @@ struct UserView: View {
                                             .font(.custom("SF Pro", size: 25))
                                             .lineLimit(1)
                                     } .listRowSeparator(.hidden)
-                                    
-                                    /*VStack(spacing:10){
+                                    /*
+                                    VStack(spacing:10){
                                         Text("País de tu proximo destino:")
                                             .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                                             .fontWeight(.bold)
@@ -123,39 +133,13 @@ struct UserView: View {
                                         }
                                     }  .listRowSeparator(.hidden)
                                     
-                                    VStack(spacing:10) {
-                                        Text("Selecciona tu avatar:")
-                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                                            .fontWeight(.bold)
-                                            .font(.system(size: 20))
-                                            .listRowSeparator(.hidden)
-                                        
-                                        Button(action: {
-                                            if let idx = avatars.firstIndex(of: selectedAvatar) {
-                                                let next = (idx + 1) % avatars.count
-                                                selectedAvatar = avatars[next]
-                                            } else {
-                                                selectedAvatar = avatars.first ?? selectedAvatar
-                                            }
-                                        }) {
-                                            VStack(spacing: 8) {
-                                                Image(selectedAvatar)
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 120, height: 120)
-                                                    .clipShape(Circle())
-                                                    .overlay(Circle().stroke(Color.gray, lineWidth: 2))
-                                            }
-                                        }
-                                        .buttonStyle(.plain)
-                                        
-                                    }
                                 }
                                 //tiene q ir aqui
                             }
                             .listRowBackground(Color.clear)
                             .frame(maxWidth: .infinity, alignment: .center)
                         }
+                        .frame(maxHeight: 340 )
                         .listStyle(.plain)
                         .contentMargins(.top, 0)
                         .listSectionSpacing(.compact)
@@ -164,7 +148,72 @@ struct UserView: View {
                         .listRowSeparator(.hidden)
                         .listSectionSeparator(.hidden)
 
-                        Spacer()
+                    VStack(spacing:20) {
+                        Text("Selecciona tu avatar:")
+                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                            .fontWeight(.bold)
+                            .font(.system(size: 20))
+                            .listRowSeparator(.hidden)
+                        
+                        Button(action: {
+                            print("click")
+                            showPopover.toggle()
+                        }){
+                            /*
+                             if let idx = avatars.firstIndex(of: selectedAvatar) {
+                             let next = (idx + 1) % avatars.count
+                             selectedAvatar = avatars[next]
+                             } else {
+                             selectedAvatar = avatars.first ?? selectedAvatar
+                             }
+                             }) {
+                             VStack(spacing: 8) {
+                             Image(selectedAvatar)
+                             .resizable()
+                             .scaledToFit()
+                             .frame(width: 120, height: 120)
+                             .clipShape(Circle())
+                             .overlay(Circle().stroke(Color.gray, lineWidth: 2))
+                             }
+                             }
+                             .buttonStyle(.plain)
+                             */
+                            if let imageName = avatarselected {
+                                Image(imageName)
+                                    .resizable()
+                                    .frame(width: 110, height: 110)
+                                    //$selectedAvatar = imageName
+                                
+                            } else {
+                                Image("seleccionAvatar")
+                                    .resizable()
+                                    .frame(width: 110, height: 110)
+                            }
+                            
+                        }
+                        .popover(isPresented: $showPopover) {
+                            LazyVGrid(columns: columns) {
+                                ForEach(avatars, id: \.self) { name in
+                                    Button(action: {
+                                        avatarselected = name
+                                        selectedAvatar = name
+                                        showPopover = false
+                                        
+                                        
+                                    }) {
+                                        Image(name)
+                                            .resizable()
+                                            .frame(width: 110, height: 110)
+                                    }
+                                }
+                                
+                            }
+                            .padding()
+                            .frame(width: 300, height: 300)
+                            .presentationCompactAdaptation(.popover)
+                            
+                        }
+                        
                         Button {
                             createUser()
                         }
@@ -180,6 +229,7 @@ struct UserView: View {
                                 .fill(Color(red: 30/255, green: 94/255, blue: 54/255))
                         )
                         .disabled(name.isEmpty)
+                    }
                     } //VStack
                     .frame(maxWidth: .infinity, alignment: .leading)
             } //if
@@ -268,3 +318,4 @@ struct UserView: View {
  }
 
  */
+
