@@ -193,41 +193,5 @@
         "address": "C. El Chaco 3200, Providencia, 44630 Guadalajara, Jal.",
         "latitude": 20.70489969311298,
         "longitude": -103.39117216565853,
-        "description": "Parque natural urbano con senderos, lagos y jardines japoneses. Ideal para caminatas, picnics y observación de aves.",
-        "badge": "badge125",
-        "specialBadge": "sBadge125"
-    },
-    {
-        "id": 126,
-        "name": "Parque Metropolitano",
-        "type": "area_verde",
-        "address": "Av. Independencia 7, Zapopan, Jal.",
-        "latitude": 20.668884199786696,
-        "longitude": -103.44091278066294,
-        "description": "Extensa área verde con zonas deportivas, ciclovías y áreas recreativas. Espacio perfecto para actividades al aire libre y eventos comunitarios.",
-        "badge": "badge126",
-        "specialBadge": "sBadge126"
-    },
-    {
-        "id": 130,
-        "name": "Bar Américas",
-        "type": "vida_nocturna",
-        "address": "Av. Chapultepec Sur 507, Col Americana, Americana, 44140 Guadalajara, Jal.",
-        "latitude": 20.668178244798625,
-        "longitude": -103.36824754544848,
-        "description": "Club subterráneo pionero en la escena electrónica mexicana. Conocido por su ambiente energético y presentaciones de DJs internacionales.",
-        "badge": "badge130",
-        "specialBadge": "sBadge130"
-    },
-    {
-        "id": 131,
-        "name": "Cantina La Fuente",
-        "type": "vida_nocturna",
-        "address": "C. Pino Suárez 78, Zona Centro, 44100 Guadalajara, Jal.",
-        "latitude": 20.677729331765125,
-        "longitude": -103.3456383205735,
-        "description": "Cantina tradicional fundada en 1921. Famosa por su ambiente bohemio, su bicicleta colgada en el techo y su mariachi en vivo.",
-        "badge": "badge131",
-        "specialBadge": "sBadge131"
-    }
+
 ]

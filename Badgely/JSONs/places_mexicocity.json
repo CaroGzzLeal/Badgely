@@ -108,49 +108,5 @@
         "description": "Organización ambientalista internacional con sede en CDMX. Ofrece oportunidades de voluntariado en campañas ecológicas y educación ambiental.",
         "badge": "badge221",
         "specialBadge": "sBadge221"
-    },
-    {
-        "id": 225,
-        "name": "Bosque de Chapultepec",
-        "type": "area_verde",
-        "address": "Bosque de Chapultepec I Secc, Miguel Hidalgo, 11100 Ciudad de México, CDMX.",
-        "latitude": 19.42,
-        "longitude": -99.185,
-        "description": "El parque urbano más grande de América Latina. Alberga museos, lagos, jardines y rutas para caminar o andar en bicicleta.",
-        "badge": "badge225",
-        "specialBadge": "sBadge225"
-    },
-    {
-        "id": 226,
-        "name": "Parque México",
-        "type": "area_verde",
-        "address": "Av México s/n, Hipódromo, Cuauhtémoc, 06100 Ciudad de México, CDMX",
-        "latitude": 19.41192400379761,
-        "longitude": -99.1696898279751,
-        "description": "Espacio verde emblemático de la Condesa. Con senderos, fuentes y áreas para descansar entre arquitectura art déco.",
-        "badge": "badge226",
-        "specialBadge": "sBadge226"
-    },
-    {
-        "id": 230,
-        "name": "Zinco Jazz Club",
-        "type": "vida_nocturna",
-        "address": "Calle de Motolinia 20, Centro Histórico de la Cdad. de México, Centro, Cuauhtémoc, 06050 Ciudad de México, CDMX",
-        "latitude": 19.434070580324107,
-        "longitude": -99.13710619839463,
-        "description": "Club de jazz en un antiguo banco del centro histórico. Ofrece música en vivo de artistas nacionales e internacionales.",
-        "badge": "badge230",
-        "specialBadge": "sBadge230"
-    },
-    {
-        "id": 231,
-        "name": "La Clandestina",
-        "type": "vida_nocturna",
-        "address": "Av. Álvaro Obregón 298, Colonia Condesa, Cuauhtémoc, 06140 Ciudad de México, CDMX",
-        "latitude": 19.41624108362057,
-        "longitude": -99.16917145398827,
-        "description": "Bar de mezcal artesanal con ambiente relajado y decoración rústica. Ideal para degustar bebidas mexicanas y conversar.",
-        "badge": "badge231",
-        "specialBadge": "sBadge231"
     }
 ]
