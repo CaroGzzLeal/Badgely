@@ -19,6 +19,8 @@ struct ContentView: View {
     
     @EnvironmentObject private var locationManager: LocationManager
     
+    @Environment(\.colorScheme) var colorScheme
+    
     //let emojiData = EmojiData.examples()
     
     var body: some View {
