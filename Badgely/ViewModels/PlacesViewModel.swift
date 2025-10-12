@@ -14,7 +14,7 @@ final class PlacesViewModel: ObservableObject {
         loadPlaces(for: "Monterrey") //Monterrey default regio moment
     }
     
-    // Convenience init for previews/tests
+    // init para tests previos
     init(places: [Place]) {
         self.places = places
     }
@@ -22,12 +22,12 @@ final class PlacesViewModel: ObservableObject {
     func loadPlaces(for city: String) {
         let fileName = jsonFileName(for: city)
         
-        // Try to load city-specific JSON, fallback to default if not found
+        // load JSON de ciudadTry to load city-specific JSON, fallback to default if not found
         if Bundle.main.url(forResource: fileName, withExtension: nil) != nil {
             places = Bundle.main.decode(fileName)
         } else {
-            // Fallback to Monterrey (places2.json) if city-specific file doesn't exist
-            print("⚠️ No JSON file found for \(city), using default Monterrey places")
+            // Fallback es mty si no encuentra json.
+            print("No JSON de \(city), default MTY")
             places = Bundle.main.decode("places2.json")
         }
     }

@@ -239,7 +239,7 @@ struct UserView: View {
                 TabViewSearch()
             }
         }
-        .animation(.default, value: users.count) // smooth switch when user gets created
+        .animation(.default, value: users.count) //smooth sw
         .background {
             Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
                 .resizable()
@@ -255,7 +255,7 @@ struct UserView: View {
         modelContext.insert(user)
         do {
             try modelContext.save()
-            // No manual navigation needed — the @Query will update and show ContentView
+            //the @Query will update and show ContentView
             print("User created: \(user.name) in \(user.city)")
         } catch {
             print("Error creating user: \(error.localizedDescription)")

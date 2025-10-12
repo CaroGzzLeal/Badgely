@@ -7,7 +7,7 @@
 import SwiftUI
 import SwiftData
 
-// Location picker view to change user's city
+// cambiar user city
 struct LocationPickerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
