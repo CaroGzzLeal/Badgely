@@ -1,7 +1,7 @@
 #usda 1.0
 (
     customLayerData = {
-        string creator = "Reality Composer Pro Version 2.0 (448.0.16.0.3)"
+        string creator = "Reality Composer Pro Version 2.0 (494.8.1)"
     }
     defaultPrim = "Root"
     metersPerUnit = 1
@@ -10,209 +10,24 @@
 
 def Xform "Root"
 {
-    reorder nameChildren = ["sBadge1", "sBadge3", "sBadge5", "sBadge7", "sBadge2", "sBadge4", "sBadge6", "sBadge8", "sBadge10", "sBadge9", "Banda"]
-    def Cube "Banda" (
+    reorder nameChildren = ["sBadge1", "Banda"]
+    def "Banda" (
         active = true
-        prepend apiSchemas = ["MaterialBindingAPI"]
-        customData = {
-            float3 rotationEulerHint = (0, 0, 0)
-        }
+        references = @Banda.usdz@
     )
     {
-        reorder nameChildren = ["sBadge1", "sBadge3", "sBadge5", "sBadge7", "sBadge2", "sBadge4", "sBadge6", "sBadge8", "sBadge10", "sBadge9", "DefaultMaterial"]
-        rel material:binding = </Root/Banda/DefaultMaterial>
-        double size = 0.2
-        quatf xformOp:orient = (1, 0, 0, 0)
-        float3 xformOp:scale = (6, 1, 0.01)
-        float3 xformOp:translate = (0, 0.3, 0)
+        reorder nameChildren = ["Materials", "Geom", "sBadge1"]
+        float3 xformOp:scale = (0.5, 0.5, 0.5)
         uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-        def Material "DefaultMaterial"
-        {
-            token outputs:mtlx:surface
-            token outputs:realitykit:vertex
-            token outputs:surface.connect = </Root/Banda/DefaultMaterial/DefaultSurfaceShader.outputs:surface>
-
-            def Shader "DefaultSurfaceShader"
-            {
-                uniform token info:id = "UsdPreviewSurface"
-                color3f inputs:diffuseColor = (0.09457397, 0.36497262, 0) (
-                    colorSpace = "srgb_displayp3"
-                )
-                float inputs:roughness = 0.75
-                token outputs:surface
-            }
-        }
 
         def "sBadge1" (
             active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
+            references = @sBadge1.usdz@
         )
         {
             quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.08937368, 0.043440282, 0.11241771)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge3" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (20, 20)
-            int ui:nodegraph:node:stackingOrder = 1
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.068112046, 0.042361557, 0.11242089)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-            over "Materials"
-            {
-                over "SVGMat_003"
-                {
-                    token outputs:mtlx:surface
-                    token outputs:realitykit:vertex
-
-                    over "pbr_shader"
-                    {
-                        color3f inputs:diffuseColor = (0, 0.154951, 0.8)
-                    }
-                }
-            }
-        }
-
-        def "sBadge5" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (20, 20)
-            int ui:nodegraph:node:stackingOrder = 1
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.04553927, 0.041218072, 0.112420745)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge7" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (40, 40)
-            int ui:nodegraph:node:stackingOrder = 2
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.024277633, 0.040139347, 0.11242391)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge2" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (20, 20)
-            int ui:nodegraph:node:stackingOrder = 1
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.08013795, -0.021875918, 0.112421595)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge4" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (40, 40)
-            int ui:nodegraph:node:stackingOrder = 2
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.05887632, -0.022954643, 0.11242476)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge6" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (40, 40)
-            int ui:nodegraph:node:stackingOrder = 2
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.036303543, -0.024098128, 0.112424634)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge8" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (60, 60)
-            int ui:nodegraph:node:stackingOrder = 3
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.015041903, -0.025176853, 0.1124278)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge10" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (80, 80)
-            int ui:nodegraph:node:stackingOrder = 4
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (0.007915905, -0.026341498, 0.112433866)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "sBadge9" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (0, 0, 0)
-            }
-            references = @Steam_Achievement_New_Icon.usdz@
-        )
-        {
-            float2 ui:nodegraph:node:pos = (60, 60)
-            int ui:nodegraph:node:stackingOrder = 3
-            quatf xformOp:orient = (1, 0, 0, 0)
-            float3 xformOp:scale = (0.00003479527, 0.00023970098, 0.00040268022)
-            float3 xformOp:translate = (-0.0013198256, 0.038974702, 0.11242998)
+            float3 xformOp:scale = (2, 2, 2)
+            float3 xformOp:translate = (0, 0, 0)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
     }
