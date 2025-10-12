@@ -20,7 +20,7 @@ struct TabViewSearch: View {
     
     var body: some View {
         TabView {
-            Tab("Home Page", systemImage: "house") {
+            Tab("Home", systemImage: "house") {
                 ContentView()
             }
             
