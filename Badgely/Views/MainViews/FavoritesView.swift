@@ -50,7 +50,7 @@ struct FavoritesView: View {
                             VStack() {
                                 Spacer()
                                 ScrollView(.vertical, showsIndicators: false) {
-                                    Text("Tus Favoritos")
+                                    Text("¡Tus Favoritos!")
                                         .padding(.top, 100)
                                         .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                         .fontWeight(.bold)

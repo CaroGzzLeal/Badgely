@@ -7,9 +7,6 @@
 import SwiftUI
 import SwiftData
 
-
-
-
 //Componente de row - TO DO crear un componente de cada info card, de cada restaurante card
 struct RowView: View {
     let title: String

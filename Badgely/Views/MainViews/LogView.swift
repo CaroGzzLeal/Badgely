@@ -7,10 +7,12 @@
 
 import SwiftUI
 import SwiftData
+import MapKit
 
 struct LogView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Photo.date, order: .reverse) var photos: [Photo]
+
     @Query var users: [User]
     @State var showDelete: Bool = false
     @State private var showDeleteAlert = false
@@ -20,7 +22,8 @@ struct LogView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    
+    @EnvironmentObject var placesViewModel: PlacesViewModel
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
@@ -71,6 +74,9 @@ struct LogView: View {
                                     }
                                     .foregroundColor(.black)
                                     .font(.system(size: 40))
+                                    .onTapGesture {
+                                        openAppleMaps(photo : photo.name)
+                                    }
                                     
                                     
                                     
@@ -143,6 +149,23 @@ struct LogView: View {
         let photoToDelete = photo
         context.delete(photoToDelete)
     }
+    
+    func openAppleMaps(photo : String) {
+        guard let place = placesViewModel.places.first(where: { $0.name == photo }) else {
+            print("No se encontró el lugar para \(photo)")
+            return
+        }
+        
+        let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+        print("Entre a la funcion para el lugar:", place.displayName)
+        
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = place.displayName
+        
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+        mapItem.openInMaps(launchOptions: launchOptions)
+    }
 }
 
 extension UIImage: @retroactive Transferable {
@@ -182,7 +205,7 @@ struct IndicatorView: View {
     }
 }
 
-
+/*
 #Preview {
     // 1️⃣ Crear datos de ejemplo
     let previewPhoto1 = Photo(
@@ -241,7 +264,8 @@ struct IndicatorView: View {
     
     
     // 4️⃣ Devolver la vista usando el contenedor
+    
     return LogView()
         .modelContainer(container)
 }
-
+*/

@@ -62,14 +62,12 @@ struct PlaceDetailView: View {
                 
                 
                 HStack {
-                    Button(action: {
+                    
+                    Image(systemName: "mappin.circle")
+                        .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                         
-                    }) {
-                        Image(systemName: "location.circle")
-                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                    }
-                    .foregroundColor(.black)
-                    .font(.system(size: 40))
+                        .foregroundColor(.black)
+                        .font(.system(size: 40))
                     
                     Spacer()
                     
@@ -118,7 +116,7 @@ struct PlaceDetailView: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: 70, height: 70)
-                            .scaleEffect(1.1)
+                            //.scaleEffect(1.1)
                             .clipped()
                         
                     }
@@ -129,7 +127,7 @@ struct PlaceDetailView: View {
                             .scaledToFit()
                             //.frame(width: 85, height: 85)
                             .frame(width: 70, height: 70)
-                            .scaleEffect(1.1)
+                            //.scaleEffect(1.1)
                             .clipped()
                         
                     }
@@ -142,19 +140,19 @@ struct PlaceDetailView: View {
                                 showCamera = true
                             }) {
                                 RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color.white)
-                                    //.frame(width: 120, height: 50)
-                                    .frame(width: 100, height: 40)
-                                    .shadow(radius: 4)
+                                    .fill(Color(colorScheme == .dark ? .black : .white))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 12)
+                                            .stroke(Color(colorScheme == .dark ? .white : .black), lineWidth: 2)
+                                    )
+                                    .frame(width: 110, height: 50)
                                     .padding(.trailing, 20)
-                                
                             }
-                            
+
                             Image(systemName: "camera")
-                                .foregroundColor(.black.opacity(0.80))
+                                .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                 .font(.system(size: 40))
                                 .padding(.trailing, 20)
-                            
                         }
                     }
                 } //HStack

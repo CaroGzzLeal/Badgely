@@ -11,6 +11,8 @@ import SwiftData
 struct PlaceListView: View {
     @EnvironmentObject var placesViewModel: PlacesViewModel
     @Environment(\.emojiData) private var emojiData
+    @Environment(\.colorScheme) var colorScheme
+
     
     let searchText: String
    // let emojiData = EmojiData.examples()
@@ -84,7 +86,7 @@ struct PlaceListView: View {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 15) {
                         Text("Explora México")
-                            .foregroundStyle(.black)
+                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                             .fontWeight(.bold)
                             .font(.system(size: 30))
                             .font(.custom("SF Pro", size: 30))
@@ -141,7 +143,7 @@ struct PlaceListView: View {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 15) {
                             Text("Explora México")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                                 .fontWeight(.bold)
                                 .font(.system(size: 30))
                                 .font(.custom("SF Pro", size: 30))
@@ -175,8 +177,7 @@ struct PlaceListView: View {
                                 Text(group.type)
                                     .font(.headline)
                                     .padding(.horizontal, 9)
-                                    .foregroundColor(.black)
-                                    .shadow(color: .gray, radius: 1, x: 1, y: 1)
+                                    .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                     .font(.system(size: 20))
                                 RowView(title: group.type, places: group.items)
                             }
