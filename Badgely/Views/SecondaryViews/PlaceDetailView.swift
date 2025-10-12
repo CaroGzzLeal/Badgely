@@ -12,6 +12,7 @@ import MapKit
 struct PlaceDetailView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.colorScheme) var colorScheme
+    @State private var showingPopover = false
     
     @Query private var users: [User]
     
@@ -45,12 +46,11 @@ struct PlaceDetailView: View {
                 .frame(height: 180)
             
             Spacer()
-
+            
             VStack(alignment: .leading, spacing: 15) {
                 
                 Spacer()
                 Text(place.displayName)
-                    //.font(.custom("SF Pro", size: 25))
                     .font(.title).bold()
                 
                 Text(place.description)
@@ -65,7 +65,7 @@ struct PlaceDetailView: View {
                     
                     Image(systemName: "location.circle")
                         .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                        
+                    
                         .foregroundColor(.black)
                         .font(.system(size: 40))
                     
@@ -81,60 +81,57 @@ struct PlaceDetailView: View {
                 }
                 .padding(.horizontal, 15)
                 
-                /*Map(initialPosition: startPosition)
-                    .frame(maxWidth: .infinity, maxHeight: 150)
-                    .padding(5)
-                    .mapStyle(.standard(elevation: .flat, emphasis: .muted))
-                    .clipShape(RoundedRectangle(cornerRadius: 30))*/
-                
                 Map(initialPosition: makeMap(latitude: place.latitude, longitude: place.longitude))
                 {
                     Marker(place.displayName, coordinate: placeCoordinate)
                 }
-                        .frame(maxWidth: .infinity, maxHeight: 150)
-                        .padding(5)
-                        .mapStyle(.standard(elevation: .flat, emphasis: .muted))
-                        .clipShape(RoundedRectangle(cornerRadius: 30))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 30)
-                                .fill(Color.white)
-                                .opacity(0.2)
-//                                .frame(maxWidth: .infinity, maxHeight: 150)
-                                .onTapGesture {
-                                    openAppleMaps()
-                                }
+                .frame(maxWidth: .infinity, maxHeight: 150)
+                .padding(5)
+                .mapStyle(.standard(elevation: .flat, emphasis: .muted))
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 30)
+                        .fill(Color.white)
+                        .opacity(0.2)
+                        .onTapGesture {
+                            openAppleMaps()
                         }
+                }
                 
                 HStack{
                     
-                    
                     Button(action: {
-                        //la imagen cambiaria si ya se tomo TODO
-                    }) {
-                        Image("testBadge") // NO EXISTE AHORITA
-                            //.frame(width: 85, height: 85)
+                        showingPopover = true
+                    }, label: {
+                        Image(place.responsibleBadge ?? "")
+                        //.frame(width: 85, height: 85)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 70, height: 70)
-                            //.scaleEffect(1.1)
+                        //.scaleEffect(1.1)
                             .clipped()
-                        
+                            .opacity(place.responsibleBadge != nil && users[0].responsibleBadges.contains(place.responsibleBadge!) ? 1.0 : 0.2)
+                    })
+                    .popover(isPresented: $showingPopover) {
+                        Text("Lleva tu termo y obten una insignia de responsabilidad.")
+                            .font(.headline)
+                            .padding()
+                            .frame(minWidth: 300, maxHeight: 300)
+                            .presentationCompactAdaptation(.popover)
                     }
                     
-                    if users[0].specialBadges.contains(place.specialBadge) {
-                        Image("testBadge")
-                            .resizable()
-                            .scaledToFit()
-                            //.frame(width: 85, height: 85)
-                            .frame(width: 70, height: 70)
-                            //.scaleEffect(1.1)
-                            .clipped()
-                        
-                    }
+                    Image(place.badge)
+                        .resizable()
+                        .scaledToFit()
+                    //.frame(width: 85, height: 85)
+                        .frame(width: 70, height: 70)
+                    //.scaleEffect(1.1)
+                        .clipped()
+                        .opacity(users[0].badges.contains(place.badge) ? 1 : 0.2)
                     
                     Spacer()
                     
-                    if !users[0].specialBadges.contains(place.specialBadge) {
+                    if !users[0].badges.contains(place.badge) || !(place.responsibleBadge != nil) && users[0].responsibleBadges.contains(place.responsibleBadge!) {
                         ZStack {
                             Button(action: {
                                 showCamera = true
@@ -148,7 +145,7 @@ struct PlaceDetailView: View {
                                     .frame(width: 110, height: 50)
                                     .padding(.trailing, 20)
                             }
-
+                            
                             Image(systemName: "camera")
                                 .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                 .font(.system(size: 40))
@@ -180,26 +177,26 @@ struct PlaceDetailView: View {
     }
     
     private func makeMap(latitude: Double?, longitude: Double?) -> MapCameraPosition {
-             let lat = latitude ?? 0.0
-             let long = longitude ?? 0.0
+        let lat = latitude ?? 0.0
+        let long = longitude ?? 0.0
         
-             return MapCameraPosition.region(
-                 MKCoordinateRegion(
-                     center: CLLocationCoordinate2D(latitude: lat, longitude: long),
-                     span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-                 )
-             )        }
-     
-     func openAppleMaps() {
-         let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-         print("Entre a la funcion para el lugar", place.displayName)
-         let placemark = MKPlacemark(coordinate: coordinate)
-         let mapItem = MKMapItem(placemark: placemark)
-         mapItem.name = place.displayName
-         let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
-
-         mapItem.openInMaps(launchOptions: launchOptions)
-     }
+        return MapCameraPosition.region(
+            MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: lat, longitude: long),
+                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+            )
+        )        }
+    
+    func openAppleMaps() {
+        let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+        print("Entre a la funcion para el lugar", place.displayName)
+        let placemark = MKPlacemark(coordinate: coordinate)
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = place.displayName
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+        
+        mapItem.openInMaps(launchOptions: launchOptions)
+    }
     
     private func toggleFavorite() {
         print("toggle function entered")

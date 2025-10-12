@@ -4,88 +4,135 @@
 //
 //  Created by Martha Mendoza Alfaro on 07/10/25.
 //
-import SwiftUI
+    import SwiftUI
 
-struct BadgesView: View {
-    
-    let user: User
-    var totalBadges: Int {
-        user.badges.count + user.specialBadges.count
-    }
-    var avatar: String {
-        user.avatar
-    }
-    @State var showEdit: Bool = false
-    
-    let allBadgesNames: [String] = [
-        "badge1", "badge2", "badge3", "badge4", "badge5", "sBadge1", "profile2",
-        "badge8", "badge9", "badge10", "badge11", "badge12", "sBadge3", "sBadge4",
-        "badge13", "badge14", "badge15", "badge16", "badge17", "sBadge5", "sBadge6",
-        "badge18", "badge19", "badge20", "badge21", "badge22", "sBadge7", "sBadge8",
-        "badge23", "badge24", "badge25", "badge26", "badge27", "sBadge9", "sBadge10",
-        "badge28", "badge29", "badge30", "badge31", "badge32", "sBadge11", "sBadge12",
-        "badge32", "badge33", "badge34", "badge35", "badge36", "sBadge13", "sBadge14",
-    ]
-    
-    let responsibleBadges: [String] = [
-            
-    
-    ]
-    
-    let columns: [GridItem] = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
-
-    
-    var body: some View {
-        VStack {
-            Button(action: {
-                showEdit = true
-            }, label: {
-                Image(user.avatar)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 180)
-            })
-            
-            Text("\(user.name)")
-                .font(Font.largeTitle)
-                .bold()
-            
-            Text("\(totalBadges)")
-                .font(.title)
-            
-            Text("badges")
-                .font(.headline)
+    struct BadgesView: View {
+        
+        let user: User
+        var totalBadges: Int {
+            user.badges.count + user.specialBadges.count
+        }
+        var avatar: String {
+            user.avatar
+        }
+        @State var showEdit: Bool = false
+        
+        @State var selectedCategory: String = "Comunes"
+        let categories = ["Comunes", "Especiales", "Responsables"]
+        
+        let normalBadges: [String] = [
+            "Bareasverdes_26", "Bareasverdes_27", "Bareasverdes_28", "Bareasverdes_29", "Bareasverdes_30",
+            "Bcafeteria_1", "Bcafeteria_2", "Bcafeteria_3", "Bcafeteria_4", "Bcafeteria_5",
+            "Bemblematico_11", "Bemblematico_12", "Bemblematico_13", "Bemblematico_14", "Bemblematico_15",
+            "Beventos_16", "Beventos_17", "Beventos_18", "Beventos_19", "Beventos_20",
+            "Brestaurante_6", "Brestaurante_7", "Brestaurante_8", "Brestaurante_9", "Brestaurante_10",
+            "Bvidanocturna_31", "Bvidanocturna_32", "Bvidanocturna_33", "Bvidanocturna_34", "Bvidanocturna_35",
+            "Bvoluntariado_21", "Bvoluntariado_22", "Bvoluntariado_23", "Bvoluntariado_24", "Bvoluntariado_25"
+        ]
+        
+        let specialBadges: [String] = [
+            "frecuente_36", "maximo_43",
+            "frecuente_37", "maximo_44",
+            "frecuente_38", "maximo_45",
+            "frecuente_39", "maximo_46",
+            "frecuente_40", "maximo_47",
+            "frecuente_41", "maximo_48",
+            "frecuente_42", "maximo_49"
+        ]
+        
+        let responsibleBadges: [String] = [
+            "bici_51", "bolsa_55", "bus_54", "carpool_53", "metro_52", "termo_50"
+        ]
+        
+        let columnsNormal: [GridItem] = Array(repeating: .init(.flexible()), count: 5)
+        let columnsSpecial: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
+        let columnsResponsible: [GridItem] = Array(repeating: .init(.flexible()), count: 1)
         
         
-            LazyVGrid(columns: columns, alignment: .center, spacing: 10) {
-                ForEach(allBadgesNames,  id: \.self) { badgeName in
-                    
-                    let hasBadge = user.badges.contains(badgeName) || user.specialBadges.contains(badgeName)
-                    
-                    Image(badgeName)
+        var body: some View {
+            VStack {
+                Button(action: {
+                    showEdit = true
+                }, label: {
+                    Image(user.avatar)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 45, height: 45)
-                        .opacity(hasBadge ? 1.0 : 0.3)
-                        .grayscale(hasBadge ? 0 : 0.8)
-                        .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                        .frame(width: 180)
+                })
+                
+                Text("\(user.name)")
+                    .font(Font.largeTitle)
+                    .bold()
+                
+                Text("\(totalBadges)")
+                    .font(.title)
+                
+                Text("badges")
+                    .font(.headline)
+                
+                Spacer()
+                
+                Picker("Categoría", selection: $selectedCategory) {
+                    ForEach(categories, id: \.self) { category in
+                        Text(category)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+                .padding(.vertical)
+                
+                if selectedCategory == "Comunes" {
+                    LazyVGrid(columns: columnsNormal, alignment: .center, spacing: 10) {
+                        ForEach(normalBadges,  id: \.self) { badgeName in
+                            let hasBadge = user.badges.contains(badgeName)
+                            Image(badgeName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 45, height: 45)
+                                .opacity(hasBadge ? 1.0 : 0.3)
+                                .grayscale(hasBadge ? 0 : 0.8)
+                                .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                        }
+                    }
+                }
+                else if (selectedCategory == "Especiales") {
+                    LazyVGrid(columns: columnsSpecial, alignment: .center, spacing: 10) {
+                        ForEach(specialBadges,  id: \.self) { badgeName in
+                            let hasBadge = user.badges.contains(badgeName) || user.specialBadges.contains(badgeName)
+                            Image(badgeName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 45, height: 45)
+                                .opacity(hasBadge ? 1.0 : 0.3)
+                                .grayscale(hasBadge ? 0 : 0.8)
+                                .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                        }
+                    }
+                }
+                
+                else {
+                    LazyVGrid(columns: columnsResponsible, alignment: .center, spacing: 10) {
+                        ForEach(responsibleBadges,  id: \.self) { badgeName in
+                            let hasBadge = user.badges.contains(badgeName) || user.responsibleBadges.contains(badgeName)
+                            Image(badgeName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 45, height: 45)
+                                .opacity(hasBadge ? 1.0 : 0.3)
+                                .grayscale(hasBadge ? 0 : 0.8)
+                                .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                        }
+                    }
+                    Spacer()
+                    Spacer()
+                    Spacer()
                 }
             }
+            .padding()
+            .fullScreenCover(isPresented: $showEdit, content: {
+                ChangeProfileView(user: user, avatar: avatar, showEdit: $showEdit)
+            })
         }
-        .padding()
-        .fullScreenCover(isPresented: $showEdit, content: {
-            ChangeProfileView(user: user, avatar: avatar, showEdit: $showEdit)
-        })
     }
-}
 
 #Preview {
     
@@ -93,10 +140,10 @@ struct BadgesView: View {
         name: "Carolina González",
         avatar: "profile1",
         city: "Monterrey",
-        badges: ["profile1"],
-        specialBadges: ["profile4", "profile2"]
+        badges: [],
+        specialBadges: []
     )
     
-    BadgesView(user: previewUser)
+    BadgesView(user: previewUser, selectedCategory: "Comunes")
 }
 

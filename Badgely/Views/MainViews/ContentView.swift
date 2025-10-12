@@ -39,6 +39,9 @@ struct ContentView: View {
                         placesViewModel.loadPlaces(for: city)
                     }
                     locationManager.loadPlacesAndRegisterRegions()
+                    print(users[0].badges)
+                    print(users[0].specialBadges)
+                    print(users[0].responsibleBadges)
                 }
                 .onChange(of: users.first?.city) { oldValue, newValue in
                     // reload si city cambia

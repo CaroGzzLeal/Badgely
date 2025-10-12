@@ -120,7 +120,7 @@ struct CardView: View {
         longitude: -100.35522425264874,
         description: "Restaurante casual de Grupo Pangea que ofrece comfort food para desayunar o comer. Con ambiente relajado y cocina abierta, destaca por sus chilaquiles, toasts, pastas, panadería artesanal y coctelería ligera.",
         badge: "badge",
-        specialBadge: "specialBadge"
+        responsibleBadge: "specialBadge"
     )
     CardView(place: samplePlace)
 }
