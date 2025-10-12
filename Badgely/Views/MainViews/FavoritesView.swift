@@ -30,53 +30,41 @@ struct FavoritesView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack{
-                Image(colorScheme == .dark ? "backgroundDarkmode" : "background" )
+            ZStack {
+                Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
                     .allowsHitTesting(false)
                 
                 VStack {
-
                     if user.favorites.isEmpty {
                         Text("Aún no tienes favoritos.")
                             .foregroundColor(.gray)
                             .italic()
                     } else {
-                        
-                        ZStack{
-                            
-                            VStack() {
-                                Spacer()
-                                ScrollView(.vertical, showsIndicators: false) {
-                                    Text("¡Tus Favoritos!")
-                                        .padding(.top, 100)
-                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                        .fontWeight(.bold)
-                                        .font(.system(size: 32))
-                                        .frame(maxWidth: .infinity, alignment: .center)
-                                        .font(.title).bold()
-                                    
-                                    VStack {
-                                        ScrollView() {
-                                            ForEach(favoritePlaces) { place in
-                                                NavigationLink(destination: PlaceDetailView(place: place)) {
-                                                    CardView(width: 300, height: 180, place: place)
-                                                        .padding(20)
-                                                }
-                                            }
-                                            
-                                        }
+                        ScrollView(.vertical, showsIndicators: false) {
+                            VStack(spacing: 20) {
+                                Text("¡Tus Favoritos!")
+                                    .padding(.top, 100)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    .font(.system(size: 32, weight: .bold))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                
+                                ForEach(favoritePlaces) { place in
+                                    NavigationLink(destination: PlaceDetailView(place: place)) {
+                                        CardView(width: 300, height: 180, place: place)
                                     }
                                 }
                                 
-                                
-                            }//VStack
-                        }//ZStack
-                    }//else
-                } //VStack
-            } //ZStack
+                                Spacer(minLength: 100) // 👈 helps ensure last card isn’t cut off
+                            }
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                }
+            }
+ //ZStack
             .sheet(isPresented: $showLocationPicker) {
                 if let user = users.first {
                     LocationPickerView(user: user, placesViewModel: placesViewModel)
