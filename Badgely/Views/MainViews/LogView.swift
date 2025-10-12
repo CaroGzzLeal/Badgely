@@ -111,7 +111,7 @@ struct LogView: View {
                                     })
                                 }
                                 .alert(isPresented: $showDeleteAlert) {
-                                    Alert(title: Text("Delete Photo"), message: Text("Are you sure you want to delete this photo?"), primaryButton: .destructive(Text("Delete")) {
+                                    Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
                                         deletePhoto(photo: photo)
                                         showDelete = false
                                     }, secondaryButton: .cancel())

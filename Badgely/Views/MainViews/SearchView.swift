@@ -68,7 +68,7 @@ struct SearchView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 // TO HERE, COPY IT WHERE YOU NEED TO CHANGE THE LOCATION
         }
-        .searchable(text: $searchText, prompt: "Search in \(users.first?.city ?? "Badgely")")
+        .searchable(text: $searchText, prompt: "Busca en \(users.first?.city ?? "Badgely")")
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }
