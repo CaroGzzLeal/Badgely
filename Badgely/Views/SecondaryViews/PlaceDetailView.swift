@@ -103,6 +103,15 @@ struct PlaceDetailView: View {
                 }
                 
                 HStack{
+
+                    Image(place.badge)
+                        .resizable()
+                        .scaledToFit()
+                    //.frame(width: 85, height: 85)
+                        .frame(width: 70, height: 70)
+                    //.scaleEffect(1.1)
+                        .clipped()
+                        .opacity(users[0].badges.contains(place.badge) ? 1 : 0.2)
                     
                     Button(action: {
                         showingPopover = true
@@ -123,15 +132,6 @@ struct PlaceDetailView: View {
                             .frame(minWidth: 300, maxHeight: 300)
                             .presentationCompactAdaptation(.popover)
                     }
-                    
-                    Image(place.badge)
-                        .resizable()
-                        .scaledToFit()
-                    //.frame(width: 85, height: 85)
-                        .frame(width: 70, height: 70)
-                    //.scaleEffect(1.1)
-                        .clipped()
-                        .opacity(users[0].badges.contains(place.badge) ? 1 : 0.2)
                     
                     Spacer()
                     
