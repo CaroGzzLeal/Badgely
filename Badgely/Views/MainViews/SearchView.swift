@@ -68,7 +68,7 @@ struct SearchView: View {
                 .navigationBarTitleDisplayMode(.inline)
             // TO HERE, COMPONENTE PARA EL CHANGE DE CITY
         }
-        .searchable(text: $searchText, prompt: "Search in \(users.first?.city ?? "Badgely")")
+        .searchable(text: $searchText, prompt: "Busca en \(users.first?.city ?? "Badgely")")
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }

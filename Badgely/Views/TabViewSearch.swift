@@ -20,11 +20,11 @@ struct TabViewSearch: View {
     
     var body: some View {
         TabView {
-            Tab("Home", systemImage: "house") {
+            Tab("Inicio", systemImage: "house") {
                 ContentView()
             }
             
-            Tab("Favorites", systemImage: "heart") {
+            Tab("Favortios", systemImage: "heart") {
                 if let user = currentUser {
                     FavoritesView(user: user)
                 } else {
@@ -36,11 +36,11 @@ struct TabViewSearch: View {
                 //square.and.arrow.up.badge.clockFavoritesView()
             }
             
-            Tab("Badges", systemImage: "person") {
+            Tab("Insignias", systemImage: "person") {
                 if let user = currentUser {
                     BadgesView(user: user)
                 } else {
-                    Text("No user found")
+                    Text("No se encontró un usuario")
                         .foregroundStyle(.secondary)
                 }
             }
