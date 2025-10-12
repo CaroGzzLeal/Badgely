@@ -17,3 +17,15 @@ struct EmojiData: Identifiable {
     }
 }
 
+
+// Global emoji para las dos views search y content
+private struct EmojiDataKey: EnvironmentKey {
+    static let defaultValue: [EmojiData] = EmojiData.examples()
+}
+
+extension EnvironmentValues {
+    var emojiData: [EmojiData] {
+        get { self[EmojiDataKey.self] }
+        set { self[EmojiDataKey.self] = newValue }
+    }
+}

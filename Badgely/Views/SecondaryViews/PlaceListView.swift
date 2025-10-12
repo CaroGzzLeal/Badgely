@@ -10,9 +10,10 @@ import SwiftData
 // Separate view to handle filtered places based on search
 struct PlaceListView: View {
     @EnvironmentObject var placesViewModel: PlacesViewModel
+    @Environment(\.emojiData) private var emojiData
     
     let searchText: String
-    let emojiData = EmojiData.examples()
+   // let emojiData = EmojiData.examples()
     
     // Check if we should show places
     private var shouldShowPlaces: Bool {
