@@ -118,13 +118,13 @@ struct PlaceListView: View {
                         if filteredPlaces.isEmpty {
                             
                             ContentUnavailableView(
-                                "No Results",
+                                "No hay resultados sobre '\(searchText)'",
                                 systemImage: "magnifyingglass",
-                                description: Text("No places match '\(searchText)'")
+                                description: Text("Revisa la ortografía o intenta buscar algo distinto.")
                             )
                         } else {
                             
-                            ColumnView(title: "Results", places: filteredPlaces)
+                            ColumnView(title: "Resultados", places: filteredPlaces)
                                 .padding(.top, 8)
                         }
                     }
@@ -135,9 +135,9 @@ struct PlaceListView: View {
                 // Vista para cuando no hay search (ContentView)
                 if placesViewModel.places.isEmpty {
                     ContentUnavailableView(
-                        "No Places",
+                        "No Hay Lugares",
                         systemImage: "map",
-                        description: Text("No places available yet")
+                        description: Text("No hay lugares disponibles por el momento")
                     )
                 } else {
                     ScrollView {
