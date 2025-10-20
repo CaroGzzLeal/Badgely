@@ -9,9 +9,33 @@
 /* Begin PBXBuildFile section */
 		25055FA42E96239E00F3FDD4 /* SimulatedLocations.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */; };
 		2556918D2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */; };
+		25887F382EA68D02001259EB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25887F372EA68D02001259EB /* WidgetKit.framework */; };
+		25887F3A2EA68D02001259EB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25887F392EA68D02001259EB /* SwiftUI.framework */; };
+		25887F472EA68D03001259EB /* BadgelyWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 25887F352EA68D02001259EB /* BadgelyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		25887F452EA68D03001259EB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 25D042832E93F5C600E4E29F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 25887F342EA68D02001259EB;
+			remoteInfo = BadgelyWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
+		25887F4C2EA68D03001259EB /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				25887F472EA68D03001259EB /* BadgelyWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		25D042B52E94006F00E4E29F /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -27,6 +51,9 @@
 /* Begin PBXFileReference section */
 		25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
 		2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocationsWrong.gpx; sourceTree = "<group>"; };
+		25887F352EA68D02001259EB /* BadgelyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BadgelyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		25887F372EA68D02001259EB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		25887F392EA68D02001259EB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		25D0428B2E93F5C600E4E29F /* Badgely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Badgely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -38,9 +65,24 @@
 			);
 			target = 25D0428A2E93F5C600E4E29F /* Badgely */;
 		};
+		25887F4B2EA68D03001259EB /* Exceptions for "BadgelyWidget" folder in "BadgelyWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 25887F342EA68D02001259EB /* BadgelyWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		25887F3B2EA68D02001259EB /* BadgelyWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				25887F4B2EA68D03001259EB /* Exceptions for "BadgelyWidget" folder in "BadgelyWidgetExtension" target */,
+			);
+			path = BadgelyWidget;
+			sourceTree = "<group>";
+		};
 		25D0428D2E93F5C600E4E29F /* Badgely */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -52,6 +94,15 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		25887F322EA68D02001259EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				25887F3A2EA68D02001259EB /* SwiftUI.framework in Frameworks */,
+				25887F382EA68D02001259EB /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		25D042882E93F5C600E4E29F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -62,12 +113,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		25887F362EA68D02001259EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				25887F372EA68D02001259EB /* WidgetKit.framework */,
+				25887F392EA68D02001259EB /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		25D042822E93F5C600E4E29F = {
 			isa = PBXGroup;
 			children = (
 				25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */,
 				2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */,
 				25D0428D2E93F5C600E4E29F /* Badgely */,
+				25887F3B2EA68D02001259EB /* BadgelyWidget */,
+				25887F362EA68D02001259EB /* Frameworks */,
 				25D0428C2E93F5C600E4E29F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -76,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				25D0428B2E93F5C600E4E29F /* Badgely.app */,
+				25887F352EA68D02001259EB /* BadgelyWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -83,6 +146,28 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		25887F342EA68D02001259EB /* BadgelyWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25887F482EA68D03001259EB /* Build configuration list for PBXNativeTarget "BadgelyWidgetExtension" */;
+			buildPhases = (
+				25887F312EA68D02001259EB /* Sources */,
+				25887F322EA68D02001259EB /* Frameworks */,
+				25887F332EA68D02001259EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				25887F3B2EA68D02001259EB /* BadgelyWidget */,
+			);
+			name = BadgelyWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = BadgelyWidgetExtension;
+			productReference = 25887F352EA68D02001259EB /* BadgelyWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		25D0428A2E93F5C600E4E29F /* Badgely */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 25D042992E93F5C700E4E29F /* Build configuration list for PBXNativeTarget "Badgely" */;
@@ -91,10 +176,12 @@
 				25D042882E93F5C600E4E29F /* Frameworks */,
 				25D042892E93F5C600E4E29F /* Resources */,
 				25D042B52E94006F00E4E29F /* Embed Watch Content */,
+				25887F4C2EA68D03001259EB /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				25887F462EA68D03001259EB /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				25D0428D2E93F5C600E4E29F /* Badgely */,
@@ -113,9 +200,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1600;
+				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
+					25887F342EA68D02001259EB = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
 					25D0428A2E93F5C600E4E29F = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -136,11 +226,19 @@
 			projectRoot = "";
 			targets = (
 				25D0428A2E93F5C600E4E29F /* Badgely */,
+				25887F342EA68D02001259EB /* BadgelyWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		25887F332EA68D02001259EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		25D042892E93F5C600E4E29F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +251,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		25887F312EA68D02001259EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		25D042872E93F5C600E4E29F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -162,7 +267,75 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		25887F462EA68D03001259EB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 25887F342EA68D02001259EB /* BadgelyWidgetExtension */;
+			targetProxy = 25887F452EA68D03001259EB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		25887F492EA68D03001259EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BadgelyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BadgelyWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.caroworks.Badgely.BadgelyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		25887F4A2EA68D03001259EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BadgelyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = BadgelyWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.caroworks.Badgely.BadgelyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		25D042972E93F5C700E4E29F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -357,6 +530,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		25887F482EA68D03001259EB /* Build configuration list for PBXNativeTarget "BadgelyWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25887F492EA68D03001259EB /* Debug */,
+				25887F4A2EA68D03001259EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		25D042862E93F5C600E4E29F /* Build configuration list for PBXProject "Badgely" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
