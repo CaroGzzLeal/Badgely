@@ -3,7 +3,7 @@
 //  Badgely
 //
 //  Created by Carolina Nicole Gonzalez Leal on 07/10/25.
-//  Code from: https://www.kodeco.com/20690666-location-notifications-with-unlocationnotificationtrigger
+//  Code starting point from: https://www.kodeco.com/20690666-location-notifications-with-unlocationnotificationtrigger
 
 import Foundation
 import CoreLocation
