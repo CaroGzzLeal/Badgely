@@ -55,6 +55,7 @@ class LocationManager: NSObject, ObservableObject {
     
     // MARK: - Pedir permisos de notificación
     func requestNotificationAuthorization() {
+        //notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, _ in
         notificationCenter.requestAuthorization(options: [.alert, .sound]) { [weak self] granted, _ in
             if granted {
                 print("Notifications Authorized")

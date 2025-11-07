@@ -21,12 +21,38 @@ struct ContentView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
+    // Matching Places Feature (iOS 26.0+) ********
+    @State private var matchingPlacesViewModel: Any?
+    
+    
     //let emojiData = EmojiData.examples()
     
     var body: some View {
         NavigationStack {
-            //PlacesView()
-            PlaceListView(searchText: searchText)
+            VStack(spacing: 0) {
+                // Matching Places Section (iOS 26.0+)
+                if #available(iOS 26.0, *) {
+                    if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
+                       viewModel.isModelAvailable {
+                        MatchingPlacesView(viewModel: viewModel, onReload: {
+                            // Reload matching places
+                            if let user = users.first {
+                                Task {
+                                    await viewModel.generateMatch(
+                                        from: placesViewModel.places,
+                                        visitedBadges: user.badges
+                                    )
+                                }
+                            }
+                        })
+                        .padding(.horizontal)
+                        .padding(.vertical, 8)
+                    }
+                }
+                
+                // Main Places List
+                PlaceListView(searchText: searchText)
+            }
                 //Everything needed for changing the location CDMX, MTY O GDL
                 .sheet(isPresented: $showLocationPicker) {
                     if let user = users.first {
@@ -39,14 +65,55 @@ struct ContentView: View {
                         placesViewModel.loadPlaces(for: city)
                     }
                     locationManager.loadPlacesAndRegisterRegions()
-                    print(users[0].badges)
-                    print(users[0].specialBadges)
-                    print(users[0].responsibleBadges)
+                    
+                    // Only print if user exists
+                    if let user = users.first {
+                        print(user.badges)
+                        print(user.specialBadges)
+                        print(user.responsibleBadges)
+                    }
+                    
+                    //print(users[0].badges)
+                    //print(users[0].specialBadges)
+                    //print(users[0].responsibleBadges)
+                    
+                    // Pre-warm and generate matching places (iOS 26.0+)
+                    if #available(iOS 26.0, *) {
+                        let viewModel = MatchingPlacesViewModel()
+                        // Only use if model initialized successfully
+                        if viewModel.isModelAvailable {
+                            matchingPlacesViewModel = viewModel
+                            viewModel.prewarmModel()
+                            if let user = users.first {
+                                Task {
+                                    await viewModel.generateMatch(
+                                        from: placesViewModel.places,
+                                        visitedBadges: user.badges
+                                    )
+                                }
+                            }
+                        } else {
+                            print("ℹ️  Foundation Models not available - skipping Matching Places feature")
+                        }
+                    }
                 }
                 .onChange(of: users.first?.city) { oldValue, newValue in
                     // reload si city cambia
                     if let city = newValue {
                         placesViewModel.loadPlaces(for: city)
+                        
+                        // Regenerate matching places for new city (iOS 26.0+)
+                        if #available(iOS 26.0, *) {
+                            if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
+                               let user = users.first {
+                                Task {
+                                    await viewModel.generateMatch(
+                                        from: placesViewModel.places,
+                                        visitedBadges: user.badges
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
                 .toolbar {
@@ -87,6 +154,7 @@ struct ContentView: View {
     ContentView()
         .modelContainer(for: User.self)
         .environmentObject(PlacesViewModel(places: Place.samples))
+        .environmentObject(LocationManager())
 }
 
 
