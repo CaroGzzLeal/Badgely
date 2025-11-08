@@ -30,7 +30,7 @@ struct LogView: View {
                 ForEach(Array(photos.enumerated()), id: \.offset) { index, photo in
                     if let uiImage = UIImage(data: photo.photo) {
                         
-                        VStack(spacing: 30) {
+                        VStack(spacing: 28) {
                             HStack(){
                                 Spacer()
                                 ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
@@ -55,22 +55,28 @@ struct LogView: View {
                                 }, secondaryButton: .cancel())
                             }
 
-                            
                             Text(photo.name)
-                                .font(.system(size: 36, weight: .bold))
-                            
+                                .font(.system(size: 30, weight: .bold))
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
+                                .fixedSize(horizontal: false, vertical: true)
+                                .frame(maxWidth: 320)
+
                             VStack {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 240)
+                                    .frame(width: 260)
                                     .padding()
                                     .background(
                                         RoundedRectangle(cornerRadius: 20)
                                             .fill(Color.blue)
                                     )
+                                
                                 Spacer()
                                 Spacer()
+                                Spacer()
+                                
                                 HStack {
                                     Button(action: {
                                         
@@ -87,11 +93,7 @@ struct LogView: View {
                                     Text(photo.place)
                                         .font(.system(size: 18))
                                         .lineSpacing(7)
-                                    
-                                    
                                 }
-                            
-                                
                             }
                             .containerRelativeFrame(.horizontal)
                             .scrollTransition(.animated, axis: .horizontal) { content, phase in
@@ -210,14 +212,14 @@ struct IndicatorView: View {
     )
     
     let previewPhoto2 = Photo(
-        name: "Montaña",
+        name: "Montaña Mon",
         photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
         badgeName: "Adventure",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
     )
     
     let previewPhoto3 = Photo(
-        name: "Montaña",
+        name: "Montaña Montaña",
         photo: UIImage(systemName: "balloon.fill")!.pngData()!,
         badgeName: "Adventure",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
@@ -231,14 +233,14 @@ struct IndicatorView: View {
     )
     
     let previewPhoto5 = Photo(
-        name: "Montaña",
+        name: "Montaña Mon",
         photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
         badgeName: "Adventure",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
     )
     
     let previewPhoto6 = Photo(
-        name: "Montaña",
+        name: "Cafe Cacao",
         photo: UIImage(systemName: "balloon.fill")!.pngData()!,
         badgeName: "Adventure",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
