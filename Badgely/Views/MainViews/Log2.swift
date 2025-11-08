@@ -32,54 +32,54 @@ struct Log2: View {
     ]
 
     var body: some View {
-        ScrollView {
-            
-            VStack(spacing: 10) {
-                HStack {
-                    Text("Álbum")
-                        .font(.largeTitle).bold()
-                    
-                    Spacer()
-                    
-                    Text("México")
-                        .font(.largeTitle)
-                        
-                }
-                .padding(.horizontal)
+        NavigationStack {
+            ScrollView {
                 
-                Image(user.avatar)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 80, height: 80)
-            }
-            .padding(.vertical)
-
-            
-            LazyVGrid(columns: columns, spacing: 16) {
-                ForEach(userPhotos) { photo in
-                    
-                    if let uiImage = UIImage(data: photo.photo) {
-                        NavigationLink {
-                            LogView(photo: photo)
-                                .environmentObject(placesViewModel)
-                        } label: {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 180, height: 260)
-                                .clipped()
-                                .background(.blue)
-                        }
+                VStack(spacing: 10) {
+                    HStack {
+                        Text("Álbum")
+                            .font(.largeTitle).bold()
+                        
+                        Spacer()
+                        
+                        Text("México")
+                            .font(.largeTitle)
+                        
                     }
-                    /*Image(uiImage: photos[index])
+                    .padding(.horizontal)
+                    
+                    Image(user.avatar)
                         .resizable()
-                        .scaledToFill()
-                        .frame(width: 180, height: 260)
-                        .clipped()
-                        .background(.blue)*/
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
                 }
+                .padding(.vertical)
+                
+                
+                LazyVGrid(columns: columns, spacing: 16) {
+                    ForEach(userPhotos) { photo in
+                        
+                        if let uiImage = UIImage(data: photo.photo) {
+                            NavigationLink(destination: LogView(photo: photo)
+                                .environmentObject(placesViewModel)) {
+                                Image(uiImage: uiImage)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 180, height: 260)
+                                    .clipped()
+                                    .cornerRadius(12)
+                            }
+                        }
+                        /*Image(uiImage: photos[index])
+                         .resizable()
+                         .scaledToFill()
+                         .frame(width: 180, height: 260)
+                         .clipped()
+                         .background(.blue)*/
+                    }
+                }
+                .padding()
             }
-            .padding()
         }
     }
 }

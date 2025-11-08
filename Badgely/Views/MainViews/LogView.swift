@@ -27,7 +27,7 @@ struct LogView: View {
     let photo: Photo
 
     var body: some View {
-        ScrollView() {
+      
             VStack(spacing: 28) {
                 HStack(){
                     Spacer()
@@ -98,21 +98,22 @@ struct LogView: View {
                     }
                 }
             }
-        }
-        .padding(30)
-        .background {
-            Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
-                .allowsHitTesting(false)
-                .accessibilityHidden(true)
-        }
-        .scrollTargetBehavior(.paging)
-        .scrollPosition(id: $scrollID)
+            .padding(30)
+            .background {
+                Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .allowsHitTesting(false)
+                    .accessibilityHidden(true)
+            }
         
-        IndicatorView(imageCount: photos.count, scrollID: $scrollID)
-            .padding(.bottom, 10)
+        
+        //.scrollTargetBehavior(.paging)
+        //.scrollPosition(id: $scrollID)
+        
+        //IndicatorView(imageCount: photos.count, scrollID: $scrollID)
+        //    .padding(.bottom, 10)
     }
     
     func deletePhoto(photo: Photo) {
