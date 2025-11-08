@@ -27,6 +27,9 @@ struct ContentView: View {
     
     //let emojiData = EmojiData.examples()
     
+    //trackear si ya se hizo un match, para que no refreshe automaticamente.
+    @State private var hasGeneratedMatch = false
+    
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -93,8 +96,8 @@ struct ContentView: View {
                     //print(users[0].specialBadges)
                     //print(users[0].responsibleBadges)
                     
-                    // Pre-warm and generate matching places (iOS 26.0+)
-                    if #available(iOS 26.0, *) {
+                    // Pre-warm and generate matching places (iOS 26.0+) first time the app starts.
+                    if #available(iOS 26.0, *), !hasGeneratedMatch {
                         let viewModel = MatchingPlacesViewModel()
                         // Only use if model initialized successfully
                         if viewModel.isModelAvailable {
@@ -106,6 +109,7 @@ struct ContentView: View {
                                         from: placesViewModel.places,
                                         visitedBadges: user.badges
                                     )
+                                    hasGeneratedMatch = true
                                 }
                             }
                         } else {
