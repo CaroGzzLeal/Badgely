@@ -34,6 +34,8 @@ struct MatchingPlacesView: View {
             
             // Places Images Section
             placesSection
+            
+            bottomSection
         }
         .frame(maxWidth: .infinity)
         .padding(16)
@@ -44,14 +46,16 @@ struct MatchingPlacesView: View {
         HStack(spacing: 8) {
             Image(systemName: "sparkles")
                 .font(.title3)
-                .foregroundColor(.yellow)
+                .foregroundColor(.purple.opacity(0.6))
             
-            Text(viewModel.placeMatch?.title ?? "Combo para ti")
+            //Text(viewModel.placeMatch?.title ?? "Combo para ti")
+            Text("Combo para ti")
                 .font(.title3)
                 .fontWeight(.bold)
         }
-        .frame(maxWidth: .infinity, alignment: .center)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
+    
     
     // MARK: - Places Section
     private var placesSection: some View {
@@ -78,10 +82,19 @@ struct MatchingPlacesView: View {
         .frame(maxWidth: .infinity)
     }
     
+    private var bottomSection: some View {
+        HStack(spacing: 8) {
+            Text(viewModel.placeMatch?.title ?? "Combo para ti")
+                .font(.headline)
+                .fontWeight(.thin)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+    
     // MARK: - Place Card Component
     @ViewBuilder
     private func placeCard(id: Int, name: String, type: String) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .center, spacing: 6) {
             if let place = places.first(where: { $0.id == id }),
                !viewModel.isGenerating {
                 NavigationLink {
@@ -93,11 +106,24 @@ struct MatchingPlacesView: View {
                 placeImage(type: type, id: id)
             }
             
-            Text(name)
-                .font(.subheadline)
-                .fontWeight(.semibold)
-                .foregroundColor(.secondary)
-                .lineLimit(2)
+            if name.count > 18 {
+                Text(name)
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                    //.padding(.horizontal, 10)
+                    //.padding(.vertical, 4)
+                    .lineLimit(2)
+                    .truncationMode(.tail)
+            } else {
+                Text(name)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+                    .truncationMode(.tail)
+            }
+                
         }
         .frame(maxWidth: .infinity)
     }
@@ -114,13 +140,17 @@ struct MatchingPlacesView: View {
     // MARK: - Heart Icon
     private var heartIcon: some View {
         ZStack {
-            Circle()
+            /*Circle()
                 .fill(Color(.systemBackground))
                 .frame(width: 40, height: 40)
                 .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
-            
+            */
             Image(systemName: "heart.fill")
-                .foregroundColor(.pink)
+                .foregroundColor(.white)
+                .frame(width: 120, height: 60)
+                .font(.system(size: 70, weight: .semibold))
+                .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
+                .padding(.bottom, 15)
         }
     }
 }
@@ -142,10 +172,10 @@ struct MatchingCardContainer<Content: View>: View {
             if showReloadButton {
                 Button(action: onReload) {
                     Image(systemName: "arrow.clockwise")
-                        .font(.system(size: 14, weight: .semibold))
-                        .foregroundColor(.gray)
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(.purple.opacity(0.6))
                         .padding(8)
-                        .background(Color(.systemGray5))
+                        .background(Color(.white))
                         .clipShape(Circle())
                         .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
                 }
@@ -203,3 +233,4 @@ struct MatchingCardContainer<Content: View>: View {
         )
     }
 }
+
