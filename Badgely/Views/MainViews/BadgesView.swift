@@ -48,29 +48,85 @@
         let columnsSpecial: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
         let columnsResponsible: [GridItem] = Array(repeating: .init(.flexible()), count: 1)
         
+        @State private var selectedImage: Int? = nil
+        @State private var showPopover = false
+        
+        @Environment(\.colorScheme) var colorScheme
         
         var body: some View {
             VStack {
-                Button(action: {
-                    showEdit = true
-                }, label: {
-                    Image(user.avatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 180)
-                })
+                HStack{
+                    VStack(spacing: 10){
+                        Text(user.name)
+                            .font(.largeTitle)
+                            .bold()
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .lineLimit(nil)
+                            .multilineTextAlignment(.leading)
+                            
+                        HStack{
+                            Text("\(totalBadges)")
+                                .font(.title).bold()
+                            
+                            Text("medallas")
+                                .font(.title)
+                        }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    
+                    Button(action: {
+                        showEdit = true
+                    }, label: {
+                        Image(user.avatar)
+                            .resizable()
+                            .scaledToFit()
+                    })
+                }
                 
-                Text("\(user.name)")
-                    .font(Font.largeTitle)
-                    .bold()
-                
-                Text("\(totalBadges)")
-                    .font(.title)
-                
-                Text("badges")
-                    .font(.headline)
+                VStack {
+                    Text("Recompensas")
+                        .font(.title3.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.top, 10)
+
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 16) {
+                            ForEach(1...4, id: \.self) { index in
+                                Button(action: {
+                                    selectedImage = index
+                                    showPopover = true
+                                }) {
+                                    Image("recompensa\(index)")
+                                        .resizable()
+                                        .frame(width: 100, height: 100)
+                                        .cornerRadius(15)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                    .sheet(isPresented: $showPopover) {
+                        if let selectedImage = selectedImage {
+                            VStack {
+                                Image("codigo\(selectedImage)")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .padding()
+                                Button("Cerrar") {
+                                    showPopover = false
+                                }
+                                .padding(15)
+                                .background(Color(.systemGray6))
+                                .foregroundColor(.black)
+                                .cornerRadius(15)
+                            }
+                        }
+                    }
+                }
                 
                 Spacer()
+                
                 
                 Picker("Categoría", selection: $selectedCategory) {
                     ForEach(categories, id: \.self) { category in
@@ -137,7 +193,7 @@
 #Preview {
     
     let previewUser = User(
-        name: "Carolina González",
+        name: "Carolina Gonzalez",
         avatar: "profile1",
         city: "Monterrey",
         badges: [],
