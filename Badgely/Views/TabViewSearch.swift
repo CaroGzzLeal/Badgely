@@ -45,8 +45,13 @@ struct TabViewSearch: View {
                 }
             }
             
-            Tab("Logs", systemImage: "photo.on.rectangle.angled") {
-                LogView()
+            Tab("Albúm", systemImage: "photo.on.rectangle.angled") {
+                if let user = currentUser {
+                    Log2(user: user)
+                } else {
+                    Text("No user found")
+                        .foregroundStyle(.secondary)
+                }
             }
             
             Tab (role: .search) {
