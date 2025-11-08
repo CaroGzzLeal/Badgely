@@ -2,7 +2,7 @@
 //  EmojiCardView.swift
 //  Badgely
 //
-//  Created by Martha Mendoza Alfaro on 07/10/25.
+//  Created by Martha Mendoza Alfaro on 07/10/25. happy times
 //
 import SwiftUI
 
@@ -33,15 +33,14 @@ struct EmojiCardView: View {
         
     }
     
+    //Para los colores de los emojis, todos verdes, 1 verde, etc
     private var buttonColor: Color {
             if isSelected {
-                //Selected one stays green
                 return Color(red: 30/255, green: 94/255, blue: 54/255)
             } else if isAnySelected {
-                //If another button is selected, this one turns gray
+                //si otro boton, se vuelve gris
                 return Color.gray.opacity(0.4)
             } else {
-                //At the beginning (no selection yet)
                 return Color(red: 30/255, green: 94/255, blue: 54/255)
             }
         }

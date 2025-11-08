@@ -7,7 +7,7 @@
 import SwiftUI
 import SwiftData
 
-// Separate view to handle filtered places based on search
+// View separate to handle places filtrados segun search o sin search.
 struct PlaceListView: View {
     @EnvironmentObject var placesViewModel: PlacesViewModel
     @Environment(\.emojiData) private var emojiData
@@ -22,7 +22,7 @@ struct PlaceListView: View {
         !searchText.isEmpty || selectedCategory != nil
     }
     
-    @State private var selectedCategory: String? = nil // Track selected category
+    @State private var selectedCategory: String? = nil // Category tracker
 
     // Muestra en orden de mayor importancia (nomnre, type, descr
     private func searchPriority(for place: Place) -> Int {
@@ -35,19 +35,19 @@ struct PlaceListView: View {
         } else if place.description.localizedStandardContains(searchText) {
             return 4
         }
-        return 5 // Shouldn't reach here
+        return 5
     }
     
-    // Filtered places based on search text
+    // Places filtrados según search text total
     private var filteredPlaces: [Place] {
         var places = placesViewModel.places
         
-        // First apply category filter if selected
+        // Si hay categoria ponerle ese filtro
         if let category = selectedCategory {
             places = places.filter { $0.type == category }
         }
         
-        // Then apply search filter if searching
+        // TLuego filtro de text search
         if !searchText.isEmpty {
             places = places.filter { place in
                 place.name.localizedStandardContains(searchText) ||
@@ -56,13 +56,13 @@ struct PlaceListView: View {
                 place.description.localizedStandardContains(searchText)
             }
             
-            // Sort by priority: name > type > address > description
+            // Por prioridad el sort name > type > address > description
             return places.sorted { place1, place2 in
                 let priority1 = searchPriority(for: place1)
                 let priority2 = searchPriority(for: place2)
                 
                 if priority1 != priority2 {
-                    return priority1 < priority2 // Lower number = higher priority
+                    return priority1 < priority2 // menor num mayor prob
                 } else {
                     // Same priority, sort alphabetically by name
                     return place1.name.localizedCaseInsensitiveCompare(place2.name) == .orderedAscending
@@ -73,7 +73,7 @@ struct PlaceListView: View {
         return places
     }
     
-    // Group filtered places by type
+    // Places filtrados por type
     private var grouped: [(type: String, items: [Place])] {
         Dictionary(grouping: filteredPlaces, by: { $0.type })
             .sorted { $0.key < $1.key }
@@ -92,7 +92,7 @@ struct PlaceListView: View {
                             .font(.custom("SF Pro", size: 30))
                             .padding(.horizontal, 10)
                         
-                        // Category filter buttons
+                        // Category filter buttons emoji
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack(spacing: 20) {
                                 ForEach(emojiData) { inspiration in
@@ -101,9 +101,9 @@ struct PlaceListView: View {
                                         isSelected: selectedCategory == inspiration.name,
                                         isAnySelected: selectedCategory != nil,
                                         action: {
-                                            // Toggle category selection
+                                            // Category toggle time
                                             if selectedCategory == inspiration.name {
-                                                selectedCategory = nil // Deselect if already selected
+                                                selectedCategory = nil // deselecciona si ya selecteado
                                             } else {
                                                 selectedCategory = inspiration.name
                                             }
@@ -118,13 +118,13 @@ struct PlaceListView: View {
                         if filteredPlaces.isEmpty {
                             
                             ContentUnavailableView(
-                                "No Results",
+                                "No hay resultados sobre '\(searchText)'",
                                 systemImage: "magnifyingglass",
-                                description: Text("No places match '\(searchText)'")
+                                description: Text("Revisa la ortografía o intenta buscar algo distinto.")
                             )
                         } else {
                             
-                            ColumnView(title: "Results", places: filteredPlaces)
+                            ColumnView(title: "Resultados", places: filteredPlaces)
                                 .padding(.top, 8)
                         }
                     }
@@ -132,12 +132,12 @@ struct PlaceListView: View {
                 }
                 
             } else {
-                // Not searching → your original home with RowView sections
+                // Vista para cuando no hay search (ContentView)
                 if placesViewModel.places.isEmpty {
                     ContentUnavailableView(
-                        "No Places",
+                        "No Hay Lugares",
                         systemImage: "map",
-                        description: Text("No places available yet")
+                        description: Text("No hay lugares disponibles por el momento")
                     )
                 } else {
                     ScrollView {
@@ -150,7 +150,7 @@ struct PlaceListView: View {
                                 .padding(.horizontal, 10)
                             
                             
-                            // Category filter buttons
+                            // Category filter buttons emoji
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(spacing: 20) {
                                     ForEach(emojiData) { inspiration in
@@ -159,9 +159,9 @@ struct PlaceListView: View {
                                             isSelected: selectedCategory == inspiration.name,
                                             isAnySelected: selectedCategory != nil,
                                             action: {
-                                                // Toggle category selection
+                                                // Category toggle time
                                                 if selectedCategory == inspiration.name {
-                                                    selectedCategory = nil // Deselect if already selected
+                                                    selectedCategory = nil // deselecciona si ya selecteado
                                                 } else {
                                                     selectedCategory = inspiration.name
                                                 }
@@ -172,13 +172,27 @@ struct PlaceListView: View {
                                 .padding(.horizontal)
                             }
                             
-                            // Grouped places by category
+                            // Grouped places x category
                             ForEach(grouped, id: \.type) { group in
-                                Text(group.type)
-                                    .font(.headline)
-                                    .padding(.horizontal, 9)
-                                    .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                    .font(.system(size: 20))
+                                if group.type == "Cafeteria" {
+                                    Text("Cafetería")
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                } else if group.type == "Emblematico" {
+                                    Text("Emblemático")
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                } else {
+                                    Text(group.type)
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                }
                                 RowView(title: group.type, places: group.items)
                             }
                         }

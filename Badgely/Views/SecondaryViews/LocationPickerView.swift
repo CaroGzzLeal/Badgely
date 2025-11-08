@@ -7,7 +7,7 @@
 import SwiftUI
 import SwiftData
 
-// Location picker view to change user's city
+// cambiar user city
 struct LocationPickerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
@@ -41,13 +41,13 @@ struct LocationPickerView: View {
                         }
                     }
                 } header: {
-                    Text("Select Your City")
+                    Text("Selecciona tu ciudad")
                 } footer: {
-                    Text("Places will be updated based on your selected city")
+                    Text("Los lugares se actualizarán automáticamente según tu selección")
                         .font(.caption)
                 }
             }
-            .navigationTitle("Change Location")
+            .navigationTitle("Cambiar ubicación")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {

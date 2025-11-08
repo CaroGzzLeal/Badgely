@@ -4,7 +4,7 @@
 //
 //  Created by Martha Mendoza Alfaro on 07/10/25.
 //
-
+//Struct de Place
 struct Place: Codable, Identifiable {
 
     let id: Int

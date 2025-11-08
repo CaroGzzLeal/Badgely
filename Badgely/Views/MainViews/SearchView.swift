@@ -27,13 +27,13 @@ struct SearchView: View {
                     }
                 }
                 .onAppear {
-                    // Load places for user's city when view appears
+                    // Cargar lugares de la ciudad del user
                     if let city = users.first?.city {
                         placesViewModel.loadPlaces(for: city)
                     }
                 }
                 .onChange(of: users.first?.city) { oldValue, newValue in
-                    // Reload places when city changes
+                    // reload si city cambia
                     if let city = newValue {
                         placesViewModel.loadPlaces(for: city)
                     }
@@ -66,9 +66,9 @@ struct SearchView: View {
                     }
                 }
                 .navigationBarTitleDisplayMode(.inline)
-                // TO HERE, COPY IT WHERE YOU NEED TO CHANGE THE LOCATION
+            // TO HERE, COMPONENTE PARA EL CHANGE DE CITY
         }
-        .searchable(text: $searchText, prompt: "Search in \(users.first?.city ?? "Badgely")")
+        .searchable(text: $searchText, prompt: "Busca en \(users.first?.city ?? "Badgely")")
         .toolbarBackground(.visible, for: .navigationBar)
     }
 }
