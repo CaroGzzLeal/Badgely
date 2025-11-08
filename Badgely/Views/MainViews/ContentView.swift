@@ -57,6 +57,10 @@ struct ContentView: View {
                         }
                     }
                     
+                    // Near You Section
+                    NearYouView()
+                        .environmentObject(locationManager)
+                    
                     // Main Places List
                     ContentPlaceListView()
                 }
