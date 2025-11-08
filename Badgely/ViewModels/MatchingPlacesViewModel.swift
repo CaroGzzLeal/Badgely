@@ -15,6 +15,11 @@ final class MatchingPlacesViewModel: ObservableObject {
     @Published private(set) var isGenerating: Bool = false
     @Published private(set) var error: Error?
     
+
+    // Memory of previously matched place IDs
+    @Published var excludedPlaceIds: Set<Int> = []
+
+
     // Create a new session with the language model.
     private var session: LanguageModelSession?
     // Add a model instance
@@ -62,6 +67,11 @@ final class MatchingPlacesViewModel: ObservableObject {
         }
         session.prewarm()
     }
+
+    // Clear excluded IDs if needed (e.g., when user wants to reset)
+    func resetExcludedPlaces() {
+        excludedPlaceIds.removeAll()
+    }
     
     //Match entre 2 places
     func generateMatch(from allPlaces: [Place], visitedBadges: [String]) async {
@@ -87,7 +97,7 @@ final class MatchingPlacesViewModel: ObservableObject {
         
         do {
             //filtro segun criteria
-            let eligiblePlaces = filterEligiblePlaces(from: allPlaces, visitedBadges: visitedBadges)
+            let eligiblePlaces = filterEligiblePlaces(from: allPlaces, visitedBadges: visitedBadges, excludedIds: excludedPlaceIds)
             
             print("First list eligible places: ", eligiblePlaces.map { " \($0.name) \($0.type) \($0.id)" })
             
@@ -108,9 +118,19 @@ final class MatchingPlacesViewModel: ObservableObject {
             }
             
             print("\nPreparing prompt with \(simplifiedPlaces.count) places:")
+
+
+            
             for place in simplifiedPlaces {
                 print("- \(place.name) (\(place.type) \(place.id)")
             }
+
+            // Build excluded list text for prompt
+            let excludedListText = excludedPlaceIds.isEmpty ? "" : """
+            
+            IMPORTANT: Do NOT select any of these previously matched place IDs:
+            \(excludedPlaceIds.map { String($0) }.joined(separator: ", "))
+            """
             
             //crear prompt
             let placesDescription = simplifiedPlaces.map { place in
@@ -120,8 +140,9 @@ final class MatchingPlacesViewModel: ObservableObject {
             let promptText = """
             Here is a list of places to choose from:
             \(placesDescription)
+            \(excludedListText)
             
-            Select exactly two places from different categories that share something in common.
+            Select exactly two places from different categories that share something in common and could make a great combo for a touristic activity.
             Please provide the ids, names, and types of the two selected places.
             Generate a creative title that captures their connection.
             """
@@ -144,7 +165,10 @@ final class MatchingPlacesViewModel: ObservableObject {
             
             //print("Place 1 type and id: \(response.content.place1Type) and \(response.content.place1Id)")
             //print("Place 2 type and id: \(response.content.place2Type) and \(response.content.place2Id)")
-            
+            // Add the matched place IDs to excluded set
+            excludedPlaceIds.insert(response.content.place1Id)
+            excludedPlaceIds.insert(response.content.place2Id)
+
             self.placeMatch = response.content
             print("Match generated successfully")
             
@@ -167,20 +191,27 @@ final class MatchingPlacesViewModel: ObservableObject {
     } // fun gen match
     
     //Filter function para filtrar places que no han sido visitados y prepare for matching
-    private func filterEligiblePlaces(from allPlaces: [Place], visitedBadges: [String]) -> [Place] {
+    private func filterEligiblePlaces(from allPlaces: [Place], visitedBadges: [String], excludedIds: Set<Int>) -> [Place] {
         print("Starting place filtering...")
         print("Total places: \(allPlaces.count)")
         print("Visited badges: \(visitedBadges.count)")
-        
+        print("Excluded IDs: \(excludedIds.count)")
+
         // Get places where user hasn't collected the badge
         let unvisitedPlaces = allPlaces.filter { place in
             !visitedBadges.contains(place.badge)
         }
+
+        // Filter out previously matched places
+        let notExcluded = unvisitedPlaces.filter { place in
+            !excludedIds.contains(place.id)
+        }
         
         print("Unvisited places: \(unvisitedPlaces.count)")
-        
+        print("Not excluded places: \(notExcluded.count)")
+
         // Group by type to ensure we have multiple categories
-        let groupedByType = Dictionary(grouping: unvisitedPlaces, by: { $0.type })
+        let groupedByType = Dictionary(grouping: notExcluded, by: { $0.type }) // before it was unvisitedPlaces
         
         print("Categories found:")
         for (type, places) in groupedByType.sorted(by: { $0.key < $1.key }) {
