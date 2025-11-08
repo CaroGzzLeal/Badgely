@@ -23,90 +23,81 @@ struct LogView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var placesViewModel: PlacesViewModel
+    
+    let photo: Photo
 
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
-                ForEach(Array(photos.enumerated()), id: \.offset) { index, photo in
+        ScrollView() {
+            VStack(spacing: 28) {
+                HStack(){
+                    Spacer()
                     if let uiImage = UIImage(data: photo.photo) {
+                        ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
+                            Label("", systemImage: "square.and.arrow.up")
+                                .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                .font(.system(size: 25))
+                            
+                        }
+                    }
+                    Button(action: {
+                        showDeleteAlert = true
+                    }, label: {
+                        Image(systemName: "trash")
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .font(.system(size: 25))
                         
-                        VStack(spacing: 28) {
-                            HStack(){
-                                Spacer()
-                                ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
-                                    Label("", systemImage: "square.and.arrow.up")
-                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                        .font(.system(size: 25))
-                                    
-                                }
-                                Button(action: {
-                                    showDeleteAlert = true
-                                }, label: {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                        .font(.system(size: 25))
-                                    
-                                })
-                            }
-                            .alert(isPresented: $showDeleteAlert) {
-                                Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
-                                    deletePhoto(photo: photo)
-                                    showDelete = false
-                                }, secondaryButton: .cancel())
-                            }
+                    })
+                }
+                .alert(isPresented: $showDeleteAlert) {
+                    Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
+                        deletePhoto(photo: photo)
+                        showDelete = false
+                    }, secondaryButton: .cancel())
+                }
 
-                            Text(photo.name)
-                                .font(.system(size: 30, weight: .bold))
-                                .multilineTextAlignment(.center)
-                                .lineLimit(nil)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .frame(maxWidth: 320)
+                Text(photo.name)
+                    .font(.system(size: 30, weight: .bold))
+                    .multilineTextAlignment(.center)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: 320)
 
-                            VStack {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 260)
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(Color.blue)
-                                    )
+                if let uiImage = UIImage(data: photo.photo) {
+                    VStack {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 260)
+                            .padding()
+                            .background(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .fill(Color.blue)
+                            )
+                        
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        
+                        HStack {
+                            Button(action: {
                                 
-                                Spacer()
-                                Spacer()
-                                Spacer()
-                                
-                                HStack {
-                                    Button(action: {
-                                        
-                                    }) {
-                                        Image(systemName: "location.circle")
-                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                                    }
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 45))
-                                    .onTapGesture {
-                                        openAppleMaps(photo : photo.name)
-                                    }
-
-                                    Text(photo.place)
-                                        .font(.system(size: 18))
-                                        .lineSpacing(7)
-                                }
+                            }) {
+                                Image(systemName: "location.circle")
+                                    .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                             }
-                            .containerRelativeFrame(.horizontal)
-                            .scrollTransition(.animated, axis: .horizontal) { content, phase in
-                                content
-                                    .opacity(phase.isIdentity ? 1.0 : 0.6)
-                                    .scaleEffect(phase.isIdentity ? 1.0 : 0.6)
+                            .foregroundColor(.black)
+                            .font(.system(size: 45))
+                            .onTapGesture {
+                                openAppleMaps(photo : photo.name)
                             }
-                            .id(index)
+                            
+                            Text(photo.place)
+                                .font(.system(size: 18))
+                                .lineSpacing(7)
                         }
                     }
                 }
             }
-            .scrollTargetLayout()
         }
         .padding(30)
         .background {
@@ -202,66 +193,49 @@ struct IndicatorView: View {
     }
 }
 
+
 #Preview {
-    // 1️⃣ Crear datos de ejemplo
-    let previewPhoto1 = Photo(
+    // 1️⃣ Foto de ejemplo
+    let previewPhoto = Photo(
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
         place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
     )
     
-    let previewPhoto2 = Photo(
-        name: "Montaña Mon",
-        photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
+    // 2️⃣ Usuario de ejemplo (para @Query users)
+    let previewUser = User(
+        name: "Carolina González",
+        avatar: "profile3",
+        city: "Monterrey",
+        badges: [],
+        specialBadges: []
     )
     
-    let previewPhoto3 = Photo(
-        name: "Montaña Montaña",
-        photo: UIImage(systemName: "balloon.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
-    )
-    
-    let previewPhoto4 = Photo(
-        name: "Atardecer",
-        photo: UIImage(systemName: "sunset.fill")!.pngData()!,
-        badgeName: "Nature",
-        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
-    )
-    
-    let previewPhoto5 = Photo(
-        name: "Montaña Mon",
-        photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
-    )
-    
-    let previewPhoto6 = Photo(
-        name: "Cafe Cacao",
-        photo: UIImage(systemName: "balloon.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
-    )
-    
-    // 2️⃣ Crear un contenedor temporal de SwiftData en memoria
+    // 3️⃣ Contenedor SwiftData en memoria con Photo y User
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Photo.self, configurations: config)
+    let container = try! ModelContainer(
+        for: Photo.self, User.self,
+        configurations: config
+    )
     
-    // 3️⃣ Insertar los datos de ejemplo
-    container.mainContext.insert(previewPhoto1)
-    container.mainContext.insert(previewPhoto2)
-    container.mainContext.insert(previewPhoto3)
-    container.mainContext.insert(previewPhoto4)
-    container.mainContext.insert(previewPhoto5)
-    container.mainContext.insert(previewPhoto6)
+    // 4️⃣ Insertar datos en el contexto
+    container.mainContext.insert(previewUser)
+    container.mainContext.insert(previewPhoto)
     
+    // 5️⃣ PlacesViewModel de ejemplo
+    let placesVM = PlacesViewModel()
+    // Si quieres que el botón de Mapas tenga algo que encontrar:
+    // placesVM.places = [
+    //     Place(name: previewPhoto.name,
+    //           displayName: "Plaza San Ignacio",
+    //           latitude: 25.643,
+    //           longitude: -100.31)
+    // ]
     
-    // 4️⃣ Devolver la vista usando el contenedor
-    
-    return LogView()
+    // 6️⃣ Devolver la vista
+    return LogView(photo: previewPhoto)
         .modelContainer(container)
+        .environmentObject(placesVM)
 }
 

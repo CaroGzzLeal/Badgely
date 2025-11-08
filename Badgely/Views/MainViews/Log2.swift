@@ -60,8 +60,8 @@ struct Log2: View {
                     
                     if let uiImage = UIImage(data: photo.photo) {
                         NavigationLink {
-                            //LogView(photo: photo)
-                              //  .environmentObject(placesViewModel)
+                            LogView(photo: photo)
+                                .environmentObject(placesViewModel)
                         } label: {
                             Image(uiImage: uiImage)
                                 .resizable()
