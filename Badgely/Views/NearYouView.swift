@@ -22,7 +22,10 @@ struct NearYouView: View {
                         .foregroundColor(.gray)
                         .italic()
                 } else {
-                    ForEach(locationManager.nearestFive, id: \.name) { place in
+                    
+                    
+                    RowView(places: locationManager.nearestFive)
+                    /*ForEach(locationManager.nearestFive, id: \.name) { place in
                         VStack(alignment: .leading) {
                             Text(place.name)
                                 .font(.title3)
@@ -36,7 +39,8 @@ struct NearYouView: View {
                         .background(Color(.systemGray6))
                         .cornerRadius(12)
                         .shadow(radius: 1)
-                    }
+                    }*/
+                    
                 }
                 
                 Spacer()

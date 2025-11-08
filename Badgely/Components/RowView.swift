@@ -9,7 +9,7 @@ import SwiftData
 
 //Componente de row 
 struct RowView: View {
-    let title: String
+    //let title: String
     let places: [Place]
     //let user: User? //?
     

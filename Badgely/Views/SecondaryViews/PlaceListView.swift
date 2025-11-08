@@ -193,7 +193,7 @@ struct PlaceListView: View {
                                         .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                         .font(.system(size: 20))
                                 }
-                                RowView(title: group.type, places: group.items)
+                                RowView(places: group.items)
                             }
                         }
                         .padding(.vertical, 16)
@@ -259,7 +259,7 @@ struct ContentPlaceListView: View {
                             .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                             .font(.system(size: 20))
                     }
-                    RowView(title: group.type, places: group.items)
+                    RowView(places: group.items)
                 }
             
             
