@@ -37,11 +37,12 @@
             "frecuente_39", "maximo_46",
             "frecuente_40", "maximo_47",
             "frecuente_41", "maximo_48",
-            "frecuente_42", "maximo_49"
+            "frecuente_42", "maximo_49",
+            
         ]
         
         let responsibleBadges: [String] = [
-            "bici_51", "bolsa_55", "bus_54", "carpool_53", "metro_52", "termo_50"
+            "bici_51", "bolsa_55", "bus_54", "carpool_53", "metro_52", "termo_50", "resp_56"
         ]
         
         let columnsNormal: [GridItem] = Array(repeating: .init(.flexible()), count: 5)
@@ -54,87 +55,92 @@
         @Environment(\.colorScheme) var colorScheme
         
         var body: some View {
-            VStack {
-                HStack{
-                    VStack(spacing: 10){
-                        Text(user.name)
-                            .font(.largeTitle)
-                            .bold()
+            VStack(alignment: .leading, spacing: 0) {
+                VStack(spacing: 10){
+                    HStack{
+                        VStack(spacing: 10){
+                            Text(user.name)
+                                .font(.largeTitle)
+                                .bold()
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .lineLimit(nil)
+                                .multilineTextAlignment(.leading)
+                            
+                            HStack{
+                                Text("\(totalBadges)")
+                                    .font(.title).bold()
+                                
+                                Text("medallas")
+                                    .font(.title)
+                            }
                             .frame(maxWidth: .infinity, alignment: .leading)
-                            .lineLimit(nil)
-                            .multilineTextAlignment(.leading)
-                            
-                        HStack{
-                            Text("\(totalBadges)")
-                                .font(.title).bold()
-                            
-                            Text("medallas")
-                                .font(.title)
                         }
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Button(action: {
+                            showEdit = true
+                        }, label: {
+                            Image(user.avatar)
+                                .resizable()
+                                .scaledToFit()
+                        })
                     }
                     
-                    Button(action: {
-                        showEdit = true
-                    }, label: {
-                        Image(user.avatar)
-                            .resizable()
-                            .scaledToFit()
-                    })
-                }
-                
-                VStack {
-                    Text("Recompensas")
-                        .font(.title3.bold())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.top, 10)
-
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16) {
-                            ForEach(1...4, id: \.self) { index in
-                                Button(action: {
-                                    selectedImage = index
-                                    showPopover = true
-                                }) {
-                                    Image("recompensa\(index)")
+                    VStack {
+                        Text("Recompensas")
+                            .font(.title3.bold())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                        
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack(spacing: 5) {
+                                ForEach(1...4, id: \.self) { index in
+                                    Button(action: {
+                                        selectedImage = index
+                                        showPopover = true
+                                    }) {
+                                        Image("recompensa\(index)")
+                                            .resizable()
+                                            .frame(width: 100, height: 100)
+                                            .cornerRadius(15)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                            .padding(.horizontal, 16)
+                        }
+                        .sheet(isPresented: $showPopover) {
+                            if let selectedImage = selectedImage {
+                                VStack {
+                                    Image("codigo\(selectedImage)")
                                         .resizable()
-                                        .frame(width: 100, height: 100)
-                                        .cornerRadius(15)
+                                        .scaledToFit()
+                                        .padding()
+                                    Button("Cerrar") {
+                                        showPopover = false
+                                    }
+                                    .padding(15)
+                                    .background(Color(.systemGray6))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(15)
                                 }
-                                .buttonStyle(PlainButtonStyle())
-                            }
-                        }
-                        .padding(.horizontal, 16)
-                    }
-                    .sheet(isPresented: $showPopover) {
-                        if let selectedImage = selectedImage {
-                            VStack {
-                                Image("codigo\(selectedImage)")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .padding()
-                                Button("Cerrar") {
-                                    showPopover = false
-                                }
-                                .padding(15)
-                                .background(Color(.systemGray6))
-                                .foregroundColor(.black)
-                                .cornerRadius(15)
                             }
                         }
                     }
-                }
-                
-                Spacer()
-                
-                
-                Picker("Categoría", selection: $selectedCategory) {
-                    ForEach(categories, id: \.self) { category in
-                        Text(category)
+                    
+                    
+                    
+                    
+                    Picker("Categoría", selection: $selectedCategory) {
+                        ForEach(categories, id: \.self) { category in
+                            Text(category)
+                        }
                     }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.vertical)
                 }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding(.vertical)
+                .fixedSize(horizontal: false, vertical: true)
+                .layoutPriority(1)
+                .padding(.bottom, 10)
                 
                 if selectedCategory == "Comunes" {
                     LazyVGrid(columns: columnsNormal, alignment: .center, spacing: 10) {
@@ -178,9 +184,7 @@
                                 .animation(.easeInOut(duration: 0.3), value: hasBadge)
                         }
                     }
-                    Spacer()
-                    Spacer()
-                    Spacer()
+
                 }
             }
             .padding()
