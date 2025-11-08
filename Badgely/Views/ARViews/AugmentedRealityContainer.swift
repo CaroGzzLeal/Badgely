@@ -23,12 +23,12 @@ struct AugmentedRealityContainer: View {
                 .ignoresSafeArea()
             
             VStack {
-                
                 HStack {
                     Image("name")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 70, height: 70)
+                        .frame(height: 100)
+                        .padding(.leading)
                     
                     Spacer()
                     Button(action: {
@@ -36,6 +36,7 @@ struct AugmentedRealityContainer: View {
                     }, label: {
                         Image(systemName: "xmark.circle")
                             .foregroundColor(.white)
+                            .font(.system(size: 30))
                             .font(.largeTitle)
                             .padding()
                             .frame(alignment: .topTrailing)
@@ -54,12 +55,13 @@ struct AugmentedRealityContainer: View {
                         .padding()
                         .overlay {
                             Image(systemName: "camera.fill")
-                                .font(.system(size: 20))
+                                .font(.system(size: 30))
                                 .foregroundStyle(.black)
                         }
 
                 }
             }
+            .padding(.top)
             
             if let capturedImage {
                 PhotoApprovalView(place: place, image: capturedImage)

@@ -12,7 +12,8 @@ import MapKit
 struct LogView: View {
     @Environment(\.modelContext) private var context
     @Query(sort: \Photo.date, order: .reverse) var photos: [Photo]
-
+    @Environment(\.dismiss) private var dismiss
+    
     @Query var users: [User]
     @State var showDelete: Bool = false
     @State private var showDeleteAlert = false
@@ -23,90 +24,78 @@ struct LogView: View {
     @Environment(\.colorScheme) var colorScheme
     
     @EnvironmentObject var placesViewModel: PlacesViewModel
-
+    
+    let photo: Photo
+    
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
-                ForEach(Array(photos.enumerated()), id: \.offset) { index, photo in
-                    if let uiImage = UIImage(data: photo.photo) {
-                        
-                        VStack(spacing: 28) {
-                            HStack(){
-                                Spacer()
-                                ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
-                                    Label("", systemImage: "square.and.arrow.up")
-                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                        .font(.system(size: 25))
-                                    
-                                }
-                                Button(action: {
-                                    showDeleteAlert = true
-                                }, label: {
-                                    Image(systemName: "trash")
-                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                        .font(.system(size: 25))
-                                    
-                                })
-                            }
-                            .alert(isPresented: $showDeleteAlert) {
-                                Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
-                                    deletePhoto(photo: photo)
-                                    showDelete = false
-                                }, secondaryButton: .cancel())
-                            }
-
-                            Text(photo.name)
-                                .font(.system(size: 30, weight: .bold))
-                                .multilineTextAlignment(.center)
-                                .lineLimit(nil)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .frame(maxWidth: 320)
-
-                            VStack {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 260)
-                                    .padding()
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .fill(Color.blue)
-                                    )
-                                
-                                Spacer()
-                                Spacer()
-                                Spacer()
-                                
-                                HStack {
-                                    Button(action: {
-                                        
-                                    }) {
-                                        Image(systemName: "location.circle")
-                                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                                    }
-                                    .foregroundColor(.black)
-                                    .font(.system(size: 45))
-                                    .onTapGesture {
-                                        openAppleMaps(photo : photo.name)
-                                    }
-
-                                    Text(photo.place)
-                                        .font(.system(size: 18))
-                                        .lineSpacing(7)
-                                }
-                            }
-                            .containerRelativeFrame(.horizontal)
-                            .scrollTransition(.animated, axis: .horizontal) { content, phase in
-                                content
-                                    .opacity(phase.isIdentity ? 1.0 : 0.6)
-                                    .scaleEffect(phase.isIdentity ? 1.0 : 0.6)
-                            }
-                            .id(index)
+        
+        VStack(spacing: 28) {
+            
+            Text(photo.name)
+                .font(.system(size: 30, weight: .bold))
+                .multilineTextAlignment(.center)
+                .lineLimit(nil)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: 320)
+            
+            if let uiImage = UIImage(data: photo.photo) {
+                VStack {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 260)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 20)
+                            //.fill(Color.blue)
+                        )
+                    
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    
+                    HStack {
+                        Button(action: {
+                            openAppleMaps(place: photo.place)
+                        }) {
+                            Image(systemName: "location.circle")
+                                .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                .font(.system(size: 45))
                         }
+                        
+                        Text(photo.place)
+                            .font(.system(size: 18))
+                            .lineSpacing(7)
                     }
                 }
+                .alert(isPresented: $showDeleteAlert) {
+                    Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
+                        deletePhoto(photo: photo)
+                        showDelete = false
+                        dismiss()
+                    }, secondaryButton: .cancel())
+                }
             }
-            .scrollTargetLayout()
+            
+        }
+        .toolbar {
+            if let uiImage = UIImage(data: photo.photo) {
+                ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
+                    Label("", systemImage: "square.and.arrow.up")
+                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                        //.font(.system(size: 25))
+                    
+                }
+            }
+            Button(action: {
+                showDeleteAlert = true
+            }, label: {
+                Image(systemName: "trash")
+                    .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                    //.font(.system(size: 25))
+                
+            })
+            
         }
         .padding(30)
         .background {
@@ -117,50 +106,101 @@ struct LogView: View {
                 .allowsHitTesting(false)
                 .accessibilityHidden(true)
         }
-        .scrollTargetBehavior(.paging)
-        .scrollPosition(id: $scrollID)
         
-        IndicatorView(imageCount: photos.count, scrollID: $scrollID)
-            .padding(.bottom, 10)
+        
+        //.scrollTargetBehavior(.paging)
+        //.scrollPosition(id: $scrollID)
+        
+        //IndicatorView(imageCount: photos.count, scrollID: $scrollID)
+        //    .padding(.bottom, 10)
     }
     
     func deletePhoto(photo: Photo) {
+        guard let user = users.first else { return }
         
-        if let badgeName = photo.badgeName, badgeName != "" {
-            
-            if let index = users[0].specialBadges.firstIndex(of: badgeName) {
-                users[0].specialBadges.remove(at: index)
-                print(users[0].specialBadges)
-            }
-            
-            if let indexTwo = users[0].badges.firstIndex(of: badgeName) {
-                users[0].badges.remove(at: indexTwo)
-                users[0].responsibleBadges.remove(at: indexTwo)
-                print(users[0].badges)
-                print(users[0].responsibleBadges)
-            }
-            
-            //FALTA QUE SE ELIMINE DEL DICCIONARIO
-        }
-        
-        let photoToDelete = photo
-        context.delete(photoToDelete)
-    }
-    
-    func openAppleMaps(photo : String) {
-        guard let place = placesViewModel.places.first(where: { $0.name == photo }) else {
-            print("No se encontró el lugar para \(photo)")
+        guard let place = placesViewModel.places.first(where: {
+            $0.name == photo.name || $0.address == photo.place
+        }) else {
+            print("No se encontró el lugar para la foto \(photo.name)")
+            context.delete(photo)
+            try? context.save()
             return
         }
         
-        let coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-        print("Entre a la funcion para el lugar:", place.displayName)
+        let type = place.type
+        
+        if let current = user.comunBadges[type], current > 0 {
+            let newValue = current - 1
+            
+            if newValue > 0 {
+                user.comunBadges[type] = newValue
+            } else {
+                user.comunBadges.removeValue(forKey: type)
+            }
+            
+            let offset = categoryOffset(for: type)
+            let frecuenteKey = "frecuente_\(36 + offset)"
+            let maximoKey   = "maximo_\(43 + offset)"
+            
+            if newValue < 5 {
+                if let idx = user.specialBadges.firstIndex(of: maximoKey) {
+                    user.specialBadges.remove(at: idx)
+                }
+            }
+            
+            if newValue < 3 {
+                if let idx = user.specialBadges.firstIndex(of: frecuenteKey) {
+                    user.specialBadges.remove(at: idx)
+                }
+            }
+        }
+        
+        if let badgeName = photo.badgeName, !badgeName.isEmpty {
+            if let idx = user.badges.firstIndex(of: badgeName) {
+                user.badges.remove(at: idx)
+                user.responsibleBadges.remove(at: idx)
+            }
+        }
+        
+        context.delete(photo)
+        try? context.save()
+    }
+    
+    private func categoryOffset(for type: String) -> Int {
+        switch type {
+        case "cafeteria": return 0
+        case "restaurante": return 1
+        case "emblematico": return 2
+        case "eventos": return 3
+        case "voluntariado": return 4
+        case "areasVerdes": return 5
+        case "vidaNocturna": return 6
+        default: return 6
+        }
+    }
+    
+    
+    
+    func openAppleMaps(place: String) {
+        
+        guard let matchingPlace = placesViewModel.places.first(where: { $0.address == place }) else {
+            print("No se encontró un lugar con la dirección: \(place)")
+            return
+        }
+        
+        let coordinate = CLLocationCoordinate2D(
+            latitude: matchingPlace.latitude,
+            longitude: matchingPlace.longitude
+        )
+        print("Abriendo Apple Maps para:", matchingPlace.displayName)
         
         let placemark = MKPlacemark(coordinate: coordinate)
         let mapItem = MKMapItem(placemark: placemark)
-        mapItem.name = place.displayName
+        mapItem.name = matchingPlace.displayName
         
-        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
+        let launchOptions = [
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking
+        ]
         mapItem.openInMaps(launchOptions: launchOptions)
     }
 }
@@ -203,65 +243,46 @@ struct IndicatorView: View {
 }
 
 #Preview {
-    // 1️⃣ Crear datos de ejemplo
-    let previewPhoto1 = Photo(
+    // 1️⃣ Foto de ejemplo
+    let previewPhoto = Photo(
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
         place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
     )
     
-    let previewPhoto2 = Photo(
-        name: "Montaña Mon",
-        photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
+    // 2️⃣ Usuario de ejemplo (para @Query users)
+    let previewUser = User(
+        name: "Carolina González",
+        avatar: "profile3",
+        city: "Monterrey",
+        badges: [],
+        specialBadges: []
     )
     
-    let previewPhoto3 = Photo(
-        name: "Montaña Montaña",
-        photo: UIImage(systemName: "balloon.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
-    )
-    
-    let previewPhoto4 = Photo(
-        name: "Atardecer",
-        photo: UIImage(systemName: "sunset.fill")!.pngData()!,
-        badgeName: "Nature",
-        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
-    )
-    
-    let previewPhoto5 = Photo(
-        name: "Montaña Mon",
-        photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
-    )
-    
-    let previewPhoto6 = Photo(
-        name: "Cafe Cacao",
-        photo: UIImage(systemName: "balloon.fill")!.pngData()!,
-        badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
-    )
-    
-    // 2️⃣ Crear un contenedor temporal de SwiftData en memoria
+    // 3️⃣ Contenedor SwiftData en memoria con Photo y User
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Photo.self, configurations: config)
+    let container = try! ModelContainer(
+        for: Photo.self, User.self,
+        configurations: config
+    )
     
-    // 3️⃣ Insertar los datos de ejemplo
-    container.mainContext.insert(previewPhoto1)
-    container.mainContext.insert(previewPhoto2)
-    container.mainContext.insert(previewPhoto3)
-    container.mainContext.insert(previewPhoto4)
-    container.mainContext.insert(previewPhoto5)
-    container.mainContext.insert(previewPhoto6)
+    // 4️⃣ Insertar datos en el contexto
+    container.mainContext.insert(previewUser)
+    container.mainContext.insert(previewPhoto)
     
+    // 5️⃣ PlacesViewModel de ejemplo
+    let placesVM = PlacesViewModel()
+    // Si quieres que el botón de Mapas tenga algo que encontrar:
+    // placesVM.places = [
+    //     Place(name: previewPhoto.name,
+    //           displayName: "Plaza San Ignacio",
+    //           latitude: 25.643,
+    //           longitude: -100.31)
+    // ]
     
-    // 4️⃣ Devolver la vista usando el contenedor
-    
-    return LogView()
+    // 6️⃣ Devolver la vista
+    return LogView(photo: previewPhoto)
         .modelContainer(container)
+        .environmentObject(placesVM)
 }
-
