@@ -41,17 +41,21 @@ struct ContentView: View {
                     if #available(iOS 26.0, *) {
                         if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
                            viewModel.isModelAvailable {
-                            MatchingPlacesView(viewModel: viewModel, onReload: {
-                                // Reload matching places
-                                if let user = users.first {
-                                    Task {
-                                        await viewModel.generateMatch(
-                                            from: placesViewModel.places,
-                                            visitedBadges: user.badges
-                                        )
+                            MatchingPlacesView(
+                                viewModel: viewModel,
+                                onReload: {
+                                    // Reload matching places
+                                    if let user = users.first {
+                                        Task {
+                                            await viewModel.generateMatch(
+                                                from: placesViewModel.places,
+                                                visitedBadges: user.badges
+                                            )
+                                        }
                                     }
-                                }
-                            })
+                                },
+                                places: placesViewModel.places
+                            )
                         }
                     }
                     

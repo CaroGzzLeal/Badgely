@@ -43,3 +43,12 @@ struct SimplifiedPlace: Codable {
     let description: String
     let type: String
 }
+
+// Compatibility helpers for UI previews and navigation.
+// Note: The view now looks up full Place objects from the places array passed to it,
+// so these helpers are no longer needed for navigation but kept for potential future use.
+@available(iOS 26.0, *)
+extension PlaceMatch {
+    /// Optional subtitle for UI; not provided by the model generator by default.
+    var subtitle: String? { nil }
+}

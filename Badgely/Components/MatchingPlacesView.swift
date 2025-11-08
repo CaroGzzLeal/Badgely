@@ -5,144 +5,201 @@
 //  Created by Martha Mendoza Alfaro on 05/11/25.
 //
 
-
 import SwiftUI
 
 @available(iOS 26.0, *)
 struct MatchingPlacesView: View {
     @ObservedObject var viewModel: MatchingPlacesViewModel
     var onReload: () -> Void
-    
+    let places: [Place]
     
     @Environment(\.colorScheme) var colorScheme
     
-    var width: CGFloat? = nil
-    var height: CGFloat? = nil
+    var body: some View {
+        MatchingCardContainer(showReloadButton: !viewModel.isGenerating && viewModel.placeMatch != nil,
+                              onReload: onReload) {
+            contentView
+                .redacted(reason: viewModel.isGenerating ? .placeholder : [])
+                .opacity(viewModel.isGenerating ? 0.2 : 1.0)
+                .animation(.easeInOut(duration: 0.3), value: viewModel.isGenerating)
+        }
+    }
     
+    // MARK: - Content View
+    @ViewBuilder
+    private var contentView: some View {
+        VStack(alignment: .center, spacing: 16) {
+            // Title Section
+            titleSection
+            
+            // Places Images Section
+            placesSection
+        }
+        .frame(maxWidth: .infinity)
+        .padding(16)
+    }
+    
+    // MARK: - Title Section
+    private var titleSection: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "sparkles")
+                .font(.title3)
+                .foregroundColor(.yellow)
+            
+            Text(viewModel.placeMatch?.title ?? "Combo para ti")
+                .font(.title3)
+                .fontWeight(.bold)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+    
+    // MARK: - Places Section
+    private var placesSection: some View {
+        ZStack {
+            HStack(spacing: 16) {
+                // Left Place
+                placeCard(
+                    id: viewModel.placeMatch?.place1Id ?? 1,
+                    name: viewModel.placeMatch?.place1Name ?? "Placeholder Place",
+                    type: viewModel.placeMatch?.place1Type ?? "cafeteria"
+                )
+                
+                // Right Place
+                placeCard(
+                    id: viewModel.placeMatch?.place2Id ?? 6,
+                    name: viewModel.placeMatch?.place2Name ?? "Placeholder Place",
+                    type: viewModel.placeMatch?.place2Type ?? "restaurante"
+                )
+            }
+            
+            // Heart icon centered between images
+            heartIcon
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    // MARK: - Place Card Component
+    @ViewBuilder
+    private func placeCard(id: Int, name: String, type: String) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            if let place = places.first(where: { $0.id == id }),
+               !viewModel.isGenerating {
+                NavigationLink {
+                    PlaceDetailView(place: place)
+                } label: {
+                    placeImage(type: type, id: id)
+                }
+            } else {
+                placeImage(type: type, id: id)
+            }
+            
+            Text(name)
+                .font(.subheadline)
+                .fontWeight(.semibold)
+                .foregroundColor(.secondary)
+                .lineLimit(2)
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    // MARK: - Place Image Component
+    private func placeImage(type: String, id: Int) -> some View {
+        Image("\(type)\(id)")
+            .resizable()
+            .aspectRatio(4/3, contentMode: .fill)
+            .frame(width: 150, height: 100)
+            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+    }
+    
+    // MARK: - Heart Icon
+    private var heartIcon: some View {
+        ZStack {
+            Circle()
+                .fill(Color(.systemBackground))
+                .frame(width: 40, height: 40)
+                .shadow(color: .black.opacity(0.15), radius: 4, x: 0, y: 2)
+            
+            Image(systemName: "heart.fill")
+                .foregroundColor(.pink)
+        }
+    }
+}
+
+// MARK: - Card Container
+@available(iOS 26.0, *)
+struct MatchingCardContainer<Content: View>: View {
+    let showReloadButton: Bool
+    let onReload: () -> Void
+    @ViewBuilder let content: Content
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            if viewModel.isGenerating {
-                HStack {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                    Text("Te queremos recomendar lugares para visitar...")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
+            // Main content
+            content
+            
+            // Reload button - always in same position
+            if showReloadButton {
+                Button(action: onReload) {
+                    Image(systemName: "arrow.clockwise")
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundColor(.gray)
+                        .padding(8)
+                        .background(Color(.systemGray5))
+                        .clipShape(Circle())
+                        .shadow(color: .black.opacity(0.2), radius: 3, x: 0, y: 2)
                 }
-                //.frame(maxWidth: .infinity)
-                //.padding()
-                //.background(Color.secondary.opacity(0.1))
-                //.cornerRadius(12)
-            } else if let match = viewModel.placeMatch {
-                ZStack(alignment: .bottomTrailing) {
-                    VStack(alignment: .leading, spacing: 15) { //8
-                        // Match Title
-                        HStack {
-                            Image(systemName: "sparkles")
-                                .foregroundColor(.yellow)
-                                .font(.title3)
-                            
-                            Text(match.title)
-                                .font(.headline)
-                                .fontWeight(.bold)
-                                .foregroundColor(.primary)
-                        }
-                        
-                        Divider()
-                        
-                        // Matched Places
-                        HStack(spacing: 16) {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Image("\(match.place1Type)\(match.place1Id)")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    //.cornerRadius(15)
-                                    //.padding(.horizontal, 7)
-                                    .frame(width: 70, height: 50)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .padding(5)
-                                Text(match.place1Name)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                            }
-                            .padding(12)
-                            .background(Color(colorScheme == .dark ? Color(red: 28/255, green: 28/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
-                            //.background(Color(red: 245/255, green: 245/255, blue: 245/255))
-                            .cornerRadius(15)
-                            
-                            Image(systemName: "heart.fill")
-                                .symbolRenderingMode(.hierarchical)
-                                //.foregroundColor(Color(colorScheme == .dark ? Color(red: 28/255, green: 28/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
-                                .font(.caption)
-                            
-                            VStack(alignment: .leading, spacing: 4) {
-                                Image("\(match.place2Type)\(match.place2Id)")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    //.cornerRadius(15)
-                                    //.padding(.horizontal, 7)
-                                    .frame(width: 70, height: 50)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .padding(5)
-                                
-                                Text(match.place2Name)
-                                    .font(.subheadline)
-                                    .fontWeight(.semibold)
-                            }
-                            //.aspectRatio(contentMode: .fit)
-                            .padding(12)
-                            .background(Color(colorScheme == .dark ? Color(red: 28/255, green: 28/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
-                            //.background(Color(red: 245/255, green: 245/255, blue: 245/255))
-                            .cornerRadius(15)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 8) // Extra padding for reload button
-                    }
-                    .padding()
-                    
-                    // Reload Button
-                    Button(action: {
-                        onReload()
-                    }) {
-                        Image(systemName: "arrow.clockwise")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.white)
-                            .padding(8)
-                            .background(Color(colorScheme == .dark ? Color(red: 28/255, green: 28/255, blue: 30/255) : Color(red: 245/255, green: 245/255, blue: 245/255)))
-                            .clipShape(Circle())
-                            .shadow(color: Color.black.opacity(0.2), radius: 3, x: 0, y: 2)
-                    }
-                    .padding(12)
-                }
+                .padding(12)
             }
         }
         .background(
             LinearGradient(
-                gradient: Gradient(colors: [Color.blue.opacity(0.1), Color.purple.opacity(0.1)]),
+                gradient: Gradient(colors: [
+                    Color.blue.opacity(0.1),
+                    Color.purple.opacity(0.1)
+                ]),
                 startPoint: .topLeading,
                 endPoint: .bottomTrailing
             )
         )
-        .cornerRadius(12)
-        .shadow(color: Color.black.opacity(0.05), radius: 5, x: 0, y: 2)
-        .padding(10)
+        .cornerRadius(20)
+        .shadow(color: .black.opacity(0.05), radius: 6, x: 0, y: 2)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 7)
+    }
+}
+
+// MARK: - Preview
+@available(iOS 26.0, *)
+#Preview("With Match") {
+    VStack {
+        let sampleMatch = PlaceMatch(
+            title: "Paseo y Café",
+            place1Name: "Café Azul",
+            place1Type: "cafeteria",
+            place1Id: 1,
+            place2Name: "Restaurante Central",
+            place2Type: "restaurante",
+            place2Id: 6
+        )
         
-        .animation(.easeInOut, value: viewModel.isGenerating)
-        .animation(.easeInOut, value: viewModel.placeMatch)
+        MatchingPlacesView(
+            viewModel: MatchingPlacesViewModel(mockMatch: sampleMatch),
+            onReload: { print("Reload tapped") },
+            places: Place.samples
+        )
     }
 }
 
 @available(iOS 26.0, *)
-#Preview {
+#Preview("Loading State") {
     VStack {
-        // Preview with mock data
-        MatchingPlacesView(viewModel: {
-            let vm = MatchingPlacesViewModel()
-            return vm
-        }(), onReload: {
-            print("Reload tapped")
-        })
+        let viewModel = MatchingPlacesViewModel()
+        
+        MatchingPlacesView(
+            viewModel: viewModel,
+            onReload: { print("Reload tapped") },
+            places: Place.samples
+        )
     }
-    .padding()
 }

@@ -43,6 +43,13 @@ final class MatchingPlacesViewModel: ObservableObject {
         // initializing the LanguageModelSession
         self.session = LanguageModelSession(instructions: instructions)
     }
+
+    /// Init a view model with a prefilled match for previews or canvas usage.
+    /// This avoids initializing Foundation Models during Xcode previews.
+    init(mockMatch: PlaceMatch) {
+        self.placeMatch = mockMatch
+        // leave other properties as their default values
+    }
     
     // volver a hacer session cuando se refreshea
     private func resetSession() {
