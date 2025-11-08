@@ -71,7 +71,7 @@ struct LogView: View {
                             .padding()
                             .background(
                                 RoundedRectangle(cornerRadius: 20)
-                                    .fill(Color.blue)
+                                    //.fill(Color.blue)
                             )
                         
                         Spacer()
