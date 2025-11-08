@@ -10,8 +10,10 @@
         
         let user: User
         var totalBadges: Int {
-            user.badges.count + user.specialBadges.count + user.responsibleBadges.count
+            let validResponsible = user.responsibleBadges.filter { !$0.isEmpty }
+            return user.badges.count + user.specialBadges.count + validResponsible.count
         }
+
         var avatar: String {
             user.avatar
         }
@@ -31,13 +33,13 @@
         ]
         
         let specialBadges: [String] = [
-            "frecuente_36", "maximo_43",
-            "frecuente_37", "maximo_44",
-            "frecuente_38", "maximo_45",
-            "frecuente_39", "maximo_46",
-            "frecuente_40", "maximo_47",
-            "frecuente_41", "maximo_48",
-            "frecuente_42", "maximo_49"
+            "frecuente_36", "maximo_43", //cafeterías
+            "frecuente_37", "maximo_44", //restaurantes
+            "frecuente_38", "maximo_45", //emblemático
+            "frecuente_39", "maximo_46", //eventos
+            "frecuente_40", "maximo_47", //voluntariado
+            "frecuente_41", "maximo_48", //areas verdes
+            "frecuente_42", "maximo_49" //vida nocturna
         ]
         
         let responsibleBadges: [String] = [

@@ -36,6 +36,15 @@ struct TabViewSearch: View {
                 //square.and.arrow.up.badge.clockFavoritesView()
             }
             
+            Tab("Álbum", systemImage: "photo.on.rectangle.angled") {
+                if let user = currentUser {
+                    Log2(user: user)
+                } else {
+                    Text("No user found")
+                        .foregroundStyle(.secondary)
+                }
+            }
+            
             Tab("Insignias", systemImage: "person") {
                 if let user = currentUser {
                     BadgesView(user: user)
@@ -43,10 +52,6 @@ struct TabViewSearch: View {
                     Text("No se encontró un usuario")
                         .foregroundStyle(.secondary)
                 }
-            }
-            
-            Tab("Logs", systemImage: "photo.on.rectangle.angled") {
-                LogView()
             }
             
             Tab (role: .search) {
