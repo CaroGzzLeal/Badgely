@@ -17,7 +17,9 @@ struct PhotoApprovalView: View {
     
     @State private var showCommonBadgeAlert = false
     @State private var showSpecialBadgeAlert = false
+    @State private var showResponsibleBadgeAlert = false
     @State private var earnedBadgeName: String = ""
+    @State private var earnedResponsibleBadge: String?
     @State private var earnedSpecialBadgeName: String?
     
     var body: some View {
@@ -53,16 +55,33 @@ struct PhotoApprovalView: View {
         }
         .alert("¡Has ganado una nueva insignia!", isPresented: $showCommonBadgeAlert) {
             Button("Continuar") {
-                if earnedSpecialBadgeName != nil {
+                if earnedResponsibleBadge != nil {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        showSpecialBadgeAlert = true
+                        showResponsibleBadgeAlert = true
                     }
-                } else {
+                    
+                    if earnedSpecialBadgeName != nil {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            showSpecialBadgeAlert = true
+                        }
+                    }
+                }
+
+                else {
                     dismiss()
                 }
             }
         } message: {
             Text("Has obtenido la insignia \(earnedBadgeName). ¡Felicidades!")
+        }
+        .alert("¡Insignia responsable desbloqueada!", isPresented: $showResponsibleBadgeAlert) {
+            Button("Aceptar") {
+                dismiss()
+            }
+        } message: {
+            if let responsible = earnedSpecialBadgeName {
+                Text("Has obtenido la insignia responsable \(responsible). ¡Increíble trabajo!")
+            }
         }
         .alert("¡Insignia especial desbloqueada!", isPresented: $showSpecialBadgeAlert) {
             Button("Aceptar") {
@@ -93,7 +112,7 @@ struct PhotoApprovalView: View {
         
         if user.badges.contains(place.badge) {
             user.responsibleBadges.append(place.responsibleBadge!)
-            earnedBadgeName = place.responsibleBadge!
+            earnedResponsibleBadge = place.responsibleBadge!
         }
         
         user.comunBadges[place.type, default: 0] += 1

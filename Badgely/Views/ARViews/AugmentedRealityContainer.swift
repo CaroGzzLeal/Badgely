@@ -25,7 +25,7 @@ struct AugmentedRealityContainer: View {
             VStack {
                 
                 HStack {
-                    Image("icon")
+                    Image("name")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 70, height: 70)
