@@ -29,29 +29,39 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 0) {
-                // Matching Places Section (iOS 26.0+)
-                if #available(iOS 26.0, *) {
-                    if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
-                       viewModel.isModelAvailable {
-                        MatchingPlacesView(viewModel: viewModel, onReload: {
-                            // Reload matching places
-                            if let user = users.first {
-                                Task {
-                                    await viewModel.generateMatch(
-                                        from: placesViewModel.places,
-                                        visitedBadges: user.badges
-                                    )
+            ScrollView {
+                VStack(alignment: .leading, spacing: 15) {
+                    Text("Explora México")
+                        .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                        .fontWeight(.bold)
+                        .font(.system(size: 30))
+                        .font(.custom("SF Pro", size: 30))
+                        .padding(.horizontal, 10)
+                    // Matching Places Section (iOS 26.0+)
+                    if #available(iOS 26.0, *) {
+                        if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
+                           viewModel.isModelAvailable {
+                            MatchingPlacesView(viewModel: viewModel, onReload: {
+                                // Reload matching places
+                                if let user = users.first {
+                                    Task {
+                                        await viewModel.generateMatch(
+                                            from: placesViewModel.places,
+                                            visitedBadges: user.badges
+                                        )
+                                    }
                                 }
-                            }
-                        })
-                        .padding(.horizontal)
-                        .padding(.vertical, 8)
+                            })
+                            //.padding(.horizontal)
+                            //.padding(.vertical, 8)
+                        }
                     }
+                    
+                    // Main Places List
+                    ContentPlaceListView()
                 }
+                //.padding(.vertical, 16)
                 
-                // Main Places List
-                PlaceListView(searchText: searchText)
             }
                 //Everything needed for changing the location CDMX, MTY O GDL
                 .sheet(isPresented: $showLocationPicker) {

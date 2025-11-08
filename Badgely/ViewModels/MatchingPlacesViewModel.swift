@@ -144,6 +144,7 @@ final class MatchingPlacesViewModel: ObservableObject {
             
             Select exactly two places from different categories that share something in common and could make a great combo for a touristic activity.
             Please provide the ids, names, and types of the two selected places.
+            normalize text in category by removing accents and don't translate it, keep it as the original language.
             Generate a creative title that captures their connection.
             """
             
