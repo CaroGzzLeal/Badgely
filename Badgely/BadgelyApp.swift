@@ -16,7 +16,7 @@ struct BadgelyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            UserView()
+            NewUserView()
                 .environmentObject(placesViewModel)
                 .environmentObject(locationManager)
                 .environment(\.emojiData, globalEmojiData)
