@@ -102,8 +102,8 @@ struct PlaceDetailView: View {
                         }
                 }
                 
-                HStack{
-
+                HStack {
+                    
                     Image(place.badge)
                         .resizable()
                         .scaledToFit()
