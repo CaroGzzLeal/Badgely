@@ -31,39 +31,45 @@ struct LogView: View {
                     if let uiImage = UIImage(data: photo.photo) {
                         
                         VStack(spacing: 30) {
+                            HStack(){
+                                Spacer()
+                                ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
+                                    Label("", systemImage: "square.and.arrow.up")
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 25))
+                                    
+                                }
+                                Button(action: {
+                                    showDeleteAlert = true
+                                }, label: {
+                                    Image(systemName: "trash")
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 25))
+                                    
+                                })
+                            }
+                            .alert(isPresented: $showDeleteAlert) {
+                                Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
+                                    deletePhoto(photo: photo)
+                                    showDelete = false
+                                }, secondaryButton: .cancel())
+                            }
+
                             
-                            Spacer()
-                            Spacer()
                             Text(photo.name)
-                                .font(.title).bold()
+                                .font(.system(size: 36, weight: .bold))
                             
                             VStack {
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFit()
-                                    .clipped()
-                                    .cornerRadius(20)
-                                    .frame(width: 250)
-                                    .shadow(radius: 10)
+                                    .frame(width: 240)
                                     .padding()
-                                
-                                
-                                /*
-                                 .onTapGesture {
-                                 showDelete.toggle()
-                                 }
-                                 .overlay(content: {
-                                 if showDelete {
-                                 Button(action: {
-                                 showDeleteAlert = true
-                                 }, label: {
-                                 Image(systemName: "trash.circle")
-                                 .foregroundColor(.red)
-                                 .font(.title)
-                                 .padding()
-                                 })
-                                 }
-                                 })*/
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 20)
+                                            .fill(Color.blue)
+                                    )
+                                Spacer()
                                 Spacer()
                                 HStack {
                                     Button(action: {
@@ -73,49 +79,19 @@ struct LogView: View {
                                             .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                                     }
                                     .foregroundColor(.black)
-                                    .font(.system(size: 40))
+                                    .font(.system(size: 45))
                                     .onTapGesture {
                                         openAppleMaps(photo : photo.name)
                                     }
-                                    
-                                    
-                                    
+
                                     Text(photo.place)
-                                        .font(.system(size: 15))
-                                    //.fontWeight(.light)
-                                        .padding(.horizontal, 7)
-                                        .lineSpacing(5)
+                                        .font(.system(size: 18))
+                                        .lineSpacing(7)
                                     
                                     
                                 }
-                                //.padding(.horizontal, 15)
+                            
                                 
-                                Spacer()
-                                Spacer()
-                                
-                                HStack(spacing: 230) {
-                                    
-                                    ShareLink(item: uiImage, preview: SharePreview(photo.name, image: uiImage)) {
-                                        Label("", systemImage: "square.and.arrow.up")
-                                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                            .font(.system(size: 40))
-                                        
-                                    }
-                                    Button(action: {
-                                        showDeleteAlert = true
-                                    }, label: {
-                                        Image(systemName: "trash")
-                                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                            .font(.system(size: 40))
-                                        
-                                    })
-                                }
-                                .alert(isPresented: $showDeleteAlert) {
-                                    Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
-                                        deletePhoto(photo: photo)
-                                        showDelete = false
-                                    }, secondaryButton: .cancel())
-                                }
                             }
                             .containerRelativeFrame(.horizontal)
                             .scrollTransition(.animated, axis: .horizontal) { content, phase in
@@ -129,6 +105,15 @@ struct LogView: View {
                 }
             }
             .scrollTargetLayout()
+        }
+        .padding(30)
+        .background {
+            Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
+                .allowsHitTesting(false)
+                .accessibilityHidden(true)
         }
         .scrollTargetBehavior(.paging)
         .scrollPosition(id: $scrollID)
@@ -205,7 +190,6 @@ struct IndicatorView: View {
     }
 }
 
-/*
 #Preview {
     // 1️⃣ Crear datos de ejemplo
     let previewPhoto1 = Photo(
@@ -268,4 +252,4 @@ struct IndicatorView: View {
     return LogView()
         .modelContainer(container)
 }
-*/
+
