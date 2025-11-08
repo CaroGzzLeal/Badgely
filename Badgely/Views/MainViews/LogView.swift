@@ -125,10 +125,20 @@ struct LogView: View {
     func deletePhoto(photo: Photo) {
         
         if let badgeName = photo.badgeName, badgeName != "" {
+            
             if let index = users[0].specialBadges.firstIndex(of: badgeName) {
                 users[0].specialBadges.remove(at: index)
                 print(users[0].specialBadges)
             }
+            
+            if let indexTwo = users[0].badges.firstIndex(of: badgeName) {
+                users[0].badges.remove(at: indexTwo)
+                users[0].responsibleBadges.remove(at: indexTwo)
+                print(users[0].badges)
+                print(users[0].responsibleBadges)
+            }
+            
+            //FALTA QUE SE ELIMINE DEL DICCIONARIO
         }
         
         let photoToDelete = photo
