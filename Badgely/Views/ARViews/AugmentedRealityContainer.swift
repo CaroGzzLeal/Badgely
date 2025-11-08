@@ -19,24 +19,17 @@ struct AugmentedRealityContainer: View {
     
     var body: some View {
         ZStack {
-            AugmentedRealityScene(selectedBadges: selectedBadges, arView: $arView)
+            Color.black
                 .ignoresSafeArea()
-                .overlay(alignment: .bottom) {
-                    Button(action: {
-                        captureSnapshot()
-                    }) {
-                        Image(systemName: "camera.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.blue)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                    }
-                }
             
             VStack {
+                
                 HStack {
+                    Image("icon")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                    
                     Spacer()
                     Button(action: {
                         showCamera = false
@@ -48,7 +41,24 @@ struct AugmentedRealityContainer: View {
                             .frame(alignment: .topTrailing)
                     })
                 }
-                Spacer()
+                
+                AugmentedRealityScene(selectedBadges: selectedBadges, arView: $arView)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                Button(action: {
+                    captureSnapshot()
+                }) {
+                    Image(systemName: "seal.fill")
+                        .font(.system(size: 60))
+                        .foregroundStyle(.white)
+                        .padding()
+                        .overlay {
+                            Image(systemName: "camera.fill")
+                                .font(.system(size: 20))
+                                .foregroundStyle(.black)
+                        }
+
+                }
             }
             
             if let capturedImage {
