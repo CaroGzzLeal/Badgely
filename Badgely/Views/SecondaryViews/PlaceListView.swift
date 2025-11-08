@@ -235,7 +235,6 @@ struct ContentPlaceListView: View {
                 //    .font(.system(size: 30))
                 //    .font(.custom("SF Pro", size: 30))
                 //    .padding(.horizontal, 10)
-            
                 
                 // Grouped places x category
                 ForEach(grouped, id: \.type) { group in

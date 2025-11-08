@@ -8,45 +8,26 @@
 import SwiftUI
 
 struct NearYouView: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     @EnvironmentObject private var locationManager: LocationManager
     
     var body: some View {
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Lugares más cercanos a ti")
-                    .font(.headline)
-                    .padding(.bottom, 5)
-                
-                if locationManager.nearestFive.isEmpty {
-                    Text("Cargando lugares cercanos...")
-                        .foregroundColor(.gray)
-                        .italic()
-                } else {
-                    
-                    
-                    RowView(places: locationManager.nearestFive)
-                    /*ForEach(locationManager.nearestFive, id: \.name) { place in
-                        VStack(alignment: .leading) {
-                            Text(place.name)
-                                .font(.title3)
-                                .fontWeight(.semibold)
-                            Text("Lat: \(place.latitude), Lon: \(place.longitude)")
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                        .shadow(radius: 1)
-                    }*/
-                    
-                }
-                
-                Spacer()
+        VStack(alignment: .leading) {
+            Text("Lugares más cercanos a ti")
+                .font(.headline)
+                .padding(.horizontal, 9)
+                .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                .font(.system(size: 20))
+            
+            if locationManager.nearestFive.isEmpty {
+                Text("Cargando lugares cercanos...")
+                    .foregroundColor(.gray)
+                    .italic()
+            } else {
+                RowView(places: locationManager.nearestFive)
             }
-            .padding()
         }
+    }
 }
 
 #Preview {
