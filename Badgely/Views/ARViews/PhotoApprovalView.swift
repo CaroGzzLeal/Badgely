@@ -14,6 +14,7 @@ struct PhotoApprovalView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     @Query var users: [User]
+    @Environment(\.colorScheme) var colorScheme
     
     // Badge overlay states
     @State private var showBadgeOverlay = false
@@ -34,20 +35,30 @@ struct PhotoApprovalView: View {
                     Button("Cancelar") {
                         dismiss()
                     }
-                    .font(.headline)
-                    .padding()
-                    .background(Color.red)
+                    .font(.system(size: 20, weight: .semibold))
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 15)
+                    .background(
+                            Color(colorScheme == .dark
+                                  ? Color(red: 175/255, green: 76/255, blue: 79/255) // #AF4C4F
+                                  : Color(red: 175/255, green: 76/255, blue: 79/255))
+                        )
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .cornerRadius(20)
                     
                     Button("Continuar") {
                         savePhoto()
                     }
-                    .font(.headline)
-                    .padding()
-                    .background(Color.green)
+                    .font(.system(size: 20, weight: .semibold))
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 15)
+                    .background(
+                            Color(colorScheme == .dark
+                                  ? Color(red: 76/255, green: 175/255, blue: 80/255) // #4CAF50
+                                  : Color(red: 76/255, green: 175/255, blue: 80/255))
+                        )
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .cornerRadius(20)
                 }
             }
             
