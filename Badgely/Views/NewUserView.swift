@@ -32,132 +32,146 @@ struct NewUserView: View {
     
     var body: some View {
         
-        ZStack {
-            Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
-                .resizable()
-                .scaledToFill()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
-                .accessibilityHidden(true)
-            
-                
-                VStack(spacing: 25) {
-                    Image("icon")
+        if users.isEmpty {
+            ZStack {
+                Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .ignoresSafeArea()
+                    .accessibilityHidden(true)
+                ZStack {
+                    Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 120, height: 120)
+                        .scaledToFill()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .ignoresSafeArea()
+                        .accessibilityHidden(true)
                     
-                    Text("¡Bienvenido a la comunidad Badgely!")
-                        .fontWeight(.bold)
-                        .font(.title).bold()
-                        .multilineTextAlignment(.center)
-                        .font(.system(size: 32))
-                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                        .frame(maxWidth: .infinity, alignment: .center)
                     
-                    VStack(spacing: 10) {
-                        Text("Ingresa tu nombre:")
-                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                            .fontWeight(.bold)
-                            .font(.system(size: 20))
+                    VStack(spacing: 25) {
+                        Image("icon")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 120, height: 120)
                         
-                        TextField("", text: $inputName)
-                            .textFieldStyle(.roundedBorder)
-                            .clipShape(RoundedRectangle(cornerRadius: 15))
-                            .overlay {
-                                RoundedRectangle(cornerRadius: 15)
-                                    .stroke(Color(colorScheme == .dark ? .white : .black))
-                            }
-                            .font(.custom("SF Pro", size: 25))
-                            .lineLimit(1)
-                            .frame(width: 300)
-                    }
-                    
-                    VStack(spacing: 10) {
-                        Text("Ciudad de tu proximo destino:")
-                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                        Text("¡Bienvenido a la comunidad Badgely!")
                             .fontWeight(.bold)
-                            .font(.system(size: 20))
+                            .font(.title).bold()
+                            .multilineTextAlignment(.center)
+                            .font(.system(size: 32))
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .frame(maxWidth: .infinity, alignment: .center)
                         
-                        Picker("", selection: $selectedCity) {
-                            ForEach(cities, id: \.self) { city in
-                                Text(city).tag(city)
-                            }
+                        VStack(spacing: 10) {
+                            Text("Ingresa tu nombre:")
+                                .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                .fontWeight(.bold)
+                                .font(.system(size: 20))
+                            
+                            TextField("", text: $inputName)
+                                .textFieldStyle(.roundedBorder)
+                                .clipShape(RoundedRectangle(cornerRadius: 15))
+                                .overlay {
+                                    RoundedRectangle(cornerRadius: 15)
+                                        .stroke(Color(colorScheme == .dark ? .white : .black))
+                                }
+                                .font(.custom("SF Pro", size: 25))
+                                .lineLimit(1)
+                                .frame(width: 300)
                         }
-                        .padding(.vertical, 10)
-                        .padding(.horizontal, 8)
-                        .font(.custom("SF Pro", size: 25))
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .background(
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .fill(colorScheme == .dark ? Color.black : Color.white)
-                        )
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                                .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
-                        )
-                    }
-                    
-                    VStack(spacing: 10) {
-                        Text("Selecciona tu avatar:")
-                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                            .fontWeight(.bold)
-                            .font(.system(size: 20))
                         
-                        Button(action: {
-                            showPopover.toggle()
-                        }){
-                            if let imageName = avatarselected {
-                                Image(imageName)
-                                    .resizable()
-                                    .frame(width: 110, height: 110)
-                            }
-                            else {
-                                Image("seleccionAvatar")
-                                    .resizable()
-                                    .frame(width: 110, height: 110)
-                            }
-                        }
-                        .popover(isPresented: $showPopover) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(avatars, id: \.self) { name in
-                                    Button(action: {
-                                        avatarselected = name
-                                        selectedAvatar = name
-                                        showPopover = false
-                                    }) {
-                                        Image(name)
-                                            .resizable()
-                                            .frame(width: 110, height: 110)
-                                    }
+                        VStack(spacing: 10) {
+                            Text("Ciudad de tu proximo destino:")
+                                .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                .fontWeight(.bold)
+                                .font(.system(size: 20))
+                            
+                            Picker("", selection: $selectedCity) {
+                                ForEach(cities, id: \.self) { city in
+                                    Text(city).tag(city)
                                 }
                             }
-                            .padding()
-                            .frame(width: 300, height: 300)
-                            .presentationCompactAdaptation(.popover)
-                        }
-                    }
-                    
-                    Button {
-                        createUser()
-                    }
-                    label: {
-                        Text("Empezar a Explorar")
                             .padding(.vertical, 10)
-                            .padding(.horizontal, 16)
-                            .font(.custom("SF Pro", size:20))
-                            .foregroundColor(.white)
+                            .padding(.horizontal, 8)
+                            .font(.custom("SF Pro", size: 25))
+                            .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
+                            .background(
+                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                    .fill(colorScheme == .dark ? Color.black : Color.white)
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                                    .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                            )
+                        }
+                        
+                        VStack(spacing: 10) {
+                            Text("Selecciona tu avatar:")
+                                .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                .fontWeight(.bold)
+                                .font(.system(size: 20))
+                            
+                            Button(action: {
+                                showPopover.toggle()
+                            }){
+                                if let imageName = avatarselected {
+                                    Image(imageName)
+                                        .resizable()
+                                        .frame(width: 110, height: 110)
+                                }
+                                else {
+                                    Image("seleccionAvatar")
+                                        .resizable()
+                                        .frame(width: 110, height: 110)
+                                }
+                            }
+                            .popover(isPresented: $showPopover) {
+                                LazyVGrid(columns: columns) {
+                                    ForEach(avatars, id: \.self) { name in
+                                        Button(action: {
+                                            avatarselected = name
+                                            selectedAvatar = name
+                                            showPopover = false
+                                        }) {
+                                            Image(name)
+                                                .resizable()
+                                                .frame(width: 110, height: 110)
+                                        }
+                                    }
+                                }
+                                .padding()
+                                .frame(width: 300, height: 300)
+                                .presentationCompactAdaptation(.popover)
+                            }
+                        }
+                        
+                        Button {
+                            createUser()
+                        }
+                        label: {
+                            Text("Empezar a Explorar")
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 16)
+                                .font(.custom("SF Pro", size:20))
+                                .foregroundColor(.white)
+                        }
+                        .background(
+                            RoundedRectangle(cornerRadius: 17)
+                                .fill(inputName.isEmpty ? .gray : Color(red: 30/255, green: 94/255, blue: 54/255))
+                        )
+                        .disabled(inputName.isEmpty)
+                        
                     }
-                    .background(
-                        RoundedRectangle(cornerRadius: 17)
-                            .fill(inputName.isEmpty ? .gray : Color(red: 30/255, green: 94/255, blue: 54/255))
-                    )
-                    .disabled(inputName.isEmpty)
-                
+                }
+                .onTapGesture {
+                    hideKeyboard()
+                }
             }
+            .animation(.default, value: users.count)
         }
-        .onTapGesture {
-            hideKeyboard()
+        else {
+            TabViewSearch()
         }
     }
     
