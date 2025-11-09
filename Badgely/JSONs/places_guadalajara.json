@@ -8,7 +8,7 @@
         "longitude": -103.3798356289117,
         "description": "Cafetería de especialidad reconocida por su cocina creativa y café de alta calidad. Ideal para brunchs y desayunos con productos locales en un ambiente moderno y acogedor.",
         "badge": "badge100",
-        "responsibleBadge": "sBadge100"
+        "responsibleBadge": ""
     },
     {
         "id": 101,
@@ -19,7 +19,7 @@
         "longitude": -103.36616056932854,
         "description": "Uno de los cafés más icónicos de la ciudad. Destaca por su tueste artesanal, ambiente minimalista y atención al detalle en cada preparación.",
         "badge": "badge101",
-        "responsibleBadge": "sBadge101"
+        "responsibleBadge": ""
     },
     {
         "id": 102,
@@ -30,7 +30,7 @@
         "longitude": -103.36245216691302,
         "description": "Espacio contemporáneo con estética cuidada y ambiente tranquilo. Ideal para trabajar, leer o charlar acompañado de repostería artesanal y cold brew.",
         "badge": "badge102",
-        "responsibleBadge": "sBadge102"
+        "responsibleBadge": ""
     },
     {
         "id": 103,
@@ -41,7 +41,7 @@
         "longitude": -103.36187047451872,
         "description": "Cafetería de especialidad que combina métodos de extracción innovadores con un menú gourmet. Ofrece coctelería ligera, vinos y postres.",
         "badge": "badge103",
-        "responsibleBadge": "sBadge103"
+        "responsibleBadge": ""
     },
     {
         "id": 104,
@@ -52,7 +52,7 @@
         "longitude": -103.3750935335494,
         "description": "Cafetería artesanal enfocada en café de origen y preparaciones meticulosas. Espacio moderno, ideal para disfrutar de desayunos con panadería local.",
         "badge": "badge104",
-        "responsibleBadge": "sBadge104"
+        "responsibleBadge": ""
     },
     {
         "id": 105,
@@ -63,7 +63,7 @@
         "longitude": -103.38979436483595,
         "description": "Restaurante de autor liderado por el chef Paco Ruano. Ofrece cocina mexicana contemporánea con ingredientes de temporada y técnicas modernas.",
         "badge": "badge105",
-        "responsibleBadge": "sBadge105"
+        "responsibleBadge": ""
     },
     {
         "id": 106,
@@ -74,7 +74,7 @@
         "longitude": -103.39165852394393,
         "description": "Fusión de cocina mexicana y asiática en un ambiente colorido y relajado. Conocido por su coctelería y platillos creativos.",
         "badge": "badge106",
-        "responsibleBadge": "sBadge106"
+        "responsibleBadge": ""
     },
     {
         "id": 107,
@@ -85,7 +85,7 @@
         "longitude": -103.3776663057074,
         "description": "Cocina de mercado enfocada en ingredientes frescos y sostenibles. Restaurante elegante con atención al detalle y servicio excepcional.",
         "badge": "badge107",
-        "responsibleBadge": "sBadge107"
+        "responsibleBadge": ""
     },
     {
         "id": 108,
@@ -96,7 +96,7 @@
         "longitude": -103.37796161314792,
         "description": "Uno de los restaurantes más aclamados de Guadalajara, combina arte contemporáneo con gastronomía mexicana moderna en un entorno de jardín.",
         "badge": "badge108",
-        "responsibleBadge": "sBadge108"
+        "responsibleBadge": ""
     },
     {
         "id": 109,
@@ -107,7 +107,7 @@
         "longitude": -103.3697602629973,
         "description": "Restaurante de concepto único decorado con huesos reales. Su menú de degustación cambia constantemente, reflejando la creatividad del chef Alfonso Cadena.",
         "badge": "badge109",
-        "responsibleBadge": "sBadge109"
+        "responsibleBadge": ""
     },
     {
         "id": 110,
@@ -118,7 +118,7 @@
         "longitude": -103.34475567866065,
         "description": "Majestuoso teatro neoclásico, sede de óperas, conciertos y el Ballet de Jalisco. Es uno de los principales símbolos culturales de la ciudad.",
         "badge": "badge110",
-        "responsibleBadge": "sBadge110"
+        "responsibleBadge": ""
     },
     {
         "id": 111,
@@ -129,7 +129,7 @@
         "longitude": -103.34698206406789,
         "description": "Templo metropolitano con torres góticas distintivas. Es un punto histórico y religioso central, rodeado de plazas y arquitectura colonial.",
         "badge": "badge111",
-        "responsibleBadge": "sBadge111"
+        "responsibleBadge": ""
     },
     {
         "id": 112,
@@ -140,7 +140,7 @@
         "longitude": -103.38741933453356,
         "description": "Fuente monumental con la estatua de la diosa Minerva, ícono de Guadalajara y punto de encuentro de celebraciones deportivas y cívicas.",
         "badge": "badge112",
-        "responsibleBadge": "sBadge112"
+        "responsibleBadge": ""
     },
     {
         "id": 115,
@@ -151,7 +151,7 @@
         "longitude": -103.39171045992309,
         "description": "La feria editorial más grande en el mundo hispano. Reúne autores, editoriales y lectores con actividades, conferencias y presentaciones.",
         "badge": "badge115",
-        "responsibleBadge": "sBadge115"
+        "responsibleBadge": ""
     },
     {
         "id": 116,
@@ -162,7 +162,7 @@
         "longitude": -103.38196860125653,
         "description": "Evento cinematográfico de gran prestigio que promueve el cine latinoamericano y mundial con proyecciones, galas y premiaciones.",
         "badge": "badge116",
-        "responsibleBadge": "sBadge116"
+        "responsibleBadge": ""
     },
     {
         "id": 120,
@@ -173,7 +173,7 @@
         "longitude": -103.39956973291488,
         "description": "¡Apoya a distribuir alimentos a comunidades vulnerables! Para mayor información, visita la oficina de la dirección proporcionada.",
         "badge": "badge120",
-        "responsibleBadge": "sBadge120"
+        "responsibleBadge": ""
     },
     {
         "id": 121,
@@ -184,7 +184,7 @@
         "longitude": -103.22053202767405,
         "description": "Asociación dedicada al acompañamiento de niños hospitalizados. Los voluntarios ayudan a mejorar su bienestar emocional a través del juego.",
         "badge": "badge121",
-        "responsibleBadge": "sBadge121"
+        "responsibleBadge": ""
     },
     {
         "id": 125,
@@ -195,7 +195,7 @@
         "longitude": -103.39117216565853,
         "description": "Parque natural urbano con senderos, lagos y jardines japoneses. Ideal para caminatas, picnics y observación de aves.",
         "badge": "badge125",
-        "responsibleBadge": "sBadge125"
+        "responsibleBadge": ""
     },
     {
         "id": 126,
@@ -206,7 +206,7 @@
         "longitude": -103.44091278066294,
         "description": "Extensa área verde con zonas deportivas, ciclovías y áreas recreativas. Espacio perfecto para actividades al aire libre y eventos comunitarios.",
         "badge": "badge126",
-        "responsibleBadge": "sBadge126"
+        "responsibleBadge": ""
     },
     {
         "id": 130,
@@ -217,7 +217,7 @@
         "longitude": -103.36824754544848,
         "description": "Club subterráneo pionero en la escena electrónica mexicana. Conocido por su ambiente energético y presentaciones de DJs internacionales.",
         "badge": "badge130",
-        "responsibleBadge": "sBadge130"
+        "responsibleBadge": ""
     },
     {
         "id": 131,
@@ -228,7 +228,7 @@
         "longitude": -103.3456383205735,
         "description": "Cantina tradicional fundada en 1921. Famosa por su ambiente bohemio, su bicicleta colgada en el techo y su mariachi en vivo.",
         "badge": "badge131",
-        "responsibleBadge": "sBadge131"
+        "responsibleBadge": ""
     },
     {
         "id": 136,
@@ -239,7 +239,7 @@
         "longitude": -103.32821278333616,
         "description": "Descubre la emoción del Mundial en Guadalajara y asegura tus boletos para un partido inolvidable.",
         "badge": "Bpartido_136",
-        "responsibleBadge": "sBadge136"
+        "responsibleBadge": ""
     },
     {
         "id": 137,
@@ -249,8 +249,8 @@
         "latitude": 20.70468575148641,
         "longitude": -103.32821278333616,
         "description": "Descubre la emoción del Mundial en Guadalajara y asegura tus boletos para un partido inolvidable.",
-        "badge": "badge137",
-        "responsibleBadge": "Bpartido_137"
+        "badge": "Bpartido_137",
+        "responsibleBadge": ""
     },
     {
         "id": 138,
@@ -260,8 +260,8 @@
         "latitude": 20.70468575148641,
         "longitude": -103.32821278333616,
         "description": "Descubre la emoción del Mundial en Guadalajara y asegura tus boletos para un partido inolvidable.",
-        "badge": "badge138",
-        "responsibleBadge": "Bpartido_138"
+        "badge": "Bpartido_138",
+        "responsibleBadge": ""
     }
 
 ]
