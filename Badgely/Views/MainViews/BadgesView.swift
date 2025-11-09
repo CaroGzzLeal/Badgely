@@ -83,6 +83,7 @@
                             Image(user.avatar)
                                 .resizable()
                                 .scaledToFit()
+                                .frame(height: 130)
                         })
                     }
                     
@@ -144,48 +145,53 @@
                 .padding(.bottom, 10)
                 
                 if selectedCategory == "Comunes" {
-                    LazyVGrid(columns: columnsNormal, alignment: .center, spacing: 10) {
-                        ForEach(normalBadges,  id: \.self) { badgeName in
-                            let hasBadge = user.badges.contains(badgeName)
-                            Image(badgeName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 45, height: 45)
-                                .opacity(hasBadge ? 1.0 : 0.3)
-                                .grayscale(hasBadge ? 0 : 0.8)
-                                .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                    ScrollView() {
+                        LazyVGrid(columns: columnsNormal, alignment: .center, spacing: 10) {
+                            ForEach(normalBadges,  id: \.self) { badgeName in
+                                let hasBadge = user.badges.contains(badgeName)
+                                Image(badgeName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 45, height: 45)
+                                    .opacity(hasBadge ? 1.0 : 0.3)
+                                    .grayscale(hasBadge ? 0 : 0.8)
+                                    .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                            }
                         }
                     }
                 }
                 else if (selectedCategory == "Especiales") {
-                    LazyVGrid(columns: columnsSpecial, alignment: .center, spacing: 10) {
-                        ForEach(specialBadges,  id: \.self) { badgeName in
-                            let hasBadge = user.badges.contains(badgeName) || user.specialBadges.contains(badgeName)
-                            Image(badgeName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 45, height: 45)
-                                .opacity(hasBadge ? 1.0 : 0.3)
-                                .grayscale(hasBadge ? 0 : 0.8)
-                                .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                    ScrollView() {
+                        LazyVGrid(columns: columnsSpecial, alignment: .center, spacing: 10) {
+                            ForEach(specialBadges,  id: \.self) { badgeName in
+                                let hasBadge = user.badges.contains(badgeName) || user.specialBadges.contains(badgeName)
+                                Image(badgeName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 45, height: 45)
+                                    .opacity(hasBadge ? 1.0 : 0.3)
+                                    .grayscale(hasBadge ? 0 : 0.8)
+                                    .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                            }
                         }
                     }
                 }
                 
                 else {
-                    LazyVGrid(columns: columnsResponsible, alignment: .center, spacing: 10) {
-                        ForEach(responsibleBadges,  id: \.self) { badgeName in
-                            let hasBadge = user.badges.contains(badgeName) || user.responsibleBadges.contains(badgeName)
-                            Image(badgeName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 45, height: 45)
-                                .opacity(hasBadge ? 1.0 : 0.3)
-                                .grayscale(hasBadge ? 0 : 0.8)
-                                .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                    ScrollView() {
+                        LazyVGrid(columns: columnsResponsible, alignment: .center, spacing: 10) {
+                            ForEach(responsibleBadges,  id: \.self) { badgeName in
+                                let hasBadge = user.badges.contains(badgeName) || user.responsibleBadges.contains(badgeName)
+                                Image(badgeName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 45, height: 45)
+                                    .opacity(hasBadge ? 1.0 : 0.3)
+                                    .grayscale(hasBadge ? 0 : 0.8)
+                                    .animation(.easeInOut(duration: 0.3), value: hasBadge)
+                            }
                         }
                     }
-
                 }
             }
             .padding()
