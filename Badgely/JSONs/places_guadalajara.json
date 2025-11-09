@@ -144,7 +144,7 @@
     },
     {
         "id": 115,
-        "name": "Feria Internacional del Libro (FIL)",
+        "name": "Feria Internacional del Libro",
         "type": "evento",
         "address": "Expo Guadalajara, Av. Mariano Otero 1499, Guadalajara, Jal.",
         "latitude": 20.652844005517384,
@@ -155,7 +155,7 @@
     },
     {
         "id": 116,
-        "name": "Festival Internacional de Cine de Guadalajara (FICG)",
+        "name": "Festival Internacional de Cine",
         "type": "evento",
         "address": "Conjunto Santander de Artes Escénicas, Zapopan, Jal.",
         "latitude": 20.736274385051264,
@@ -229,5 +229,39 @@
         "description": "Cantina tradicional fundada en 1921. Famosa por su ambiente bohemio, su bicicleta colgada en el techo y su mariachi en vivo.",
         "badge": "badge131",
         "responsibleBadge": "sBadge131"
+    },
+    {
+        "id": 136,
+        "name": "Final de Repechaje",
+        "type": "partido",
+        "address": "C. Siete Colinas 1772, Independencia, 44290 Guadalajara, Jal.",
+        "latitude": 20.70468575148641,
+        "longitude": -103.32821278333616,
+        "description": "Descubre la emoción del Mundial en Guadalajara y asegura tus boletos para un partido inolvidable.",
+        "badge": "Bpartido_136",
+        "responsibleBadge": "sBadge136"
+    },
+    {
+        "id": 137,
+        "name": "Semifinal de Repechaje",
+        "type": "partido",
+        "address": "C. Siete Colinas 1772, Independencia, 44290 Guadalajara, Jal.",
+        "latitude": 20.70468575148641,
+        "longitude": -103.32821278333616,
+        "description": "Descubre la emoción del Mundial en Guadalajara y asegura tus boletos para un partido inolvidable.",
+        "badge": "badge137",
+        "responsibleBadge": "Bpartido_137"
+    },
+    {
+        "id": 138,
+        "name": "Partido 2 – Grupo A",
+        "type": "partido",
+        "address": "C. Siete Colinas 1772, Independencia, 44290 Guadalajara, Jal.",
+        "latitude": 20.70468575148641,
+        "longitude": -103.32821278333616,
+        "description": "Descubre la emoción del Mundial en Guadalajara y asegura tus boletos para un partido inolvidable.",
+        "badge": "badge138",
+        "responsibleBadge": "Bpartido_138"
     }
+
 ]
