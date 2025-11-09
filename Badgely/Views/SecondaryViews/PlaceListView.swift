@@ -74,12 +74,12 @@ struct PlaceListView: View {
     
     // Places filtrados por type
     private var grouped: [(type: String, items: [Place])] {
-        Dictionary(grouping: filteredPlaces, by: { $0.type })
+        Dictionary(grouping: filteredPlaces, by: \.type)
             .map { ($0.key.capitalized, $0.value) }
-            .sorted { lhs, rhs in
-                if lhs.type.lowercased() == "partido" { return true }   // "partido" primero
-                if rhs.type.lowercased() == "partido" { return false }
-                return false  // mantiene el orden de inserción para los demás
+            .sorted {
+                if $0.type.lowercased() == "partido" { return true } //primero partido
+                if $1.type.lowercased() == "partido" { return false }
+                return $0.type.localizedCaseInsensitiveCompare($1.type) == .orderedAscending
             }
     }
 
@@ -234,15 +234,15 @@ struct ContentPlaceListView: View {
     
     // Places filtrados por type
     private var grouped: [(type: String, items: [Place])] {
-        Dictionary(grouping: filteredPlaces, by: { $0.type })
+        Dictionary(grouping: filteredPlaces, by: \.type)
             .map { ($0.key.capitalized, $0.value) }
-            .sorted { lhs, rhs in
-                if lhs.type.lowercased() == "partido" { return true }   // "partido" primero
-                if rhs.type.lowercased() == "partido" { return false }
-                return false  // mantiene el orden de inserción para los demás
+            .sorted {
+                if $0.type.lowercased() == "partido" { return true } //primero partido
+                if $1.type.lowercased() == "partido" { return false }
+                return $0.type.localizedCaseInsensitiveCompare($1.type) == .orderedAscending
             }
     }
-    
+
     var body: some View {
                 //Text("Explora México")
                 //    .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
