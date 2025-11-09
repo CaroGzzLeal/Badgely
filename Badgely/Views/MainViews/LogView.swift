@@ -175,6 +175,7 @@ struct LogView: View {
         case "voluntariado": return 4
         case "areasVerdes": return 5
         case "vidaNocturna": return 6
+        case "partidos": return 7
         default: return 6
         }
     }
