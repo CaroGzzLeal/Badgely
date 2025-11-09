@@ -67,7 +67,7 @@
     },
     {
         "id": 215,
-        "name": "Feria Internacional del Libro del Palacio de Minería",
+        "name": "Feria Internacional del Libro",
         "type": "evento",
         "address": "Tacuba 5, Centro Histórico, Cuauhtémoc, 06000 Ciudad de México, CDMX.",
         "latitude": 19.43557430858626,
@@ -78,7 +78,7 @@
     },
     {
         "id": 216,
-        "name": "Festival de Cine de la Cineteca Nacional",
+        "name": "Festival de Cine",
         "type": "evento",
         "address": "Av. México Coyoacán 389, Xoco, Benito Juárez, 03330 Ciudad de México, CDMX.",
         "latitude": 19.360827892952003,
@@ -139,8 +139,8 @@
         "latitude": 19.434070580324107,
         "longitude": -99.13710619839463,
         "description": "Club de jazz en un antiguo banco del centro histórico. Ofrece música en vivo de artistas nacionales e internacionales.",
-        "badge": "badge230",
-        "responsibleBadge": "sBadge230"
+        "badge": "Bvidanocturna_230",
+        "responsibleBadge": "carpool_53"
     },
     {
         "id": 231,
@@ -150,7 +150,41 @@
         "latitude": 19.41624108362057,
         "longitude": -99.16917145398827,
         "description": "Bar de mezcal artesanal con ambiente relajado y decoración rústica. Ideal para degustar bebidas mexicanas y conversar.",
-        "badge": "badge231",
-        "responsibleBadge": "sBadge231"
+        "badge": "Bvidanocturna_231",
+        "responsibleBadge": "carpool_53"
+    },
+    {
+        "id": 236,
+        "name": "Partido Inaugural",
+        "type": "partido",
+        "address": "Calz. de Tlalpan 3465, Sta. Úrsula Coapa, Coyoacán, 04650 Ciudad de México, CDMX",
+        "latitude": 19.302708796252073,
+        "longitude": -99.15051697520093,
+        "description": "Descubre la emoción del Mundial en Ciudad de México y asegura tus boletos para un partido inolvidable.",
+        "badge": "Bpartido_236",
+        "responsibleBadge": "sBadge236"
+    },
+    {
+        "id": 237,
+        "name": "Fase de Grupos",
+        "type": "partido",
+        "address": "Calz. de Tlalpan 3465, Sta. Úrsula Coapa, Coyoacán, 04650 Ciudad de México, CDMX",
+        "latitude": 19.302708796252073,
+        "longitude": -99.15051697520093,
+        "description": "Descubre la emoción del Mundial en Ciudad de México y asegura tus boletos para un partido inolvidable.",
+        "badge": "Bpartido_237",
+        "responsibleBadge": "sBadge237"
+    },
+    {
+        "id": 238,
+        "name": "Primera Eliminatoria",
+        "type": "partido",
+        "address": "Calz. de Tlalpan 3465, Sta. Úrsula Coapa, Coyoacán, 04650 Ciudad de México, CDMX",
+        "latitude": 19.302708796252073,
+        "longitude": -99.15051697520093,
+        "description": "Descubre la emoción del Mundial en Ciudad de México y asegura tus boletos para un partido inolvidable.",
+        "badge": "Bpartido_238",
+        "responsibleBadge": "sBadge238"
     }
+
 ]
