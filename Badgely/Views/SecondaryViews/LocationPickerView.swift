@@ -29,19 +29,20 @@ struct LocationPickerView: View {
                         } label: {
                             HStack {
                                 Image(systemName: "location.fill")
-                                    .foregroundColor(.green)
+                                    .symbolRenderingMode(.hierarchical)
                                 Text(city)
                                     .foregroundColor(.primary)
                                 Spacer()
                                 if user.city == city {
                                     Image(systemName: "checkmark")
-                                        .foregroundColor(.blue)
+                                        .foregroundColor(.gray)
                                 }
                             }
                         }
                     }
                 } header: {
                     Text("Selecciona tu ciudad")
+                        .fontWeight(.light)
                 } footer: {
                     Text("Los lugares se actualizarán automáticamente según tu selección")
                         .font(.caption)

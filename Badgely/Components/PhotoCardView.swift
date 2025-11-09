@@ -21,7 +21,7 @@ struct PhotoCardView: View {
             Image(uiImage: image)
                 .resizable()
                 .scaledToFill()
-                .frame(width: 180, height: 260)
+                .frame(width: 180, height: 280)
                 .clipped()
             
             /*// Degradado inferior para que el texto se lea
@@ -37,9 +37,15 @@ struct PhotoCardView: View {
             */
             HStack(alignment: .bottom) {
                 
-                // Badges como en PlaceDetailView
+                //badges como en PlaceDetailView
                 if let place, let user {
                     HStack(spacing: -12) {
+                        
+                        Image(place.badge)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 48, height: 48)
+                            .opacity(user.badges.contains(place.badge) ? 1.0 : 0.2)
                         
                         if let responsible = place.responsibleBadge {
                             Image(responsible)
@@ -47,15 +53,7 @@ struct PhotoCardView: View {
                                 .scaledToFit()
                                 .frame(width: 48, height: 48)
                                 .opacity(user.responsibleBadges.contains(responsible) ? 1.0 : 0.2)
-                            
-                        
                         }
-                        
-                        Image(place.badge)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 48, height: 48)
-                            .opacity(user.badges.contains(place.badge) ? 1.0 : 0.2)
                     }
                 }
             }
@@ -69,7 +67,7 @@ struct PhotoCardView: View {
                           : Color(red: 245/255, green: 245/255, blue: 245/255))
                 )
         )
-        .clipShape(RoundedRectangle(cornerRadius: 22))
+        //.clipShape(RoundedRectangle(cornerRadius: 22))
         .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 4)
     }
 }
