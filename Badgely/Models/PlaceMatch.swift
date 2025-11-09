@@ -19,17 +19,11 @@ struct PlaceMatch: Equatable {
     @Guide(description: "The name of the first matched place")
     let place1Name: String
     
-    @Guide(description: "The type of the first matched place")
-    let place1Type: String
-    
     @Guide(description: "The id number of the first matched place")
     let place1Id: Int
     
     @Guide(description: "The name of the second matched place")
     let place2Name: String
-    
-    @Guide(description: "The type of the second matched place")
-    let place2Type: String
     
     @Guide(description: "The id number of the second matched place")
     let place2Id: Int

@@ -105,6 +105,8 @@ struct MatchingPlacesView: View {
             Text(viewModel.placeMatch?.title ?? "Combo para ti")
                 .font(.headline)
                 .fontWeight(.thin)
+                .foregroundStyle(.primary)
+                .padding(.trailing, 15)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
@@ -164,7 +166,7 @@ struct MatchingPlacesView: View {
                 .font(place.name.count > 18 ? .caption : .subheadline)
                 .fontWeight(.semibold)
                 .foregroundColor(.secondary)
-                .lineLimit(2)
+                .lineLimit(3)
                 .truncationMode(.tail)
         }
         .frame(maxWidth: .infinity)
@@ -274,10 +276,8 @@ struct MatchingCardContainer<Content: View>: View {
         let sampleMatch = PlaceMatch(
             title: "Paseo y Café",
             place1Name: "Café Azul",
-            place1Type: "cafeteria",
             place1Id: 1,
             place2Name: "Restaurante Central",
-            place2Type: "restaurante",
             place2Id: 6
         )
         

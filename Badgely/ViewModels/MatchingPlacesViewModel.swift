@@ -104,8 +104,14 @@ final class MatchingPlacesViewModel: ObservableObject {
         
         do {
             //filtro segun criteria
-            let eligiblePlaces = filterEligiblePlaces(from: allPlaces, visitedBadges: visitedBadges, excludedIds: excludedPlaceIds)
-            
+            var eligiblePlaces = filterEligiblePlaces(from: allPlaces, visitedBadges: visitedBadges, excludedIds: excludedPlaceIds)
+        
+            //when there's not enough places, reset the eligible places
+            if eligiblePlaces.count < 2 {
+                print("Not enough eligible places (\(eligiblePlaces.count)). Resetting excluded places...")
+                excludedPlaceIds.removeAll()
+                eligiblePlaces = filterEligiblePlaces(from: allPlaces, visitedBadges: visitedBadges, excludedIds: excludedPlaceIds)
+            }
             print("First list eligible places: ", eligiblePlaces.map { " \($0.name) \($0.type) \($0.id)" })
             
             guard eligiblePlaces.count >= 2 else {
@@ -150,9 +156,9 @@ final class MatchingPlacesViewModel: ObservableObject {
             \(excludedListText)
             
             Select exactly two places from different categories that share something in common and could make a great combo for a touristic activity.
-            Please provide the ids, names, and types of the two selected places.
-            normalize text in category by removing accents and don't translate it, keep it as the original language.
-            Generate a creative title that captures their connection.
+            Please provide the ids, and names of the two selected places.
+            Don't translate the names, keep it as the original language.
+            Generate a creative title that captures their connection in the language of the phone.
             """
             
             print("\nSending prompt to Foundation Models...")

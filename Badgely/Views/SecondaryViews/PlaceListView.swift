@@ -267,7 +267,20 @@ struct ContentPlaceListView: View {
                             .padding(.horizontal, 9)
                             .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                             .font(.system(size: 20))
-                    } else {
+                    } else if group.type == "Area_Verde" {
+                        Text("Área Verde")
+                            .font(.headline)
+                            .padding(.horizontal, 9)
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .font(.system(size: 20))
+                    } else if group.type == "Vida_Nocturna" {
+                        Text("Vida Nocturna")
+                            .font(.headline)
+                            .padding(.horizontal, 9)
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .font(.system(size: 20))
+                    }
+                    else {
                         Text(group.type)
                             .font(.headline)
                             .padding(.horizontal, 9)
