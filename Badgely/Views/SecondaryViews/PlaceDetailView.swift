@@ -140,20 +140,23 @@ struct PlaceDetailView: View {
                             Button(action: {
                                 showCamera = true
                             }) {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .fill(Color(colorScheme == .dark ? .black : .white))
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .stroke(Color(colorScheme == .dark ? .white : .black), lineWidth: 2)
-                                    )
-                                    .frame(width: 110, height: 50)
-                                    .padding(.trailing, 20)
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .fill(Color(colorScheme == .dark ? .black : .white))
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(Color(colorScheme == .dark ? .white : .black), lineWidth: 2)
+                                        )
+                                        .frame(width: 110, height: 50)
+                                        .padding(.trailing, 20)
+                                    
+                                    Image(systemName: "camera")
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 40))
+                                        .padding(.trailing, 20)
+                                    
+                                }
                             }
-                            
-                            Image(systemName: "camera")
-                                .foregroundColor(Color(colorScheme == .dark ? .white : .black))
-                                .font(.system(size: 40))
-                                .padding(.trailing, 20)
                         }
                     }
                 } //HStack

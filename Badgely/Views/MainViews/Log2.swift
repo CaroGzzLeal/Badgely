@@ -10,15 +10,11 @@ struct Log2: View {
     @Query(sort: \Photo.date, order: .reverse) private var allPhotos: [Photo]
     @Query private var users: [User]
     
-    //let photos: [UIImage]
     let user: User
     
-    // Ajusta esto según cómo relaciones Photo con User en tu modelo
     var userPhotos: [Photo] {
         allPhotos.filter { photo in
-            // Ejemplo si Photo tiene una propiedad `owner: User?`
-            // photo.owner == user
-            true // ← cámbialo por tu lógica real
+            true
         }
     }
 
@@ -56,27 +52,33 @@ struct Log2: View {
                 .padding(.vertical)
                 
                 
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(userPhotos) { photo in
-                        
-                        if let uiImage = UIImage(data: photo.photo) {
-                            NavigationLink(destination: LogView(photo: photo)
-                                .environmentObject(placesViewModel)) {
-                                Image(uiImage: uiImage)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(width: 180, height: 260)
-                                    .clipped()
-                                    .cornerRadius(12)
+                if userPhotos.isEmpty {
+                    Text("Aún no tienes fotos")
+                }
+                else {
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(userPhotos) { photo in
+                            
+                            if let uiImage = UIImage(data: photo.photo) {
+                                NavigationLink(destination: LogView(photo: photo)
+                                    .environmentObject(placesViewModel)) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFill()
+                                            .frame(width: 180, height: 260)
+                                            .clipped()
+                                            .cornerRadius(12)
+                                    }
                             }
+                            /*Image(uiImage: photos[index])
+                             .resizable()
+                             .scaledToFill()
+                             .frame(width: 180, height: 260)
+                             .clipped()
+                             .background(.blue)*/
                         }
-                        /*Image(uiImage: photos[index])
-                         .resizable()
-                         .scaledToFill()
-                         .frame(width: 180, height: 260)
-                         .clipped()
-                         .background(.blue)*/
                     }
+                    .padding()
                 }
                 .padding()
             }

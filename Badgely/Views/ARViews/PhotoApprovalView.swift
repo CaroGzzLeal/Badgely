@@ -24,7 +24,18 @@ struct PhotoApprovalView: View {
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            VStack(spacing: 30) {
+            VStack {
+                
+                HStack {
+                    Image("name")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 100)
+                        .padding(.leading)
+                    Spacer()
+                }
+
+                
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
@@ -39,12 +50,13 @@ struct PhotoApprovalView: View {
                     .padding(.horizontal, 30)
                     .padding(.vertical, 15)
                     .background(
-                            Color(colorScheme == .dark
-                                  ? Color(red: 175/255, green: 76/255, blue: 79/255) // #AF4C4F
-                                  : Color(red: 175/255, green: 76/255, blue: 79/255))
-                        )
+                        Color(colorScheme == .dark
+                              ? Color(red: 175/255, green: 76/255, blue: 79/255) // #AF4C4F
+                              : Color(red: 175/255, green: 76/255, blue: 79/255))
+                    )
                     .foregroundColor(.white)
                     .cornerRadius(20)
+                    
                     
                     Button("Continuar") {
                         savePhoto()
@@ -53,10 +65,10 @@ struct PhotoApprovalView: View {
                     .padding(.horizontal, 30)
                     .padding(.vertical, 15)
                     .background(
-                            Color(colorScheme == .dark
-                                  ? Color(red: 76/255, green: 175/255, blue: 80/255) // #4CAF50
-                                  : Color(red: 76/255, green: 175/255, blue: 80/255))
-                        )
+                        Color(colorScheme == .dark
+                              ? Color(red: 76/255, green: 175/255, blue: 80/255)
+                              : Color(red: 76/255, green: 175/255, blue: 80/255))
+                    )
                     .foregroundColor(.white)
                     .cornerRadius(20)
                 }
@@ -70,6 +82,7 @@ struct PhotoApprovalView: View {
                     isLastBadge: currentBadgeIndex == earnedBadges.count - 1,
                     onContinue: handleBadgeOverlayContinue
                 )
+                .id(earnedBadges[currentBadgeIndex].name)
                 .transition(.opacity.combined(with: .scale))
                 .zIndex(1)
             }
@@ -93,12 +106,12 @@ struct PhotoApprovalView: View {
         guard let imageData = image.pngData(), let user = users.first else { return }
         
         let newPhoto = Photo(
-           name: place.displayName,
-           photo: imageData,
-           badgeName: place.badge,
-           place: place.address
-       )
-       context.insert(newPhoto)
+            name: place.displayName,
+            photo: imageData,
+            badgeName: place.badge,
+            place: place.address
+        )
+        context.insert(newPhoto)
         
         // Collect all earned badges
         earnedBadges.removeAll()
@@ -116,8 +129,13 @@ struct PhotoApprovalView: View {
             user.responsibleBadges.append(responsibleBadge)
             earnedBadges.append((name: responsibleBadge, displayName: "Insignia Responsable"))
         }
+        else {
+            if user.badges.contains(place.badge) {
+                user.responsibleBadges.append("")
+            }
+        }
         
-        // Update community badges and check for special badges
+        // Check for special badges
         user.comunBadges[place.type, default: 0] += 1
         let visits = user.comunBadges[place.type] ?? 0
         
@@ -127,7 +145,8 @@ struct PhotoApprovalView: View {
                 user.specialBadges.append(special)
                 earnedBadges.append((name: special, displayName: "Cliente Frecuente"))
             }
-        } else if visits == 5 {
+        }
+        else if visits == 5 {
             let special = "maximo_\(43 + categoryOffset(for: place.type))"
             if !user.specialBadges.contains(special) {
                 user.specialBadges.append(special)
@@ -137,13 +156,15 @@ struct PhotoApprovalView: View {
         
         // Save context
         try? context.save()
+        print("normales", user.badges)
+        print("especiales", user.specialBadges)
+        print("responsables", user.responsibleBadges)
+        print("totales", user.comunBadges)
         
-        // Show badge overlay if any badges were earned
         if !earnedBadges.isEmpty {
             currentBadgeIndex = 0
             showBadgeOverlay = true
         } else {
-            // No new badges, just dismiss
             dismiss()
         }
     }
@@ -153,9 +174,10 @@ struct PhotoApprovalView: View {
         case "cafeteria": return 0
         case "restaurante": return 1
         case "emblematico": return 2
-        case "vidaNocturna": return 3
-        case "eventos": return 4
-        case "voluntariado": return 5
+        case "eventos": return 3
+        case "voluntariado": return 4
+        case "areasVerdes": return 5
+        case "vidaNocturna": return 6
         default: return 6
         }
     }
