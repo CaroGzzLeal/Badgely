@@ -62,9 +62,8 @@ struct PlaceListView: View {
                 let priority2 = searchPriority(for: place2)
                 
                 if priority1 != priority2 {
-                    return priority1 < priority2 // menor num mayor prob
+                    return priority1 < priority2
                 } else {
-                    // Same priority, sort alphabetically by name
                     return place1.name.localizedCaseInsensitiveCompare(place2.name) == .orderedAscending
                 }
             }
@@ -76,10 +75,14 @@ struct PlaceListView: View {
     // Places filtrados por type
     private var grouped: [(type: String, items: [Place])] {
         Dictionary(grouping: filteredPlaces, by: { $0.type })
-            .sorted { $0.key < $1.key }
             .map { ($0.key.capitalized, $0.value) }
+            .sorted { lhs, rhs in
+                if lhs.type.lowercased() == "partido" { return true }   // "partido" primero
+                if rhs.type.lowercased() == "partido" { return false }
+                return false  // mantiene el orden de inserción para los demás
+            }
     }
-    
+
     var body: some View {
         Group {
             if !searchText.isEmpty {
@@ -186,7 +189,20 @@ struct PlaceListView: View {
                                         .padding(.horizontal, 9)
                                         .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                         .font(.system(size: 20))
-                                } else {
+                                } else if group.type == "Area_Verde" {
+                                    Text("Áreas Verdes")
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                } else if group.type == "Vida_Nocturna" {
+                                    Text("Vida Nocturna")
+                                        .font(.headline)
+                                        .padding(.horizontal, 9)
+                                        .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                                        .font(.system(size: 20))
+                                }
+                                else {
                                     Text(group.type)
                                         .font(.headline)
                                         .padding(.horizontal, 9)
