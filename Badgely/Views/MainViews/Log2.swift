@@ -30,8 +30,8 @@ struct Log2: View {
     }*/
    
     let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 16)
     ]
 
     var body: some View {
@@ -96,26 +96,24 @@ struct Log2: View {
                      */
                 }
                 else {
-                    LazyVGrid(columns: columns, spacing: 16) {
+                    LazyVGrid(columns: columns) {
                         ForEach(userPhotos) { photo in
-                            
                             if let uiImage = UIImage(data: photo.photo) {
-                                NavigationLink(destination: LogView(photo: photo)
-                                    .environmentObject(placesViewModel)) {
-                                        Image(uiImage: uiImage)
-                                            .resizable()
-                                            .scaledToFill()
-                                            .frame(width: 180, height: 260)
-                                            .clipped()
-                                            .cornerRadius(12)
-                                    }
+                                let placeForPhoto = placesViewModel.places.first { $0.name == photo.name }
+
+                                NavigationLink {
+                                    LogView(photo: photo)
+                                        .environmentObject(placesViewModel)
+                                } label: {
+                                    PhotoCardView(
+                                        image: uiImage,
+                                        title: placeForPhoto?.displayName ?? photo.name,
+                                        place: placeForPhoto,
+                                        user: user
+                                    )
+                                }
+                                .buttonStyle(.plain) // para que no ponga el azul feo del link
                             }
-                            /*Image(uiImage: photos[index])
-                             .resizable()
-                             .scaledToFill()
-                             .frame(width: 180, height: 260)
-                             .clipped()
-                             .background(.blue)*/
                         }
                     }
                     .padding()
