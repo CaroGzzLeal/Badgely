@@ -19,37 +19,49 @@ struct AugmentedRealityContainer: View {
     
     var body: some View {
         ZStack {
-            AugmentedRealityScene(selectedBadges: selectedBadges, arView: $arView)
+            Color.black
                 .ignoresSafeArea()
-                .overlay(alignment: .bottom) {
-                    Button(action: {
-                        captureSnapshot()
-                    }) {
-                        Image(systemName: "camera.fill")
-                            .font(.system(size: 30))
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.blue)
-                            .clipShape(Circle())
-                            .shadow(radius: 5)
-                    }
-                }
             
             VStack {
                 HStack {
+                    Image("name")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 100)
+                        .padding(.leading)
+                    
                     Spacer()
                     Button(action: {
                         showCamera = false
                     }, label: {
                         Image(systemName: "xmark.circle")
                             .foregroundColor(.white)
+                            .font(.system(size: 30))
                             .font(.largeTitle)
                             .padding()
                             .frame(alignment: .topTrailing)
                     })
                 }
-                Spacer()
+                
+                AugmentedRealityScene(selectedBadges: selectedBadges, arView: $arView)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    
+                Button(action: {
+                    captureSnapshot()
+                }) {
+                    Image(systemName: "seal.fill")
+                        .font(.system(size: 60))
+                        .foregroundStyle(.white)
+                        .padding()
+                        .overlay {
+                            Image(systemName: "camera.fill")
+                                .font(.system(size: 30))
+                                .foregroundStyle(.black)
+                        }
+
+                }
             }
+            .padding(.top)
             
             if let capturedImage {
                 PhotoApprovalView(place: place, image: capturedImage)

@@ -14,16 +14,28 @@ struct PhotoApprovalView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
     @Query var users: [User]
+    @Environment(\.colorScheme) var colorScheme
     
-    @State private var showCommonBadgeAlert = false
-    @State private var showSpecialBadgeAlert = false
-    @State private var earnedBadgeName: String = ""
-    @State private var earnedSpecialBadgeName: String?
+    // Badge overlay states
+    @State private var showBadgeOverlay = false
+    @State private var currentBadgeIndex = 0
+    @State private var earnedBadges: [(name: String, displayName: String)] = []
     
     var body: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            VStack(spacing: 30) {
+            VStack {
+                
+                HStack {
+                    Image("name")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 100)
+                        .padding(.leading)
+                    Spacer()
+                }
+
+                
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
@@ -34,44 +46,59 @@ struct PhotoApprovalView: View {
                     Button("Cancelar") {
                         dismiss()
                     }
-                    .font(.headline)
-                    .padding()
-                    .background(Color.red)
+                    .font(.system(size: 20, weight: .semibold))
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 15)
+                    .background(
+                        Color(colorScheme == .dark
+                              ? Color(red: 175/255, green: 76/255, blue: 79/255) // #AF4C4F
+                              : Color(red: 175/255, green: 76/255, blue: 79/255))
+                    )
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .cornerRadius(20)
+                    
                     
                     Button("Continuar") {
                         savePhoto()
                     }
-                    .font(.headline)
-                    .padding()
-                    .background(Color.green)
+                    .font(.system(size: 20, weight: .semibold))
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 15)
+                    .background(
+                        Color(colorScheme == .dark
+                              ? Color(red: 76/255, green: 175/255, blue: 80/255)
+                              : Color(red: 76/255, green: 175/255, blue: 80/255))
+                    )
                     .foregroundColor(.white)
-                    .cornerRadius(10)
+                    .cornerRadius(20)
                 }
             }
+            
+            // 3D Badge Overlay
+            if showBadgeOverlay && !earnedBadges.isEmpty {
+                Badge3DOverlayView(
+                    badgeName: earnedBadges[currentBadgeIndex].name,
+                    badgeDisplayName: earnedBadges[currentBadgeIndex].displayName,
+                    isLastBadge: currentBadgeIndex == earnedBadges.count - 1,
+                    onContinue: handleBadgeOverlayContinue
+                )
+                .id(earnedBadges[currentBadgeIndex].name)
+                .transition(.opacity.combined(with: .scale))
+                .zIndex(1)
+            }
         }
-        .alert("¡Has ganado una nueva insignia!", isPresented: $showCommonBadgeAlert) {
-            Button("Continuar") {
-                if earnedSpecialBadgeName != nil {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        showSpecialBadgeAlert = true
-                    }
-                } else {
-                    dismiss()
-                }
-            }
-        } message: {
-            Text("Has obtenido la insignia \(earnedBadgeName). ¡Felicidades!")
-        }
-        .alert("¡Insignia especial desbloqueada!", isPresented: $showSpecialBadgeAlert) {
-            Button("Aceptar") {
-                dismiss()
-            }
-        } message: {
-            if let special = earnedSpecialBadgeName {
-                Text("Has obtenido la insignia especial \(special). ¡Increíble trabajo!")
-            }
+        .animation(.easeInOut(duration: 0.3), value: showBadgeOverlay)
+        .animation(.easeInOut(duration: 0.3), value: currentBadgeIndex)
+    }
+    
+    /// Handles the continue/dismiss action from the badge overlay
+    private func handleBadgeOverlayContinue() {
+        if currentBadgeIndex < earnedBadges.count - 1 {
+            // Show next badge
+            currentBadgeIndex += 1
+        } else {
+            // Last badge - dismiss completely
+            dismiss()
         }
     }
     
@@ -79,23 +106,36 @@ struct PhotoApprovalView: View {
         guard let imageData = image.pngData(), let user = users.first else { return }
         
         let newPhoto = Photo(
-           name: place.displayName,
-           photo: imageData,
-           badgeName: place.badge,
-           place: place.address
-       )
-       context.insert(newPhoto)
+            name: place.displayName,
+            photo: imageData,
+            badgeName: place.badge,
+            place: place.address
+        )
+        context.insert(newPhoto)
         
+        // Collect all earned badges
+        earnedBadges.removeAll()
+        
+        // Check for regular badge
         if !user.badges.contains(place.badge) {
             user.badges.append(place.badge)
-            earnedBadgeName = place.displayName
+            earnedBadges.append((name: place.badge, displayName: place.displayName))
         }
         
-        if user.badges.contains(place.badge) {
-            user.responsibleBadges.append(place.responsibleBadge!)
-            earnedBadgeName = place.responsibleBadge!
+        // Check for responsible badge
+        if let responsibleBadge = place.responsibleBadge,
+           !responsibleBadge.isEmpty,
+           user.badges.contains(place.badge) {
+            user.responsibleBadges.append(responsibleBadge)
+            earnedBadges.append((name: responsibleBadge, displayName: "Insignia Responsable"))
+        }
+        else {
+            if user.badges.contains(place.badge) {
+                user.responsibleBadges.append("")
+            }
         }
         
+        // Check for special badges
         user.comunBadges[place.type, default: 0] += 1
         let visits = user.comunBadges[place.type] ?? 0
         
@@ -103,18 +143,29 @@ struct PhotoApprovalView: View {
             let special = "frecuente_\(36 + categoryOffset(for: place.type))"
             if !user.specialBadges.contains(special) {
                 user.specialBadges.append(special)
-                earnedSpecialBadgeName = "de cliente frecuente"
+                earnedBadges.append((name: special, displayName: "Cliente Frecuente"))
             }
-        } else if visits == 5 {
+        }
+        else if visits == 5 {
             let special = "maximo_\(43 + categoryOffset(for: place.type))"
             if !user.specialBadges.contains(special) {
                 user.specialBadges.append(special)
-                earnedSpecialBadgeName = "de cliente máximo"
+                earnedBadges.append((name: special, displayName: "Cliente Máximo"))
             }
         }
         
         try? context.save()
-        showCommonBadgeAlert = true
+        print("normales", user.badges)
+        print("especiales", user.specialBadges)
+        print("responsables", user.responsibleBadges)
+        print("totales", user.comunBadges)
+        
+        if !earnedBadges.isEmpty {
+            currentBadgeIndex = 0
+            showBadgeOverlay = true
+        } else {
+            dismiss()
+        }
     }
     
     private func categoryOffset(for type: String) -> Int {
@@ -122,9 +173,10 @@ struct PhotoApprovalView: View {
         case "cafeteria": return 0
         case "restaurante": return 1
         case "emblematico": return 2
-        case "vidaNocturna": return 3
-        case "eventos": return 4
-        case "voluntariado": return 5
+        case "eventos": return 3
+        case "voluntariado": return 4
+        case "areasVerdes": return 5
+        case "vidaNocturna": return 6
         default: return 6
         }
     }
