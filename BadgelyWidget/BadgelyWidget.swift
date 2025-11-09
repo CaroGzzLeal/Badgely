@@ -10,11 +10,11 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), name: "", photo: <#T##Data#>, badgeName: "", place: "")
+        SimpleEntry(date: Date(), name: "", badgeName: "", place: "")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), name: "", photo: <#T##Data#>, badgeName: "", place: "")
+        let entry = SimpleEntry(date: Date(), name: "", badgeName: "", place: "")
         completion(entry)
     }
 
@@ -25,7 +25,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, name: "", photo: <#T##Data#>, badgeName: "", place: "")
+            let entry = SimpleEntry(date: entryDate, name: "", badgeName: "", place: "")
             entries.append(entry)
         }
 
@@ -42,7 +42,7 @@ struct SimpleEntry: TimelineEntry {
     let date: Date
     
     var name: String
-    var photo: Data
+    //var photo: Data
     var badgeName: String?
     var place: String
     
@@ -56,20 +56,7 @@ struct BadgelyWidgetEntryView : View {
 
     var body: some View {
         
-        switch family {
-            
-        case .systemSmall:
-            ZStack {
-                
-                
-                
-            }
-            
-            
-            
-        case .systemLarge:
-            
-        default:
+        VStack {
             Text("Some other WidgetFamily in the future.")
         }
     }
@@ -99,7 +86,7 @@ struct BadgelyWidget: Widget {
 } timeline: {
     SimpleEntry(date: .now,
                 name: "Atardecer",
-                photo: UIImage(systemName: "sunset.fill")!.pngData()!,
+               // photo: UIImage(systemName: "sunset.fill")!.pngData()!,
                 badgeName: "Nature",
                 place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
     )
