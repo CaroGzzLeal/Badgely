@@ -10,11 +10,11 @@ import SwiftUI
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), emoji: "😀")
+        SimpleEntry(date: Date(), name: "", photo: <#T##Data#>, badgeName: "", place: "")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), emoji: "😀")
+        let entry = SimpleEntry(date: Date(), name: "", photo: <#T##Data#>, badgeName: "", place: "")
         completion(entry)
     }
 
@@ -25,7 +25,7 @@ struct Provider: TimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, emoji: "😀")
+            let entry = SimpleEntry(date: entryDate, name: "", photo: <#T##Data#>, badgeName: "", place: "")
             entries.append(entry)
         }
 
@@ -40,19 +40,37 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
-    let emoji: String
+    
+    var name: String
+    var photo: Data
+    var badgeName: String?
+    var place: String
+    
 }
 
 struct BadgelyWidgetEntryView : View {
+    @Environment(\.widgetFamily) var family
+    @Environment(\.widgetRenderingMode) var widgetRenderingMode
+    
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Emoji:")
-            Text(entry.emoji)
+        
+        switch family {
+            
+        case .systemSmall:
+            ZStack {
+                
+                
+                
+            }
+            
+            
+            
+        case .systemLarge:
+            
+        default:
+            Text("Some other WidgetFamily in the future.")
         }
     }
 }
@@ -79,6 +97,10 @@ struct BadgelyWidget: Widget {
 #Preview(as: .systemSmall) {
     BadgelyWidget()
 } timeline: {
-    SimpleEntry(date: .now, emoji: "😀")
-    SimpleEntry(date: .now, emoji: "🤩")
+    SimpleEntry(date: .now,
+                name: "Atardecer",
+                photo: UIImage(systemName: "sunset.fill")!.pngData()!,
+                badgeName: "Nature",
+                place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
+    )
 }
