@@ -8,7 +8,7 @@
         "longitude": -100.2444894751175,
         "description": "Descubre la emoción del Mundial en Monterrey y asegura tus boletos para un partido inolvidable.",
         "badge": "Bpartido_36",
-        "responsibleBadge": "sBadge36"
+        "responsibleBadge": ""
     },
     {
         "id": 37,
@@ -19,7 +19,7 @@
         "longitude": -100.2444894751175,
         "description": "Descubre la emoción del Mundial en Monterrey y asegura tus boletos para un partido inolvidable.",
         "badge": "Bpartido_37",
-        "responsibleBadge": "sBadge37"
+        "responsibleBadge": ""
     },
     {
         "id": 38,
@@ -30,7 +30,7 @@
         "longitude": -100.30794908394995,
         "description": "Descubre la emoción del Mundial en Monterrey y asegura tus boletos para un partido inolvidable.",
         "badge": "Bpartido_38",
-        "responsibleBadge": "sBadge38"
+        "responsibleBadge": ""
     },
     {
         "id": 1,
@@ -308,114 +308,114 @@
         "responsibleBadge": ""
     },
     {
-            "id": 26,
-            "name": "Parque Natural La Estanzuela",
-            "type": "area_verde",
-            "address": "Camino, Antiguo Camino a Valle Alto S/N, La Estanzuela, 64780 Monterrey, N.L.",
-            "latitude": 25.549889514663754,
-            "longitude": -100.2704403346111,
-            "description": "Escápate a este paraíso natural al sur de Monterrey, rodeado de montañas, ríos y cascadas. Ideal para hacer senderismo, respirar aire fresco y disfrutar de la naturaleza en su estado más puro.",
-            "badge": "Bareasverdes_26",
-            "responsibleBadge": "bici_51"
-        },
-        {
-            "id": 27,
-            "name": "Cerro de la Silla",
-            "type": "area_verde",
-            "address": "67210 N.L.",
-            "latitude": 25.632492612009447,
-            "longitude": -100.23468068520936,
-            "description": "Símbolo de Monterrey y destino favorito de los aventureros. Anímate a subir sus senderos y contempla una vista impresionante de la ciudad desde su icónica cima.",
-            "badge": "Bareasverdes_27",
-            "responsibleBadge": "bici_51"
-        },
-        {
-            "id": 28,
-            "name": "Parque Ecológico Chipinque",
-            "type": "area_verde",
-            "address": "Carretera a Chipinque Km. 2.5, Valle de San Angel, 66290 San Pedro Garza García, N.L.",
-            "latitude": 25.618734622996584,
-            "longitude": -100.3602367332937,
-            "description": "Vive una experiencia al aire libre entre bosques, miradores y senderos. Chipinque es perfecto para hacer ejercicio, observar la fauna local y disfrutar de panorámicas espectaculares del valle.",
-            "badge": "Bareasverdes_28",
-            "responsibleBadge": "bici_51"
-        },
-        {
-            "id": 29,
-            "name": "Parque Rufino Tamayo",
-            "type": "area_verde",
-            "address": "Av. Rufino Tamayo 100, Corporativo Prodesa, 66278 San Pedro Garza García, N.L.",
-            "latitude": 25.644883478074266,
-            "longitude": -100.3289019269835,
-            "description": "Disfruta un paseo relajado en este parque moderno con amplias áreas verdes, andadores y zonas para ejercitarte. Un rincón tranquilo para disfrutar en familia o con amigos.",
-            "badge": "Bareasverdes_29",
-            "responsibleBadge": "bici_51"
-        },
-        {
-            "id": 30,
-            "name": "Parque Bosques del Valle",
-            "type": "area_verde",
-            "address": "Av Bosques del Valle, Bosques del Valle 4to Sector, 66250 San Pedro Garza García, N.L.",
-            "latitude": 25.64590149914303,
-            "longitude": -100.37612627020941,
-            "description": "Un espacio familiar rodeado de árboles y naturaleza en San Pedro. Ideal para correr, pasear con mascotas o disfrutar un picnic al aire libre bajo la sombra.",
-            "badge": "Bareasverdes_30",
-            "responsibleBadge": "bici_51"
-        },
-        {
-              "id": 31,
-              "name": "Six San Pedro",
-              "type": "vida_nocturna",
-              "address": "Av. Ricardo Margain Zozaya 220, Valle del Campestre, 66265 San Pedro Garza García, N.L.",
-              "latitude": 25.652995716936356,
-              "longitude": -100.35260367665364,
-              "description": "Vive una noche vibrante con música, cócteles y un ambiente moderno. Six ofrece un espacio elegante para bailar, socializar y disfrutar de la vida nocturna de San Pedro.",
-              "badge": "Bvidanocturna_31",
-              "responsibleBadge": "carpool_53"
-          },
-          {
-              "id": 32,
-              "name": "Strana",
-              "type": "vida_nocturna",
-              "address": "Río Caura 350, Del Valle, 66220 San Pedro Garza García, N.L.",
-              "latitude": 25.65438379231491,
-              "longitude": -100.36243595389408,
-              "description": "Uno de los clubes más icónicos de Monterrey, famoso por su espectáculo de luces, DJ internacionales y atmósfera exclusiva. Perfecto para una noche de fiesta inolvidable.",
-              "badge": "Bvidanocturna_33",
-              "responsibleBadge": "carpool_53"
-          },
-          {
-              "id": 33,
-              "name": "Pepper",
-              "type": "vida_nocturna",
-              "address": "Plaza Las Palmas, Av. Manuel Gómez Morín 911-L-17, Comercial Gómez Morin, Del Valle, 66220 San Pedro Garza García, N.L.",
-              "latitude": 25.648512919850944,
-              "longitude": -100.36060499285796,
-              "description": "Bar con ambiente moderno y buena música, ideal para disfrutar tragos y buena compañía, su terraza y coctelería creativa lo hacen uno de los favoritos en la zona Valle.",
-              "badge": "Bvidanocturna_33",
-              "responsibleBadge": "carpool_53"
-          },
-          {
-              "id": 34,
-              "name": "Saxy Jazz Club",
-              "type": "vida_nocturna",
-              "address": "Avenida José Vasconcelos 150 En el Sótano (Estacionamiento) Plaza O2, Col. del Valle, 66220 San Pedro Garza García, N.L.",
-              "latitude": 25.651386850627258,
-              "longitude": -100.3680762334017,
-              "description": "Sumérgete en un ambiente elegante y acogedor donde el jazz cobra vida cada noche. Disfruta de música en vivo, cócteles de autor y una atmósfera íntima perfecta para una cita o una velada con amigos.",
-              "badge": "Bvidanocturna_34",
-              "responsibleBadge": "carpool_53"
-          },
-          {
-              "id": 35,
-              "name": "Art Studios",
-              "type": "vida_nocturna",
-              "address": "José María Morelos 880, Barrio Antiguo, Centro, 64000 Monterrey, N.L.",
-              "latitude": 25.666352236931868,
-              "longitude": -100.30794908394995,
-              "description": "Espacio alternativo en el Barrio Antiguo donde convergen arte, música y cultura nocturna. Un punto imperdible para quienes buscan una experiencia más creativa y bohemia.",
-              "badge": "Bvidanocturna_35",
-              "responsibleBadge": "carpool_53"
-          }
-
+        "id": 26,
+        "name": "Parque Natural La Estanzuela",
+        "type": "area_verde",
+        "address": "Camino, Antiguo Camino a Valle Alto S/N, La Estanzuela, 64780 Monterrey, N.L.",
+        "latitude": 25.549889514663754,
+        "longitude": -100.2704403346111,
+        "description": "Escápate a este paraíso natural al sur de Monterrey, rodeado de montañas, ríos y cascadas. Ideal para hacer senderismo, respirar aire fresco y disfrutar de la naturaleza en su estado más puro.",
+        "badge": "Bareasverdes_26",
+        "responsibleBadge": "bici_51"
+    },
+    {
+        "id": 27,
+        "name": "Cerro de la Silla",
+        "type": "area_verde",
+        "address": "67210 N.L.",
+        "latitude": 25.632492612009447,
+        "longitude": -100.23468068520936,
+        "description": "Símbolo de Monterrey y destino favorito de los aventureros. Anímate a subir sus senderos y contempla una vista impresionante de la ciudad desde su icónica cima.",
+        "badge": "Bareasverdes_27",
+        "responsibleBadge": "bici_51"
+    },
+    {
+        "id": 28,
+        "name": "Parque Ecológico Chipinque",
+        "type": "area_verde",
+        "address": "Carretera a Chipinque Km. 2.5, Valle de San Angel, 66290 San Pedro Garza García, N.L.",
+        "latitude": 25.618734622996584,
+        "longitude": -100.3602367332937,
+        "description": "Vive una experiencia al aire libre entre bosques, miradores y senderos. Chipinque es perfecto para hacer ejercicio, observar la fauna local y disfrutar de panorámicas espectaculares del valle.",
+        "badge": "Bareasverdes_28",
+        "responsibleBadge": "bici_51"
+    },
+    {
+        "id": 29,
+        "name": "Parque Rufino Tamayo",
+        "type": "area_verde",
+        "address": "Av. Rufino Tamayo 100, Corporativo Prodesa, 66278 San Pedro Garza García, N.L.",
+        "latitude": 25.644883478074266,
+        "longitude": -100.3289019269835,
+        "description": "Disfruta un paseo relajado en este parque moderno con amplias áreas verdes, andadores y zonas para ejercitarte. Un rincón tranquilo para disfrutar en familia o con amigos.",
+        "badge": "Bareasverdes_29",
+        "responsibleBadge": "bici_51"
+    },
+    {
+        "id": 30,
+        "name": "Parque Bosques del Valle",
+        "type": "area_verde",
+        "address": "Av Bosques del Valle, Bosques del Valle 4to Sector, 66250 San Pedro Garza García, N.L.",
+        "latitude": 25.64590149914303,
+        "longitude": -100.37612627020941,
+        "description": "Un espacio familiar rodeado de árboles y naturaleza en San Pedro. Ideal para correr, pasear con mascotas o disfrutar un picnic al aire libre bajo la sombra.",
+        "badge": "Bareasverdes_30",
+        "responsibleBadge": "bici_51"
+    },
+    {
+        "id": 31,
+        "name": "Six San Pedro",
+        "type": "vida_nocturna",
+        "address": "Av. Ricardo Margain Zozaya 220, Valle del Campestre, 66265 San Pedro Garza García, N.L.",
+        "latitude": 25.652995716936356,
+        "longitude": -100.35260367665364,
+        "description": "Vive una noche vibrante con música, cócteles y un ambiente moderno. Six ofrece un espacio elegante para bailar, socializar y disfrutar de la vida nocturna de San Pedro.",
+        "badge": "Bvidanocturna_31",
+        "responsibleBadge": "carpool_53"
+    },
+    {
+        "id": 32,
+        "name": "Strana",
+        "type": "vida_nocturna",
+        "address": "Río Caura 350, Del Valle, 66220 San Pedro Garza García, N.L.",
+        "latitude": 25.65438379231491,
+        "longitude": -100.36243595389408,
+        "description": "Uno de los clubes más icónicos de Monterrey, famoso por su espectáculo de luces, DJ internacionales y atmósfera exclusiva. Perfecto para una noche de fiesta inolvidable.",
+        "badge": "Bvidanocturna_33",
+        "responsibleBadge": "carpool_53"
+    },
+    {
+        "id": 33,
+        "name": "Pepper",
+        "type": "vida_nocturna",
+        "address": "Plaza Las Palmas, Av. Manuel Gómez Morín 911-L-17, Comercial Gómez Morin, Del Valle, 66220 San Pedro Garza García, N.L.",
+        "latitude": 25.648512919850944,
+        "longitude": -100.36060499285796,
+        "description": "Bar con ambiente moderno y buena música, ideal para disfrutar tragos y buena compañía, su terraza y coctelería creativa lo hacen uno de los favoritos en la zona Valle.",
+        "badge": "Bvidanocturna_33",
+        "responsibleBadge": "carpool_53"
+    },
+    {
+        "id": 34,
+        "name": "Saxy Jazz Club",
+        "type": "vida_nocturna",
+        "address": "Avenida José Vasconcelos 150 En el Sótano (Estacionamiento) Plaza O2, Col. del Valle, 66220 San Pedro Garza García, N.L.",
+        "latitude": 25.651386850627258,
+        "longitude": -100.3680762334017,
+        "description": "Sumérgete en un ambiente elegante y acogedor donde el jazz cobra vida cada noche. Disfruta de música en vivo, cócteles de autor y una atmósfera íntima perfecta para una cita o una velada con amigos.",
+        "badge": "Bvidanocturna_34",
+        "responsibleBadge": "carpool_53"
+    },
+    {
+        "id": 35,
+        "name": "Art Studios",
+        "type": "vida_nocturna",
+        "address": "José María Morelos 880, Barrio Antiguo, Centro, 64000 Monterrey, N.L.",
+        "latitude": 25.666352236931868,
+        "longitude": -100.30794908394995,
+        "description": "Espacio alternativo en el Barrio Antiguo donde convergen arte, música y cultura nocturna. Un punto imperdible para quienes buscan una experiencia más creativa y bohemia.",
+        "badge": "Bvidanocturna_35",
+        "responsibleBadge": "carpool_53"
+    }
+    
 ]
