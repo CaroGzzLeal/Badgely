@@ -12,6 +12,5 @@ import SwiftUI
 struct BadgelyWidgetBundle: WidgetBundle {
     var body: some Widget {
         BadgelyWidget()
-        BadgelyWidgetLiveActivity()
     }
 }
