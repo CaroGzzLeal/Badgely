@@ -131,7 +131,7 @@ struct PlaceListView: View {
                                 .padding(.top, 8)
                         }
                     }
-                    .padding(.vertical, 16)
+                    //.padding(.vertical, 16)
                 }
                 
             } else {
@@ -212,7 +212,7 @@ struct PlaceListView: View {
                                 RowView(places: group.items)
                             }
                         }
-                        .padding(.vertical, 16)
+                        //.padding(.vertical, 16)
                     }
                 }
             }
@@ -226,25 +226,24 @@ struct ContentPlaceListView: View {
     @EnvironmentObject var placesViewModel: PlacesViewModel
     @Environment(\.colorScheme) var colorScheme
 
-    
-    
     // Places filtrados según search text total
     private var filteredPlaces: [Place] {
         var places = placesViewModel.places
-        
         return places
     }
     
     // Places filtrados por type
     private var grouped: [(type: String, items: [Place])] {
         Dictionary(grouping: filteredPlaces, by: { $0.type })
-            .sorted { $0.key < $1.key }
             .map { ($0.key.capitalized, $0.value) }
+            .sorted { lhs, rhs in
+                if lhs.type.lowercased() == "partido" { return true }   // "partido" primero
+                if rhs.type.lowercased() == "partido" { return false }
+                return false  // mantiene el orden de inserción para los demás
+            }
     }
     
     var body: some View {
-        
-          
                 //Text("Explora México")
                 //    .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                 //    .fontWeight(.bold)
