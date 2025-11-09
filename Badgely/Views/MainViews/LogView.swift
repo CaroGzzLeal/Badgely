@@ -249,7 +249,8 @@ struct IndicatorView: View {
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
-        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
+        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910",
+        city: "Monterrey"
     )
     
     // 2️⃣ Usuario de ejemplo (para @Query users)

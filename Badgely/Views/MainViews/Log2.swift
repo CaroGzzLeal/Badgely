@@ -10,17 +10,24 @@ struct Log2: View {
     @Query(sort: \Photo.date, order: .reverse) private var allPhotos: [Photo]
     @Query private var users: [User]
     
-    let user: User
+    @State private var showLocationPicker = false
     
-    var userPhotos: [Photo] {
-        allPhotos.filter { photo in
-            true
+    //let user: User
+    
+    private var userPhotos: [Photo] {
+        guard let user = users.first else { return [] }
+        return allPhotos.filter { photo in
+            photo.city == user.city
         }
     }
 
-    var avatar: String {
-        user.avatar
+    private var user: User? {
+        users.first
     }
+
+    /*var avatar: String {
+        user.avatar
+    }*/
    
     let columns = [
         GridItem(.flexible()),
@@ -31,29 +38,62 @@ struct Log2: View {
         NavigationStack {
             ScrollView {
                 
-                VStack(spacing: 10) {
-                    HStack {
+                HStack(spacing: 50) {
+                    VStack(alignment: .leading) {
                         Text("Álbum")
-                            .font(.largeTitle).bold()
+                            .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                            .fontWeight(.bold)
+                            .font(.system(size: 30))
+                            .font(.custom("SF Pro", size: 30))
+                            .padding(.horizontal, 10)
+                            
                         
-                        Spacer()
-                        
-                        Text("México")
-                            .font(.largeTitle)
-                        
+                        Text("Tus memorias de \(user?.city ?? "México").")
+                            .font(.headline)
+                            .fontWeight(.thin)
+                            .padding(.horizontal, 10)
                     }
-                    .padding(.horizontal)
+                    //.padding(.horizontal)
                     
-                    Image(user.avatar)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 80, height: 80)
+                    Spacer()
+                    
+                    if let user = user {
+                        Image(user.avatar)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 80)
+                            .padding(.trailing,30)
+                    }
                 }
-                .padding(.vertical)
+                //.padding(.vertical)
                 
                 
                 if userPhotos.isEmpty {
-                    Text("Aún no tienes fotos")
+                    
+                    VStack {
+                        Spacer()
+                        
+                        VStack(spacing: 16) {
+                            Image(systemName: "photo.on.rectangle.angled")
+                                .font(.system(size: 60))
+                                .foregroundColor(.gray)
+                            Text("Aún no tienes fotos en \(user?.city ?? "México").")
+                                .foregroundColor(.gray)
+                                .italic()
+                        }
+                        
+                        Spacer()
+                    }
+                    .frame(minHeight: 500)
+                    /*
+                    VStack( spacing: 16) {
+                        Spacer()
+                        Text("Aún no tienes fotos en \(user?.city ?? "México").")
+                            .foregroundColor(.gray)
+                            .italic()
+                    }
+                    .padding()
+                     */
                 }
                 else {
                     LazyVGrid(columns: columns, spacing: 16) {
@@ -81,6 +121,52 @@ struct Log2: View {
                     .padding()
                 }
             }
+            // City change logic (same as ContentView and FavoritesView)
+            .sheet(isPresented: $showLocationPicker) {
+                if let user = users.first {
+                    LocationPickerView(user: user, placesViewModel: placesViewModel)
+                }
+            }
+            .onAppear {
+                // Load places for user's city
+                if let city = users.first?.city {
+                    placesViewModel.loadPlaces(for: city)
+                }
+            }
+            .onChange(of: users.first?.city) { oldValue, newValue in
+                // Reload if city changes
+                if let city = newValue {
+                    placesViewModel.loadPlaces(for: city)
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if #available(iOS 26.0, *) {
+                        Button {
+                            showLocationPicker.toggle()
+                        } label: {
+                            HStack(spacing: 4) {
+                                Text(users.first?.city ?? "Badgely")
+                                    .font(.system(size: 18, weight: .bold))
+                                Image(systemName: "location")
+                                    .font(.system(size: 18, weight: .bold))
+                            }
+                        }
+                        .padding(10)
+                        .glassEffect()
+                    } else {
+                        Button {
+                            showLocationPicker.toggle()
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image(systemName: "location")
+                                Text(users.first?.city ?? "Badgely")
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
@@ -92,42 +178,49 @@ struct Log2: View {
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
-        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
+        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910",
+        city: "Monterrey"
     )
     
     let previewPhoto2 = Photo(
         name: "Montaña Mon",
         photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
         badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
+        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
+        city: "Monterrey"
     )
     
     let previewPhoto3 = Photo(
         name: "Montaña Montaña",
         photo: UIImage(systemName: "balloon.fill")!.pngData()!,
         badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
+        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
+        city: "Monterrey"
+        
     )
     
     let previewPhoto4 = Photo(
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
-        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
+        place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910",
+        city: "Monterrey"
     )
     
     let previewPhoto5 = Photo(
         name: "Montaña Mon",
         photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
         badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
+        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
+        city: "Monterrey"
     )
     
     let previewPhoto6 = Photo(
         name: "Cafe Cacao",
         photo: UIImage(systemName: "balloon.fill")!.pngData()!,
         badgeName: "Adventure",
-        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898"
+        place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
+        city: "Monterrey"
     )
     
     let previewUser = User(
@@ -153,7 +246,8 @@ struct Log2: View {
     
     // 4️⃣ Devolver la vista usando el contenedor
     
-    return Log2(user: previewUser)
+    //return Log2(user: previewUser)
+    return Log2()
         .modelContainer(container)
 
 }

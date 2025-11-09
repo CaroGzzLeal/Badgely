@@ -39,9 +39,24 @@ struct FavoritesView: View {
                 
                 VStack {
                     if user.favorites.isEmpty {
-                        Text("Aún no tienes favoritos.")
-                            .foregroundColor(.gray)
-                            .italic()
+                        
+                        VStack {
+                            Spacer()
+                            
+                            VStack(spacing: 16) {
+                                Image(systemName: "heart.fill")
+                                    .font(.system(size: 60))
+                                    .foregroundColor(.gray)
+                                Text("Aún no tienes favoritos.")
+                                    .foregroundColor(.gray)
+                                    .italic()
+                            }
+                            
+                            Spacer()
+                        }
+                        .frame(minHeight: 500)
+                        
+                        
                     } else {
                         ScrollView(.vertical, showsIndicators: false) {
                             VStack(spacing: 20) {
