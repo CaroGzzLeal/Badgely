@@ -38,7 +38,7 @@ struct TabViewSearch: View {
             
             Tab("Álbum", systemImage: "photo.on.rectangle.angled") {
                 if let user = currentUser {
-                    Log2(user: user)
+                    Log2()
                 } else {
                     Text("No se encontró un usuario")
                         .foregroundStyle(.secondary)

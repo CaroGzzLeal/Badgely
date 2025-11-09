@@ -109,7 +109,8 @@ struct PhotoApprovalView: View {
             name: place.displayName,
             photo: imageData,
             badgeName: place.badge,
-            place: place.address
+            place: place.address,
+            city: user.city
         )
         context.insert(newPhoto)
         
@@ -154,6 +155,7 @@ struct PhotoApprovalView: View {
             }
         }
         
+        // Save context
         try? context.save()
         print("normales", user.badges)
         print("especiales", user.specialBadges)
