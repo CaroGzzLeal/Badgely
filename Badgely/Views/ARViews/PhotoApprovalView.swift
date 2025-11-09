@@ -154,6 +154,7 @@ struct PhotoApprovalView: View {
             }
         }
         
+        // Save context
         try? context.save()
         print("normales", user.badges)
         print("especiales", user.specialBadges)

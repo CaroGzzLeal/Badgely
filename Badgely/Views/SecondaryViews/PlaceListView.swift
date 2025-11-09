@@ -209,7 +209,7 @@ struct PlaceListView: View {
                                         .foregroundColor(Color(colorScheme == .dark ? .white : .black))
                                         .font(.system(size: 20))
                                 }
-                                RowView(title: group.type, places: group.items)
+                                RowView(places: group.items)
                             }
                         }
                         .padding(.vertical, 16)
@@ -221,3 +221,66 @@ struct PlaceListView: View {
 }
 
 
+// View separate to handle places filtrados sin search.
+struct ContentPlaceListView: View {
+    @EnvironmentObject var placesViewModel: PlacesViewModel
+    @Environment(\.colorScheme) var colorScheme
+
+    
+    
+    // Places filtrados según search text total
+    private var filteredPlaces: [Place] {
+        var places = placesViewModel.places
+        
+        return places
+    }
+    
+    // Places filtrados por type
+    private var grouped: [(type: String, items: [Place])] {
+        Dictionary(grouping: filteredPlaces, by: { $0.type })
+            .sorted { $0.key < $1.key }
+            .map { ($0.key.capitalized, $0.value) }
+    }
+    
+    var body: some View {
+        
+          
+                //Text("Explora México")
+                //    .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                //    .fontWeight(.bold)
+                //    .font(.system(size: 30))
+                //    .font(.custom("SF Pro", size: 30))
+                //    .padding(.horizontal, 10)
+                
+                // Grouped places x category
+                ForEach(grouped, id: \.type) { group in
+                    if group.type == "Cafeteria" {
+                        Text("Cafetería")
+                            .font(.headline)
+                            .padding(.horizontal, 9)
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .font(.system(size: 20))
+                            
+                    } else if group.type == "Emblematico" {
+                        Text("Emblemático")
+                            .font(.headline)
+                            .padding(.horizontal, 9)
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .font(.system(size: 20))
+                    } else {
+                        Text(group.type)
+                            .font(.headline)
+                            .padding(.horizontal, 9)
+                            .foregroundColor(Color(colorScheme == .dark ? .white : .black))
+                            .font(.system(size: 20))
+                    }
+                    RowView(places: group.items)
+                }
+            
+            
+         //scrollview
+                
+            
+        
+    }
+}

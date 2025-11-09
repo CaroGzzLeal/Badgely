@@ -80,6 +80,7 @@ struct Log2: View {
                     }
                     .padding()
                 }
+                .padding()
             }
         }
     }

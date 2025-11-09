@@ -242,6 +242,7 @@ struct IndicatorView: View {
     }
 }
 
+
 #Preview {
     // 1️⃣ Foto de ejemplo
     let previewPhoto = Photo(
