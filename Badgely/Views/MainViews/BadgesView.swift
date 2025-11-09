@@ -61,7 +61,7 @@
             "badge210", "badge211", "badge2000", "badge2000", "badge2000", // emblemático
             "badge215", "badge216", "badge2000", "badge2000", "badge2000", // evento
             "badge205", "badge206", "badge2000", "badge2000", "badge2000", // restaurante
-            "Bvidanocturna_230", "Bvidanocturna_231", "badge2000", "badge2000", // vida nocturna
+            "badge230", "badge231", "badge2000", "badge2000", "badge2000",// vida nocturna
             "badge220", "badge221", "badge2000", "badge2000", "badge2000" // voluntariado
         ]
 
