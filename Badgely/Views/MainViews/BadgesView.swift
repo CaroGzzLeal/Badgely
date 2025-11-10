@@ -99,13 +99,18 @@
                 VStack(alignment: .leading, spacing: 0) {
                     VStack(spacing: 10){
                         HStack{
-                            VStack(spacing: 10){
+                            VStack(alignment: .leading, spacing: 15){
                                 Text(user.name)
-                                    .font(.largeTitle)
-                                    .bold()
+                                    //.font(.largeTitle)
+                                    //.bold()
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .lineLimit(nil)
                                     .multilineTextAlignment(.leading)
+                                    .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
+                                    .fontWeight(.bold)
+                                    .font(.system(size: 30))
+                                    .font(.custom("SF Pro", size: 30))
+                                    //.padding(.horizontal, 10)
                                 
                                 HStack{
                                     Text("\(totalBadges)")
@@ -123,10 +128,10 @@
                                 Image(user.avatar)
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(height: 130)
+                                    .frame(height: 100)
                             })
                         }
-                        .padding(.top, -70)
+                        .padding(.top, -75)
                         
                         VStack {
                             Text("Recompensas")

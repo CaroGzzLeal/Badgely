@@ -34,28 +34,61 @@ struct LogView: View {
             
             if let uiImage = UIImage(data: photo.photo) {
                 VStack {
-                    Image(uiImage: uiImage)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 260, height: 360)
-                        .padding()
-                        /*.background(
-                            RoundedRectangle(cornerRadius: 20)
-                            //.fill(Color.blue)
-                        )*/
-                    
+                    Text("Tu visita a")
+                        //.font(.system(size: .caption, weight: .light))
+                        .font(.headline)
+                        .fontWeight(.light)
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        //.fixedSize(horizontal: false, vertical: true)
+                        //.frame(maxWidth: 320)
+
                     Text(photo.name)
-                        .font(.system(size: 30, weight: .bold))
+                        //.font(.system(size: .title3, weight: .bold))
+                        .font(.title)
+                        .fontWeight(.bold)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                         .frame(maxWidth: 320)
                     
-                    //Spacer()
-                    //Spacer()
-                    //Spacer()
+                    ZStack {
+                        
+                        HStack(spacing: -12) {
+                            
+                            Image(photo.badgeName ?? "")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 70, height: 70)
+                            
+                            if let respName = photo.respName, !respName.isEmpty {
+                                Image(respName)
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 70, height: 70)
+                            }
+                            
+                        }
+                        
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 280, height: 380)
+                            .clipped()
+                            .padding(.top, 16)        //white top
+                            .padding(.horizontal, 16) //whitesides
+                            .padding(.bottom, 60)     //white bottom
+                            .background(
+                                Rectangle()
+                                    .fill(Color.white)
+                                    .shadow(color: .black.opacity(0.2), radius: 8, x: 0, y: 4)
+                            )
+                        
+                    }
                     
-                    HStack {
+                    
+
+                    HStack() {
                         Button(action: {
                             openAppleMaps(place: photo.place)
                         }) {
@@ -65,34 +98,38 @@ struct LogView: View {
                         }
                         
                         Text(photo.place)
-                            //.font(.system(size: 14))
                             .font(.caption)
                             .fontWeight(.light)
                             .padding(.horizontal, 7)
                             .lineSpacing(5)
-                            .font(.custom("SF Pro", size: 27))
+                            .lineLimit(nil)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
+                    .padding(.top)
                     
                     //badges como en PlaceDetailView
       
-                    HStack(spacing: -12) {
+                    /*HStack(spacing: -12) {
                         
                         Image(photo.badgeName ?? "")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 48, height: 48)
+                            .frame(width: 70, height: 70)
                         
                         if let respName = photo.respName, !respName.isEmpty {
                             Image(respName)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 48, height: 48)
+                                .frame(width: 70, height: 70)
                         }
                         
-                    }
+                    }*/
                     
                 
-                }
+                } //vstack
+                //.background(Color.pink)
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
                         deletePhoto(photo: photo)
@@ -100,7 +137,8 @@ struct LogView: View {
                         dismiss()
                     }, secondaryButton: .cancel())
                 }
-            }
+                
+            } //if let image
             
         }
         .toolbar {
@@ -308,3 +346,4 @@ struct IndicatorView: View {
         .modelContainer(container)
         .environmentObject(placesVM)
 }
+
