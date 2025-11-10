@@ -14,6 +14,12 @@ struct BadgelyApp: App {
     @StateObject private var locationManager = LocationManager()
     private let globalEmojiData = EmojiData.examples()
     
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([User.self, Photo.self])
+        let config = ModelConfiguration("group.caroworks.Badgely")
+        return try! ModelContainer(for: schema, configurations: [config])
+    }()
+    
     var body: some Scene {
         WindowGroup {
             NewUserView()
@@ -21,7 +27,7 @@ struct BadgelyApp: App {
                 .environmentObject(locationManager)
                 .environment(\.emojiData, globalEmojiData)
         }
-        .modelContainer(for: [User.self, Photo.self])
+        .modelContainer(sharedModelContainer)
         
     }
 }

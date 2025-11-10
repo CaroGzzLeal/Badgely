@@ -30,7 +30,7 @@
         let categories = ["Comunes", "Especiales", "Responsables"]
         
         let normalBadgesMonterrey: [String] = [
-            "Bpartido_36", "Bpartido_37", "Bpartido_38", "Bpartido_39", "Bpartido_40",
+            "Bpartido_36", "Bpartido_37", "Bpartido_38", "badge000", "badge000",
             "Bareasverdes_26", "Bareasverdes_27", "Bareasverdes_28", "Bareasverdes_29", "Bareasverdes_30",
             "Bcafeteria_1", "Bcafeteria_2", "Bcafeteria_3", "Bcafeteria_4", "Bcafeteria_5",
             "Bemblematico_11", "Bemblematico_12", "Bemblematico_13", "Bemblematico_14", "Bemblematico_15",

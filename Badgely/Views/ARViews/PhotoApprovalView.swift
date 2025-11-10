@@ -109,16 +109,17 @@ struct PhotoApprovalView: View {
         print("Badge: \(place.badge)")
         print("Responsible Badge: \(place.responsibleBadge ?? "nil")")
         
-        
-        let newPhoto = Photo(
-            name: place.displayName,
-            photo: imageData,
-            badgeName: place.badge,
-            respName: place.responsibleBadge,
-            place: place.address,
-            city: user.city
-        )
-        context.insert(newPhoto)
+        if let compressedData = image.jpegData(compressionQuality: 0.6) {
+            let newPhoto = Photo(
+                name: place.displayName,
+                photo: compressedData,
+                badgeName: place.badge,
+                respName: place.responsibleBadge,
+                place: place.address,
+                city: user.city
+            )
+            context.insert(newPhoto)
+        }
         
         // Collect all earned badges
         earnedBadges.removeAll()

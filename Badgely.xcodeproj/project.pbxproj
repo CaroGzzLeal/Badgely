@@ -50,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocations.gpx; sourceTree = "<group>"; };
+		2515BA312EC16E95007131BA /* BadgelyWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BadgelyWidgetExtension.entitlements; sourceTree = "<group>"; };
 		2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SimulatedLocationsWrong.gpx; sourceTree = "<group>"; };
 		25887F352EA68D02001259EB /* BadgelyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BadgelyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		25887F372EA68D02001259EB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -64,6 +65,15 @@
 				Info.plist,
 			);
 			target = 25D0428A2E93F5C600E4E29F /* Badgely */;
+		};
+		2515BA2D2EC16DE9007131BA /* Exceptions for "Badgely" folder in "BadgelyWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/Photo.swift,
+				Models/Place.swift,
+				Models/User.swift,
+			);
+			target = 25887F342EA68D02001259EB /* BadgelyWidgetExtension */;
 		};
 		25887F4B2EA68D03001259EB /* Exceptions for "BadgelyWidget" folder in "BadgelyWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -87,6 +97,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				25055FA62E9624D300F3FDD4 /* Exceptions for "Badgely" folder in "Badgely" target */,
+				2515BA2D2EC16DE9007131BA /* Exceptions for "Badgely" folder in "BadgelyWidgetExtension" target */,
 			);
 			path = Badgely;
 			sourceTree = "<group>";
@@ -125,6 +136,7 @@
 		25D042822E93F5C600E4E29F = {
 			isa = PBXGroup;
 			children = (
+				2515BA312EC16E95007131BA /* BadgelyWidgetExtension.entitlements */,
 				25055FA32E96239E00F3FDD4 /* SimulatedLocations.gpx */,
 				2556917C2E96D57500BE0F0E /* SimulatedLocationsWrong.gpx */,
 				25D0428D2E93F5C600E4E29F /* Badgely */,
@@ -282,9 +294,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = BadgelyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6299S224BY;
+				DEVELOPMENT_TEAM = F895W2R8B7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BadgelyWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BadgelyWidget;
@@ -313,9 +326,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = BadgelyWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6299S224BY;
+				DEVELOPMENT_TEAM = F895W2R8B7;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BadgelyWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BadgelyWidget;
@@ -467,10 +481,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Badgely/Badgely.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Badgely/Preview Content\"";
-				DEVELOPMENT_TEAM = 6299S224BY;
+				DEVELOPMENT_TEAM = F895W2R8B7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Badgely/Info.plist;
@@ -503,10 +518,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Badgely/Badgely.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Badgely/Preview Content\"";
-				DEVELOPMENT_TEAM = 6299S224BY;
+				DEVELOPMENT_TEAM = F895W2R8B7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Badgely/Info.plist;

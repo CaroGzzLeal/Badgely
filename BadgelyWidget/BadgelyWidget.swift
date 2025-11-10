@@ -7,43 +7,76 @@
 
 import WidgetKit
 import SwiftUI
+import SwiftData
+import UIKit
 
 struct Provider: TimelineProvider {
+    
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), name: "", badgeName: "", place: "")
+        SimpleEntry(date: Date(),
+                    name: "Ejemplo",
+                    photo: UIImage(systemName: "photo")!.pngData()!,
+                    badgeName: "badge200",
+                    place: "Sin lugar")
     }
-
+    
     func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
-        let entry = SimpleEntry(date: Date(), name: "", badgeName: "", place: "")
-        completion(entry)
+        if let photo = fetchPhotos().first {
+            completion(SimpleEntry(date: Date(),
+                                   name: photo.name,
+                                   photo: photo.photo,
+                                   badgeName: photo.badgeName ?? "",
+                                   place: photo.place))
+        } else {
+            completion(placeholder(in: context))
+        }
     }
-
+    
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entries: [SimpleEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
         let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, name: "", badgeName: "", place: "")
+        var entries: [SimpleEntry] = []
+        let photos = fetchPhotos()
+        
+        for minuteOffset in 0..<5 {
+            let entryDate = Calendar.current.date(byAdding: .minute, value: minuteOffset, to: currentDate)!
+            let photo = photos.isEmpty ? nil : photos[minuteOffset % photos.count]
+            let entry = SimpleEntry(date: entryDate,
+                                    name: photo?.name ?? "Sin fotos",
+                                    photo: photo?.photo ?? UIImage(systemName: "photo")!.pngData()!,
+                                    badgeName: photo?.badgeName ?? "",
+                                    place: photo?.place ?? "")
             entries.append(entry)
         }
-
+        
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
-
-//    func relevances() async -> WidgetRelevances<Void> {
-//        // Generate a list containing the contexts this widget is relevant in.
-//    }
+    
+    private func fetchPhotos() -> [Photo] {
+        do {
+            let schema = Schema([Photo.self])
+            let config = ModelConfiguration("group.caroworks.Badgely")
+            let container = try ModelContainer(for: schema, configurations: [config])
+            let context = ModelContext(container)
+            
+            let descriptor = FetchDescriptor<Photo>(sortBy: [SortDescriptor(\.date, order: .reverse)])
+            let results = try context.fetch(descriptor)
+            
+            return results
+        } catch {
+            return []
+        }
+    }
+    
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
     
     var name: String
-    //var photo: Data
+    var photo: Data
     var badgeName: String?
+    var respName: String?
     var place: String
     
 }
@@ -53,41 +86,63 @@ struct BadgelyWidgetEntryView : View {
     @Environment(\.widgetRenderingMode) var widgetRenderingMode
     
     var entry: Provider.Entry
-
+    
     var body: some View {
         
-        VStack {
-            Text("Some other WidgetFamily in the future.")
+        switch family {
+        case .systemSmall:
+            let maxWidth: CGFloat = 300
+            let resized = UIImage(data: entry.photo)?
+                .resized(toWidth: maxWidth, isOpaque: true)
+            if let uiImage = resized {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFill()
+                    .overlay(alignment: .bottomLeading) {
+                        if let badge = entry.badgeName,
+                           !badge.isEmpty,
+                           let uiBadge = UIImage(named: badge)?.resized(toWidth: 100, isOpaque: false) {
+                            Image(uiImage: uiBadge)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .padding(.bottom, 5)
+                        }
+                    }
+            }
+        default:
+            Text("Badgely Widget")
+        }
+        
+        
+    }
+}
+
+extension UIImage {
+    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(
+            width: width,
+            height: CGFloat(ceil(width / size.width * size.height))
+        )
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image { _ in
+            draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
 }
 
+@main
 struct BadgelyWidget: Widget {
     let kind: String = "BadgelyWidget"
-
+    
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            if #available(iOS 17.0, *) {
-                BadgelyWidgetEntryView(entry: entry)
-                    .containerBackground(.fill.tertiary, for: .widget)
-            } else {
-                BadgelyWidgetEntryView(entry: entry)
-                    .padding()
-                    .background()
-            }
+            BadgelyWidgetEntryView(entry: entry)
+                .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("Mis Fotos")
+        .description("Muestra las fotos que has tomado en tus lugares.")
+        //.supportedFamilies(.systemSmall)
     }
-}
-
-#Preview(as: .systemSmall) {
-    BadgelyWidget()
-} timeline: {
-    SimpleEntry(date: .now,
-                name: "Atardecer",
-               // photo: UIImage(systemName: "sunset.fill")!.pngData()!,
-                badgeName: "Nature",
-                place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910"
-    )
 }
