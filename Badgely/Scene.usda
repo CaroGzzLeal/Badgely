@@ -19,7 +19,7 @@ def Xform "Root"
         references = @Banda.usdz@
     )
     {
-        reorder nameChildren = ["frecuente_39", "frecuente_38", "termo_50", "frecuente_36", "frecuente_37", "Materials", "Geom"]
+        reorder nameChildren = ["maximo_49", "bus_54", "maximo_48", "maximo_47", "maximo_46", "metro_52", "maximo_45", "maximo_44", "maximo_43", "bici_51", "frecuente_42", "frecuente_41", "bolsa_55", "frecuente_40", "frecuente_39", "frecuente_38", "frecuente_37", "frecuente_36", "termo_50", "Materials", "Geom"]
         quatf xformOp:orient = (0.652434, -0.27043557, -0.65399444, -0.27108234)
         float3 xformOp:scale = (0.5, 0.5, 0.5)
         float3 xformOp:translate = (0, 0, 0)
@@ -34,34 +34,6 @@ def Xform "Root"
             }
         }
 
-        def "frecuente_37" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (1.5707965, -0.17453289, -7.565518e-9)
-            }
-            references = @frecuente_37.usdz@
-        )
-        {
-            quatf xformOp:orient = (0.704416, 0.7044161, -0.061628405, 0.061628412)
-            float3 xformOp:scale = (0.1, 0.1, 0.1)
-            float3 xformOp:translate = (0.1450615, 0.65497845, 0.70561075)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
-        def "frecuente_36" (
-            active = true
-            customData = {
-                float3 rotationEulerHint = (1.5707965, -0.17453289, -7.565518e-9)
-            }
-            references = @frecuente_36.usdz@
-        )
-        {
-            quatf xformOp:orient = (0.704416, 0.7044161, -0.061628405, 0.061628412)
-            float3 xformOp:scale = (0.1, 0.1, 0.1)
-            float3 xformOp:translate = (0.046175778, 0.7291709, 0.99775624)
-            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-        }
-
         def "termo_50" (
             active = true
             customData = {
@@ -72,7 +44,7 @@ def Xform "Root"
         {
             quatf xformOp:orient = (0.704416, 0.7044161, -0.061628405, 0.061628412)
             float3 xformOp:scale = (0.1, 0.1, 0.1)
-            float3 xformOp:translate = (0.0005106839, 0.60715795, 1.2956643)
+            float3 xformOp:translate = (0.005283236, 0.52835596, 1.2685701)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
 
@@ -86,21 +58,247 @@ def Xform "Root"
         {
             quatf xformOp:orient = (0.704416, 0.7044161, -0.061628405, 0.061628412)
             float3 xformOp:scale = (0.1, 0.1, 0.1)
-            float3 xformOp:translate = (0.12302715, 0.73815596, 0.38927397)
+            float3 xformOp:translate = (0.05687511, 0.78114504, 0.8566855)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
 
         def "frecuente_39" (
             active = true
             customData = {
-                float3 rotationEulerHint = (1.5707965, -0.17453289, -7.565518e-9)
+                float3 rotationEulerHint = (1.5591351, -0.073781036, 0.15690406)
             }
-            prepend references = @frecuente_39.usdz@
+            references = @frecuente_39.usdz@
         )
         {
-            quatf xformOp:orient = (0.704416, 0.7044161, -0.061628405, 0.061628412)
+            quatf xformOp:orient = (0.7065157, 0.7023887, 0.028904978, 0.08154869)
             float3 xformOp:scale = (0.1, 0.1, 0.1)
-            float3 xformOp:translate = (0.16424234, 0.6292471, 0.1048933)
+            float3 xformOp:translate = (0.084149025, 0.7949789, 0.58243537)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "frecuente_40" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5731831, -0.0698131, 0.15707965)
+            }
+            references = @frecuente_40.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.70171785, 0.7072717, 0.0309391, 0.08000988)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.12555, 0.56968087, 0.45106876)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "frecuente_36" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5707965, -0.17453289, -7.565518e-9)
+            }
+            references = @frecuente_36.usdz@
+        )
+        {
+            reorder nameChildren = ["frecuente_37", "Materials", "Geom"]
+            quatf xformOp:orient = (0.704416, 0.7044161, -0.0616284, 0.061628416)
+            float3 xformOp:scale = (0.09999998, 0.09999999, 0.09999999)
+            float3 xformOp:translate = (0.022901744, 0.74892664, 1.1297481)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "frecuente_37" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5707964, -0.17453288, 0.17453295)
+            }
+            references = @frecuente_37.usdz@
+        )
+        {
+            reorder nameChildren = ["Materials", "Geom", "frecuente_36"]
+            quatf xformOp:orient = (0.6963642, 0.70710677, 1.6048887e-8, 0.12278779)
+            float3 xformOp:scale = (0.099999964, 0.099999964, 0.09999998)
+            float3 xformOp:translate = (0.054347493, 0.56034744, 0.9636298)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "bolsa_55" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5900217, -0.0698131, 0.17453292)
+            }
+            prepend references = @bolsa_55.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.6950159, 0.7128515, 0.03783378, 0.0858149)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.11589131, 0.56697845, 0.71006733)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "frecuente_41" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5741123, -0.02489164, 0.23748365)
+            }
+            prepend references = @frecuente_41.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.69986403, 0.7042771, 0.07517442, 0.092373304)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.09028106, 0.78959846, 0.2873092)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "frecuente_42" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (-1.6719189, 3.0499861, 15.93041)
+            }
+            prepend references = @frecuente_42.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.7399899, 0.6618538, 0.10810175, 0.051756278)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.12572235, 0.5728583, 0.17039482)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "bici_51" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5871758, 0.059245806, 0.15165974)
+            }
+            prepend references = @bici_51.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.70056957, 0.70894, 0.07469324, 0.032050997)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.07079354, 0.77974105, 0.008068105)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_43" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5679613, 0.0205548, 0.32323152)
+            }
+            prepend references = @maximo_43.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.7000115, 0.6956943, 0.1207979, 0.10677569)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.12081659, 0.55067134, -0.083870836)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_44" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5775863, 0.100087665, 0.2174747)
+            }
+            prepend references = @maximo_44.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.70351464, 0.7006043, 0.11194424, 0.041098937)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.04072312, 0.7610258, -0.25134203)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_45" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5214659, -0.054483235, 0.32854193)
+            }
+            prepend references = @maximo_45.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.7112436, 0.68314505, 0.093242615, 0.13693483)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.098842144, 0.5471835, -0.3535497)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "metro_52" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.4965132, 0.010808939, 0.21553436)
+            }
+            prepend references = @metro_52.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.72900933, 0.67597926, 0.07711561, 0.075170405)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.03789377, 0.7464467, -0.5193252)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_46" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.4795167, -0.015644474, -0.01566185)
+            }
+            prepend references = @maximo_46.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.7386275, 0.6740229, -0.0110562, -0.0005111038)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.10076287, 0.53941333, -0.63332)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_47" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.538364, 0.043992516, 0.04407851)
+            }
+            prepend references = @maximo_47.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.7184687, 0.69486237, 0.031123161, 0.0005351482)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (-0.0019894345, 0.7126707, -0.7884635)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_48" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.6589612, 0.08183602, 0.0821925)
+            }
+            prepend references = @maximo_48.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.67536366, 0.73520625, 0.057877127, -0.0024268627)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (0.014147446, 0.5208334, -0.9402765)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "bus_54" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.6158392, 0.12665531, 0.12781012)
+            }
+            prepend references = @bus_54.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.6911323, 0.717137, 0.089711025, -0.0016123652)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (-0.071287006, 0.71052754, -1.0881535)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        def "maximo_49" (
+            active = true
+            customData = {
+                float3 rotationEulerHint = (1.5023159, 0.071538076, 0.39079112)
+            }
+            prepend references = @maximo_49.usdz@
+        )
+        {
+            quatf xformOp:orient = (0.72127074, 0.6639954, 0.15806353, 0.11787442)
+            float3 xformOp:scale = (0.1, 0.1, 0.1)
+            float3 xformOp:translate = (-0.060257416, 0.50882405, -1.2288871)
             uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
         }
     }

@@ -59,21 +59,16 @@ struct Badge3DOverlayView: View {
                 if has3DModel {
                     CustomSceneView(
                         scene: load3DModel(),
-                        backgroundColor: UIColor.clear.withAlphaComponent(1)
+                        backgroundColor: UIColor.clear
                     )
-                    .frame(width: 300, height: 300)
+                    .frame(width: 400, height: 400)
                     .background(Color.clear.opacity(1))
-                    .cornerRadius(20)
+                    .padding(.leading, 40)
                 } else {
                     Image(badgeName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 250, height: 250)
-                        .background(
-                            Circle()
-                                .fill(Color.white.opacity(0.1))
-                                .frame(width: 280, height: 280)
-                        )
+                        .frame(width: 300, height: 300)
                 }
                 
                 Text(badgeDisplayName)
@@ -122,7 +117,7 @@ struct Badge3DOverlayView: View {
         directionalLight.light = SCNLight()
         directionalLight.light?.type = .directional
         directionalLight.light?.intensity = 1000
-        directionalLight.position = SCNVector3(x: 0, y: 5, z: 5)
+        directionalLight.position = SCNVector3(x: 0, y: 0, z: 0)
         directionalLight.eulerAngles = SCNVector3(x: -.pi / 4, y: 0, z: 0)
         scene.rootNode.addChildNode(directionalLight)
         
