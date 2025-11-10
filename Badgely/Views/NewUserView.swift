@@ -30,6 +30,8 @@ struct NewUserView: View {
         GridItem(.flexible())
     ]
     
+    @FocusState private var isNameFocused: Bool
+    
     var body: some View {
         
         if users.isEmpty {
@@ -41,19 +43,21 @@ struct NewUserView: View {
                     .ignoresSafeArea()
                     .accessibilityHidden(true)
                 ZStack {
-                    Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                    Image(colorScheme == .dark ? "backgroundDarkMode" : "background")
                         .resizable()
                         .scaledToFill()
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .ignoresSafeArea()
                         .accessibilityHidden(true)
                     
-                    
                     VStack(spacing: 25) {
                         Image("icon")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 120, height: 120)
+                            .frame(width: isNameFocused ? 70 : 120,
+                                   height: isNameFocused ? 70 : 120)
+                            .animation(.easeInOut(duration: 0.3), value: isNameFocused)
+                            .padding(.top, isNameFocused ? 10 : 0)
                         
                         Text("¡Bienvenido a la comunidad Badgely!")
                             .fontWeight(.bold)
@@ -79,6 +83,7 @@ struct NewUserView: View {
                                 .font(.custom("SF Pro", size: 25))
                                 .lineLimit(1)
                                 .frame(width: 300)
+                                .focused($isNameFocused)
                         }
                         
                         VStack(spacing: 10) {
@@ -161,11 +166,11 @@ struct NewUserView: View {
                                 .fill(inputName.isEmpty ? .gray : Color(red: 30/255, green: 94/255, blue: 54/255))
                         )
                         .disabled(inputName.isEmpty)
-                        
                     }
                 }
                 .onTapGesture {
                     hideKeyboard()
+                    isNameFocused = false
                 }
             }
             .animation(.default, value: users.count)
