@@ -156,21 +156,25 @@
                                 }
                                 .padding(.horizontal, 16)
                             }
-                            .sheet(isPresented: $showPopover) {
-                                if let selectedImage = selectedImage {
-                                    VStack {
-                                        Image("codigo\(selectedImage)")
-                                            .resizable()
-                                            .scaledToFit()
-                                            .padding()
-                                        Button("Cerrar") {
-                                            showPopover = false
-                                        }
-                                        .padding(15)
-                                        .background(Color(.systemGray6))
-                                        .foregroundColor(.black)
-                                        .cornerRadius(15)
+                            .sheet(isPresented: Binding(get: {
+                                selectedImage != nil
+                            }, set: { showingSheet in
+                                if !showingSheet {
+                                    selectedImage = nil
+                                }
+                            })) {
+                                VStack {
+                                    Image("codigo\(selectedImage!)")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .padding()
+                                    Button("Cerrar") {
+                                        selectedImage = nil
                                     }
+                                    .padding(15)
+                                    .background(Color(.systemGray6))
+                                    .foregroundColor(.black)
+                                    .cornerRadius(15)
                                 }
                             }
                         }
