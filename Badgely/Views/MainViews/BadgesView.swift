@@ -55,26 +55,22 @@
             "bici_51", "bolsa_55", "bus_54", "carpool_53", "metro_52", "termo_50", "resp_56"
         ]
         
-        let normalBadgesCDMX: [String] = [
-            "Bpartido_236", "Bpartido_237", "Bpartido_238", "badge2000", "badge2000", //partidos
-            "badge225", "badge226", "badge2000", "badge2000", "badge2000", //area verde
-            "badge200", "badge201", "badge2000", "badge2000", "badge2000", //cafeteria
-            "badge210", "badge211", "badge2000", "badge2000", "badge2000", //emblematico
-            "badge215", "badge216", "badge2000", "badge2000", "badge2000", //evento
-            "badge205", "badge206", "badge2000", "badge2000", "badge2000", //restaurante
-            "Bvidanocturna_230", "Bvidanocturna_231", "badge2000", "badge2000", //vida nocturna
-            "badge220", "badge221", "badge2000", "badge2000", "badge2000", //voluntariado
+        let baseBadges: [String] = [
+            "badge225", "badge226", "badge2000", "badge2000", "badge2000", // área verde
+            "badge200", "badge201", "badge2000", "badge2000", "badge2000", // cafetería
+            "badge210", "badge211", "badge2000", "badge2000", "badge2000", // emblemático
+            "badge215", "badge216", "badge2000", "badge2000", "badge2000", // evento
+            "badge205", "badge206", "badge2000", "badge2000", "badge2000", // restaurante
+            "badge230", "badge231", "badge2000", "badge2000", "badge2000",// vida nocturna
+            "badge220", "badge221", "badge2000", "badge2000", "badge2000" // voluntariado
         ]
-        
-        let normalBadgesGuadalajara: [String] = [
-            "Bpartido_136", "Bpartido_137", "Bpartido_138", "badge1000", "badge1000", //partidos
-            "badge125", "badge126", "badge1000", "badge1000", "badge1000", //area verde
-            "badge100", "badge101", "badge102", "badge103", "badge104", //cafeteria
-            "badge110", "badge111", "badge112", "badge1000", "badge1000", //emblematico
-            "badge115", "badge116", "badge202", "badge1000", "badge1000", //evento
-            "badge105", "badge106", "badge107", "badge108", "badge109", //restaurante
-            "badge130", "badge131", "badge1000", "badge1000", "badge1000", //vida nocturna
-            "badge120", "badge121", "badge1000", "badge1000", "badge1000", //voluntariado
+
+        let partidoBadgesCDMX = [
+            "Bpartido_236", "Bpartido_237", "Bpartido_238", "badge2000", "badge2000"
+        ]
+
+        let partidoBadgesGDL = [
+            "Bpartido_136", "Bpartido_137", "Bpartido_138", "badge1000", "badge1000"
         ]
  
         let columnsNormal: [GridItem] = Array(repeating: .init(.flexible()), count: 5)
@@ -83,10 +79,10 @@
         
         var chosenNormalBadges: [String] {
             if user.city == "Guadalajara" {
-                return normalBadgesGuadalajara
+                return partidoBadgesGDL + baseBadges
             }
             else if user.city == "Mexico City" {
-                return normalBadgesCDMX
+                return partidoBadgesCDMX + baseBadges
             }
             else {
                 return normalBadgesMonterrey

@@ -38,33 +38,40 @@ struct Log2: View {
         NavigationStack {
             ScrollView {
                 
-                HStack(spacing: 50) {
+                HStack(alignment: .top, spacing: 50) { //spacing 50
                     VStack(alignment: .leading) {
                         Text("Álbum")
                             .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
                             .fontWeight(.bold)
                             .font(.system(size: 30))
                             .font(.custom("SF Pro", size: 30))
-                            .padding(.horizontal, 10)
+                            .padding(.trailing, 16)
+                            //.background(Color(.gray))
                             
                         
                         Text("Tus memorias de \(user?.city ?? "México").")
                             .font(.headline)
                             .fontWeight(.thin)
-                            .padding(.horizontal, 10)
+                            .padding(.trailing, 16)
+                            //.background(Color(.gray))
                     }
+                    //.background(Color(.green))
                     //.padding(.horizontal)
                     
-                    Spacer()
+                    //Spacer()
                     
                     if let user = user {
                         Image(user.avatar)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 80, height: 80)
-                            .padding(.trailing,30)
+                            .frame(width: 60, height: 60)
+                            .padding(.trailing,10)
+                            //.background(Color(.gray))
                     }
+                        
                 }
+                .padding(.trailing, 16)
+                //.background(Color(.blue))
                 //.padding(.vertical)
                 
                 
@@ -72,11 +79,11 @@ struct Log2: View {
                     
                     VStack {
                         Spacer()
-                        
                         VStack(spacing: 16) {
                             Image(systemName: "photo.on.rectangle.angled")
                                 .font(.system(size: 60))
                                 .foregroundColor(.gray)
+                                .italic()
                             Text("Aún no tienes fotos en \(user?.city ?? "México").")
                                 .foregroundColor(.gray)
                                 .italic()
@@ -85,15 +92,20 @@ struct Log2: View {
                         Spacer()
                     }
                     .frame(minHeight: 500)
-                    /*
-                    VStack( spacing: 16) {
-                        Spacer()
-                        Text("Aún no tienes fotos en \(user?.city ?? "México").")
-                            .foregroundColor(.gray)
-                            .italic()
+                    
+                    /*LazyVGrid(columns: columns) {
+                        VStack(spacing: 16) {
+                            Image(systemName: "photo.on.rectangle.angled")
+                                .font(.system(size: 60))
+                                .foregroundColor(.gray)
+                            Text("Aún no tienes fotos en \(user?.city ?? "México").")
+                                .foregroundColor(.gray)
+                                .italic()
+                        }
                     }
                     .padding()
                      */
+                    
                 }
                 else {
                     LazyVGrid(columns: columns) {
@@ -117,8 +129,10 @@ struct Log2: View {
                         }
                     }
                     .padding()
+                    //.background(Color(.red))
                 }
             }
+            //.background(Color(.red))
             // City change logic (same as ContentView and FavoritesView)
             .sheet(isPresented: $showLocationPicker) {
                 if let user = users.first {
@@ -152,6 +166,7 @@ struct Log2: View {
                         }
                         .padding(10)
                         .glassEffect()
+                        
                     } else {
                         Button {
                             showLocationPicker.toggle()

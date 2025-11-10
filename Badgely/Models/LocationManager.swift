@@ -30,13 +30,48 @@ class LocationManager: NSObject, ObservableObject {
     }
     
     // MARK: - Cargar lugares y empezar el monitoreo dinámico
-    func loadPlacesAndRegisterRegions() {
-        places = Bundle.main.decode("places2.json")
+    func loadPlacesAndRegisterRegions(for city: String = "Monterrey") {
+        //places = Bundle.main.decode("places2.json")
+        loadPlaces(for: city)
         validateLocationAuthorizationStatus()
         requestNotificationAuthorization()
         
         // Iniciar monitoreo de cambios significativos
         startMonitoringSignificantChanges()
+    }
+    
+    // MARK: - Load places for specific city (like PlacesViewModel)
+    func loadPlaces(for city: String) {
+        let fileName = jsonFileName(for: city)
+        
+        // Try to load city-specific JSON, fallback to default if not found
+        if Bundle.main.url(forResource: fileName, withExtension: nil) != nil {
+            places = Bundle.main.decode(fileName)
+            print("LocationManager: Loaded \(places.count) places for \(city)")
+        } else {
+            // Fallback to Monterrey if city JSON not found
+            print("LocationManager: No JSON for \(city), using default Monterrey")
+            places = Bundle.main.decode("places2.json")
+        }
+        
+        // Re-evaluate closest regions with new places
+        if let currentLocation = locationManager.location {
+            evaluateClosestRegions(from: currentLocation)
+        }
+    }
+    
+    // MARK: - Get JSON filename for city (same logic as PlacesViewModel)
+    private func jsonFileName(for city: String) -> String {
+        switch city {
+        case "Monterrey":
+            return "places2.json"
+        case "Guadalajara":
+            return "places_guadalajara.json"
+        case "Mexico City":
+            return "places_mexicocity.json"
+        default:
+            return "places2.json"
+        }
     }
 
     // MARK: - Pedir permisos de ubicación

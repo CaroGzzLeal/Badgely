@@ -82,8 +82,9 @@ struct ContentView: View {
                     // Cargar lugares de la ciudad del user
                     if let city = users.first?.city {
                         placesViewModel.loadPlaces(for: city)
+                        locationManager.loadPlacesAndRegisterRegions(for: city)
                     }
-                    locationManager.loadPlacesAndRegisterRegions()
+                    //locationManager.loadPlacesAndRegisterRegions()
                     
                     // Only print if user exists
                     if let user = users.first {
@@ -121,6 +122,9 @@ struct ContentView: View {
                     // reload si city cambia
                     if let city = newValue {
                         placesViewModel.loadPlaces(for: city)
+                        locationManager.loadPlaces(for: city) //para el near you
+                        
+                        
                         
                         // Regenerate matching places for new city (iOS 26.0+)
                         if #available(iOS 26.0, *) {
