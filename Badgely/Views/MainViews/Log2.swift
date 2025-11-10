@@ -61,7 +61,7 @@ struct Log2: View {
                     //Spacer()
                     
                     if let user = user {
-                        Image(user.avatar)
+                        Image("\(user.avatar)c")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 60, height: 60)

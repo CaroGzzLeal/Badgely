@@ -72,103 +72,103 @@ struct ContentView: View {
                 //.padding(.vertical, 16)
                 
             }
-                //Everything needed for changing the location CDMX, MTY O GDL
-                .sheet(isPresented: $showLocationPicker) {
-                    if let user = users.first {
-                        LocationPickerView(user: user, placesViewModel: placesViewModel)
-                    }
+            //Everything needed for changing the location CDMX, MTY O GDL
+            .sheet(isPresented: $showLocationPicker) {
+                if let user = users.first {
+                    LocationPickerView(user: user, placesViewModel: placesViewModel)
                 }
-                .onAppear {
-                    // Cargar lugares de la ciudad del user
-                    if let city = users.first?.city {
-                        placesViewModel.loadPlaces(for: city)
-                        locationManager.loadPlacesAndRegisterRegions(for: city)
-                    }
-                    //locationManager.loadPlacesAndRegisterRegions()
-                    
-                    // Only print if user exists
-                    if let user = users.first {
-                        print(user.badges)
-                        print(user.specialBadges)
-                        print(user.responsibleBadges)
-                    }
-                    
-                    //print(users[0].badges)
-                    //print(users[0].specialBadges)
-                    //print(users[0].responsibleBadges)
-                    
-                    // Pre-warm and generate matching places (iOS 26.0+) first time the app starts.
-                    if #available(iOS 26.0, *), !hasGeneratedMatch {
-                        let viewModel = MatchingPlacesViewModel()
-                        // Only use if model initialized successfully
-                        if viewModel.isModelAvailable {
-                            matchingPlacesViewModel = viewModel
-                            viewModel.prewarmModel()
-                            if let user = users.first {
-                                Task {
-                                    await viewModel.generateMatch(
-                                        from: placesViewModel.places,
-                                        visitedBadges: user.badges
-                                    )
-                                    hasGeneratedMatch = true
-                                }
-                            }
-                        } else {
-                            print("ℹ️  Foundation Models not available - skipping Matching Places feature")
-                        }
-                    }
+            }
+            .onAppear {
+                // Cargar lugares de la ciudad del user
+                if let city = users.first?.city {
+                    placesViewModel.loadPlaces(for: city)
+                    locationManager.loadPlacesAndRegisterRegions(for: city)
                 }
-                .onChange(of: users.first?.city) { oldValue, newValue in
-                    // reload si city cambia
-                    if let city = newValue {
-                        placesViewModel.loadPlaces(for: city)
-                        locationManager.loadPlaces(for: city) //para el near you
-                        
-                        
-                        
-                        // Regenerate matching places for new city (iOS 26.0+)
-                        if #available(iOS 26.0, *) {
-                            if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
-                               let user = users.first {
-                                Task {
-                                    await viewModel.generateMatch(
-                                        from: placesViewModel.places,
-                                        visitedBadges: user.badges
-                                    )
-                                }
+                //locationManager.loadPlacesAndRegisterRegions()
+                
+                // Only print if user exists
+                if let user = users.first {
+                    print(user.badges)
+                    print(user.specialBadges)
+                    print(user.responsibleBadges)
+                }
+                
+                //print(users[0].badges)
+                //print(users[0].specialBadges)
+                //print(users[0].responsibleBadges)
+                
+                // Pre-warm and generate matching places (iOS 26.0+) first time the app starts.
+                if #available(iOS 26.0, *), !hasGeneratedMatch {
+                    let viewModel = MatchingPlacesViewModel()
+                    // Only use if model initialized successfully
+                    if viewModel.isModelAvailable {
+                        matchingPlacesViewModel = viewModel
+                        viewModel.prewarmModel()
+                        if let user = users.first {
+                            Task {
+                                await viewModel.generateMatch(
+                                    from: placesViewModel.places,
+                                    visitedBadges: user.badges
+                                )
+                                hasGeneratedMatch = true
                             }
                         }
+                    } else {
+                        print("ℹ️  Foundation Models not available - skipping Matching Places feature")
                     }
                 }
-                .toolbar {
-                    ToolbarItem(placement: .principal) {
-                        if #available(iOS 26.0, *) {
-                            Button {
-                                showLocationPicker.toggle()
-                            } label: {
-                                HStack(spacing: 4) {
-                                    Text(users.first?.city ?? "Badgely")
-                                        .font(.system(size: 18, weight: .bold))
-                                    Image(systemName: "location")
-                                        .font(.system(size: 18, weight: .bold))
-                                }
-                            }
-                            .padding(10)
-                            .glassEffect()
-                        } else {
-                            Button {
-                                showLocationPicker.toggle()
-                            } label: {
-                                HStack(spacing: 4) {
-                                    Image(systemName: "location")
-                                    Text(users.first?.city ?? "Badgely")
-                                }
+            }
+            .onChange(of: users.first?.city) { oldValue, newValue in
+                // reload si city cambia
+                if let city = newValue {
+                    placesViewModel.loadPlaces(for: city)
+                    locationManager.loadPlaces(for: city) //para el near you
+                    
+                    
+                    
+                    // Regenerate matching places for new city (iOS 26.0+)
+                    if #available(iOS 26.0, *) {
+                        if let viewModel = matchingPlacesViewModel as? MatchingPlacesViewModel,
+                           let user = users.first {
+                            Task {
+                                await viewModel.generateMatch(
+                                    from: placesViewModel.places,
+                                    visitedBadges: user.badges
+                                )
                             }
                         }
                     }
                 }
-                .navigationBarTitleDisplayMode(.inline)
-                // TO HERE, COMPONENTE PARA EL CHANGE DE CITY
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if #available(iOS 26.0, *) {
+                        Button {
+                            showLocationPicker.toggle()
+                        } label: {
+                            HStack(spacing: 4) {
+                                Text(users.first?.city ?? "Badgely")
+                                    .font(.system(size: 18, weight: .bold))
+                                Image(systemName: "location")
+                                    .font(.system(size: 18, weight: .bold))
+                            }
+                        }
+                        .padding(10)
+                        .glassEffect()
+                    } else {
+                        Button {
+                            showLocationPicker.toggle()
+                        } label: {
+                            HStack(spacing: 4) {
+                                Image(systemName: "location")
+                                Text(users.first?.city ?? "Badgely")
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            // TO HERE, COMPONENTE PARA EL CHANGE DE CITY
         }
         .toolbarBackground(.visible, for: .navigationBar)
     }
