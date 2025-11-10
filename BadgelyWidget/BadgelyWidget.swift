@@ -94,21 +94,22 @@ struct BadgelyWidgetEntryView : View {
             let maxWidth: CGFloat = 300
             let resized = UIImage(data: entry.photo)?
                 .resized(toWidth: maxWidth, isOpaque: true)
+            
+            ZStack {
+                if let uiImage = resized {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFill()
+                }
+            }
+        case .systemMedium:
+            let maxWidth: CGFloat = 500
+            let resized = UIImage(data: entry.photo)?
+                .resized(toWidth: maxWidth, isOpaque: true)
             if let uiImage = resized {
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
-                    .overlay(alignment: .bottomLeading) {
-                        if let badge = entry.badgeName,
-                           !badge.isEmpty,
-                           let uiBadge = UIImage(named: badge)?.resized(toWidth: 100, isOpaque: false) {
-                            Image(uiImage: uiBadge)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 40, height: 40)
-                                .padding(.bottom, 5)
-                        }
-                    }
             }
         default:
             Text("Badgely Widget")
@@ -143,6 +144,6 @@ struct BadgelyWidget: Widget {
         }
         .configurationDisplayName("Mis Fotos")
         .description("Muestra las fotos que has tomado en tus lugares.")
-        //.supportedFamilies(.systemSmall)
+        .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
