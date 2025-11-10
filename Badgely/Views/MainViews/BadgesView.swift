@@ -11,7 +11,7 @@
         let user: User
         var totalBadges: Int {
             let validResponsible = user.responsibleBadges.filter { !$0.isEmpty }
-            if user.city == "Guadalajara" || user.city == "Mexico City" {
+            if user.city == "Guadalajara" || user.city == "Ciudad de México" {
                 return 0
             }
             else {
@@ -81,7 +81,7 @@
             if user.city == "Guadalajara" {
                 return partidoBadgesGDL + baseBadges
             }
-            else if user.city == "Mexico City" {
+            else if user.city == "Ciudad de México" {
                 return partidoBadgesCDMX + baseBadges
             }
             else {

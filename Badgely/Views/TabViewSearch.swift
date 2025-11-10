@@ -31,9 +31,7 @@ struct TabViewSearch: View {
                     Text("No se encontró un usuario")
                         .foregroundStyle(.secondary)
                 }
-                //BadgesView(user:user)
-                
-                //square.and.arrow.up.badge.clockFavoritesView()
+
             }
             
             Tab("Álbum", systemImage: "photo.on.rectangle.angled") {

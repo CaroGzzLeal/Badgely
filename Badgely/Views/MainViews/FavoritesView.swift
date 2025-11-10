@@ -33,10 +33,14 @@ struct FavoritesView: View {
             ScrollView() {
                 if user.favorites.isEmpty {
                     
-                    VStack {
+                    VStack(alignment: .leading, spacing: 15) {
+
+                        
                         Spacer()
                         
-                        VStack(spacing: 16) {
+                        VStack(spacing: 15) {
+                        
+                                
                             Image(systemName: "heart.fill")
                                 .font(.system(size: 60))
                                 .foregroundColor(.gray)
@@ -47,7 +51,7 @@ struct FavoritesView: View {
                         
                         Spacer()
                     }
-                    .frame(minHeight: 500)
+                    .frame(maxWidth: .infinity)
                     
                 } else {
                     
@@ -57,12 +61,7 @@ struct FavoritesView: View {
                             .fontWeight(.bold)
                             .font(.system(size: 30))
                             .font(.custom("SF Pro", size: 30))
-                        //.padding(.horizontal, 10)
-                        //.padding(.top, 100)
-                        //.foregroundColor(colorScheme == .dark ? .white : .black)
-                        //.font(.system(size: 32, weight: .bold))
-                        //.frame(maxWidth: .infinity, alignment: .center)
-                        
+
                         ForEach(favoritePlaces) { place in
                             NavigationLink(destination: PlaceDetailView(place: place)) {
                                 CardView(width: 300, height: 180, place: place)

@@ -15,7 +15,7 @@ struct MatchingPlacesView: View {
     
     @Environment(\.colorScheme) var colorScheme
     
-    // Helper to get place by ID
+    //get place segun ID
     private func getPlace(byId id: Int) -> Place? {
         return places.first(where: { $0.id == id })
     }
@@ -29,14 +29,11 @@ struct MatchingPlacesView: View {
         }
     }
     
-    // MARK: - Content View
     @ViewBuilder
     private var contentView: some View {
         VStack(alignment: .center, spacing: 16) {
-            // Title Section
             titleSection
             
-            // Places Images Section
             placesSection
             
             bottomSection
@@ -45,7 +42,7 @@ struct MatchingPlacesView: View {
         .padding(16)
     }
     
-    // MARK: - Title Section
+    //titulo time
     private var titleSection: some View {
         HStack(spacing: 8) {
             Image(systemName: "sparkles")
@@ -61,7 +58,7 @@ struct MatchingPlacesView: View {
     }
     
     
-    // MARK: - Places Section
+    //places section time
     private var placesSection: some View {
         ZStack {
             HStack(spacing: 16) {
@@ -78,23 +75,9 @@ struct MatchingPlacesView: View {
                 } else {
                     placeholderCard(name: "Placeholder Place")
                 }
-                
-                
-                /*placeCard(
-                    id: viewModel.placeMatch?.place1Id ?? 1,
-                    name: viewModel.placeMatch?.place1Name ?? "Placeholder Place",
-                    type: viewModel.placeMatch?.place1Type ?? "cafeteria"
-                )
-                
-                // Right Place
-                placeCard(
-                    id: viewModel.placeMatch?.place2Id ?? 6,
-                    name: viewModel.placeMatch?.place2Name ?? "Placeholder Place",
-                    type: viewModel.placeMatch?.place2Type ?? "restaurante"
-                )*/
             }
             
-            // Heart icon centered between images
+            //heart between matches
             heartIcon
         }
         .frame(maxWidth: .infinity)
@@ -111,44 +94,7 @@ struct MatchingPlacesView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
     }
     
-    // MARK: - Place Card Component
-    /*@ViewBuilder
-    private func placeCard(id: Int, name: String, type: String) -> some View {
-        VStack(alignment: .center, spacing: 6) {
-            if let place = places.first(where: { $0.id == id }),
-               !viewModel.isGenerating {
-                NavigationLink {
-                    PlaceDetailView(place: place)
-                } label: {
-                    placeImage(type: type, id: id)
-                }
-            } else {
-                placeImage(type: type, id: id)
-            }
-            
-            if name.count > 18 {
-                Text(name)
-                    .font(.caption)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
-                    //.padding(.horizontal, 10)
-                    //.padding(.vertical, 4)
-                    .lineLimit(2)
-                    .truncationMode(.tail)
-            } else {
-                Text(name)
-                    .font(.subheadline)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-                    .truncationMode(.tail)
-            }
-                
-        }
-        .frame(maxWidth: .infinity)
-    }*/
-    
-    // MARK: - Place Card Component (using actual Place object)
+    //card component
     @ViewBuilder
     private func placeCard(place: Place) -> some View {
         VStack(alignment: .center, spacing: 6) {
@@ -172,7 +118,7 @@ struct MatchingPlacesView: View {
         .frame(maxWidth: .infinity)
     }
     
-    // MARK: - Placeholder Card (for loading state)
+    //placeholder card para loading time
     @ViewBuilder
     private func placeholderCard(name: String) -> some View {
         VStack(alignment: .center, spacing: 6) {
@@ -188,18 +134,9 @@ struct MatchingPlacesView: View {
         .frame(maxWidth: .infinity)
     }
     
-    // MARK: - Place Image Component
-    /*private func placeImage(type: String, id: Int) -> some View {
-        Image("\(type)\(id)")
-            .resizable()
-            .aspectRatio(4/3, contentMode: .fill)
-            .frame(width: 150, height: 100)
-            .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-    }*/
-    
-    // MARK: - Place Image Component (using actual Place object)
+    //image component inside card comp
     private func placeImage(place: Place) -> some View {
-        Image(place.image)  // Use the actual image property from Place
+        Image(place.image)
             .resizable()
             .aspectRatio(4/3, contentMode: .fill)
             .frame(width: 150, height: 100)
@@ -207,7 +144,7 @@ struct MatchingPlacesView: View {
     }
         
     
-    // MARK: - Heart Icon
+    //icon
     private var heartIcon: some View {
         ZStack {
             /*Circle()
@@ -225,7 +162,7 @@ struct MatchingPlacesView: View {
     }
 }
 
-// MARK: - Card Container
+//card cointainaer
 @available(iOS 26.0, *)
 struct MatchingCardContainer<Content: View>: View {
     let showReloadButton: Bool
@@ -235,10 +172,9 @@ struct MatchingCardContainer<Content: View>: View {
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
-            // Main content
             content
             
-            // Reload button - always in same position
+            //reload button
             if showReloadButton {
                 Button(action: onReload) {
                     Image(systemName: "arrow.clockwise")
@@ -269,7 +205,7 @@ struct MatchingCardContainer<Content: View>: View {
     }
 }
 
-// MARK: - Preview
+// PREVIEW
 @available(iOS 26.0, *)
 #Preview("With Match") {
     VStack {

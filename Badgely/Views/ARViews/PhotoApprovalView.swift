@@ -16,7 +16,6 @@ struct PhotoApprovalView: View {
     @Query var users: [User]
     @Environment(\.colorScheme) var colorScheme
     
-    // Badge overlay states
     @State private var showBadgeOverlay = false
     @State private var currentBadgeIndex = 0
     @State private var earnedBadges: [(name: String, displayName: String)] = []
@@ -74,7 +73,7 @@ struct PhotoApprovalView: View {
                 }
             }
             
-            // 3D Badge Overlay
+            //3D Badge Overlay
             if showBadgeOverlay && !earnedBadges.isEmpty {
                 Badge3DOverlayView(
                     badgeName: earnedBadges[currentBadgeIndex].name,
@@ -91,7 +90,7 @@ struct PhotoApprovalView: View {
         .animation(.easeInOut(duration: 0.3), value: currentBadgeIndex)
     }
     
-    /// Handles the continue/dismiss action from the badge overlay
+    
     private func handleBadgeOverlayContinue() {
         if currentBadgeIndex < earnedBadges.count - 1 {
             // Show next badge
@@ -121,10 +120,10 @@ struct PhotoApprovalView: View {
             context.insert(newPhoto)
         }
         
-        // Collect all earned badges
+        //Collect all earned badges
         earnedBadges.removeAll()
         
-        // Check for regular badge
+        //Check for regular badge
         if !user.badges.contains(place.badge) {
             user.badges.append(place.badge)
             earnedBadges.append((name: place.badge, displayName: place.displayName))
