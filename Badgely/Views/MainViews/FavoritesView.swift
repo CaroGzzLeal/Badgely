@@ -48,15 +48,6 @@ struct FavoritesView: View {
                         Spacer()
                     }
                     .frame(minHeight: 500)
-                    .background {
-                        Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
-                            .resizable()
-                            .scaledToFill()
-                            .ignoresSafeArea()
-                            .allowsHitTesting(false)
-                            .accessibilityHidden(true)
-                    }
-                    
                     
                 } else {
                     
@@ -66,11 +57,11 @@ struct FavoritesView: View {
                             .fontWeight(.bold)
                             .font(.system(size: 30))
                             .font(.custom("SF Pro", size: 30))
-                            //.padding(.horizontal, 10)
-                            //.padding(.top, 100)
-                            //.foregroundColor(colorScheme == .dark ? .white : .black)
-                            //.font(.system(size: 32, weight: .bold))
-                            //.frame(maxWidth: .infinity, alignment: .center)
+                        //.padding(.horizontal, 10)
+                        //.padding(.top, 100)
+                        //.foregroundColor(colorScheme == .dark ? .white : .black)
+                        //.font(.system(size: 32, weight: .bold))
+                        //.frame(maxWidth: .infinity, alignment: .center)
                         
                         ForEach(favoritePlaces) { place in
                             NavigationLink(destination: PlaceDetailView(place: place)) {
@@ -80,17 +71,15 @@ struct FavoritesView: View {
                         
                         //Spacer(minLength: 100) //helps ensure last card isn’t cut off
                     }
-                    //.frame(maxWidth: .infinity)
-                    .background {
-                        Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
-                            .resizable()
-                            .scaledToFill()
-                            .ignoresSafeArea()
-                            .allowsHitTesting(false)
-                            .accessibilityHidden(true)
-                    }
-                    
+                    .frame(maxWidth: .infinity)
+
                 }
+            }
+            .background {
+                Image(colorScheme == .dark ? "backgroundDarkmode" : "background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
             }
             .sheet(isPresented: $showLocationPicker) {
                 if let user = users.first {
@@ -137,9 +126,7 @@ struct FavoritesView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            
         }
         .toolbarBackground(.visible, for: .navigationBar)
-
     }
 }
