@@ -27,13 +27,13 @@ struct SearchView: View {
                     }
                 }
                 .onAppear {
-                    // Cargar lugares de la ciudad del user
+                    //Cargar lugares de la ciudad del user
                     if let city = users.first?.city {
                         placesViewModel.loadPlaces(for: city)
                     }
                 }
                 .onChange(of: users.first?.city) { oldValue, newValue in
-                    // reload si city cambia
+                    //reload si city cambia
                     if let city = newValue {
                         placesViewModel.loadPlaces(for: city)
                     }

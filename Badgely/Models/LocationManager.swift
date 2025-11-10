@@ -29,7 +29,7 @@ class LocationManager: NSObject, ObservableObject {
         locationManager.pausesLocationUpdatesAutomatically = false
     }
     
-    // MARK: - Cargar lugares y empezar el monitoreo dinámico
+    //Cargar lugares y empezar el monitoreo dinámico
     func loadPlacesAndRegisterRegions(for city: String = "Monterrey") {
         //places = Bundle.main.decode("places2.json")
         loadPlaces(for: city)
@@ -40,11 +40,11 @@ class LocationManager: NSObject, ObservableObject {
         startMonitoringSignificantChanges()
     }
     
-    // MARK: - Load places for specific city (like PlacesViewModel)
+    //Load places para city especifica
     func loadPlaces(for city: String) {
         let fileName = jsonFileName(for: city)
         
-        // Try to load city-specific JSON, fallback to default if not found
+        //load json de la city, fallback to mty
         if Bundle.main.url(forResource: fileName, withExtension: nil) != nil {
             places = Bundle.main.decode(fileName)
             print("LocationManager: Loaded \(places.count) places for \(city)")
@@ -54,27 +54,27 @@ class LocationManager: NSObject, ObservableObject {
             places = Bundle.main.decode("places2.json")
         }
         
-        // Re-evaluate closest regions with new places
+        //Re-evaluate closest regions with new places
         if let currentLocation = locationManager.location {
             evaluateClosestRegions(from: currentLocation)
         }
     }
     
-    // MARK: - Get JSON filename for city (same logic as PlacesViewModel)
+    //Get JSON filename for city
     private func jsonFileName(for city: String) -> String {
         switch city {
         case "Monterrey":
             return "places2.json"
         case "Guadalajara":
             return "places_guadalajara.json"
-        case "Mexico City":
+        case "Ciudad de México":
             return "places_mexicocity.json"
         default:
             return "places2.json"
         }
     }
 
-    // MARK: - Pedir permisos de ubicación
+    //Pedir permisos de ubicación
     func validateLocationAuthorizationStatus() {
         switch locationManager.authorizationStatus {
         case .notDetermined:
@@ -88,7 +88,7 @@ class LocationManager: NSObject, ObservableObject {
         }
     }
     
-    // MARK: - Pedir permisos de notificación
+    // Pedir permisos de notificación
     func requestNotificationAuthorization() {
         //notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, _ in
         notificationCenter.requestAuthorization(options: [.alert, .sound]) { [weak self] granted, _ in
@@ -100,13 +100,13 @@ class LocationManager: NSObject, ObservableObject {
         }
     }
 
-    // MARK: - Iniciar monitoreo de cambios significativos
+    //Iniciar monitoreo de cambios significativos
     private func startMonitoringSignificantChanges() {
         //print("Iniciando monitoreo de cambios significativos de ubicación...")
         locationManager.startMonitoringSignificantLocationChanges()
     }
 
-    // MARK: - Evaluar y actualizar las regiones más cercanas
+    //Evaluar y actualizar las regiones más cercanas
     private func evaluateClosestRegions(from location: CLLocation) {
         // Ordenar los lugares por distancia al usuario
         let sortedPlaces = places.sorted {
@@ -115,11 +115,11 @@ class LocationManager: NSObject, ObservableObject {
             return loc1.distance(from: location) < loc2.distance(from: location)
         }
         
-        // Tomar solo las 20 más cercanas
+        //tmar las 20 más cercanas
         let closestPlaces = Array(sortedPlaces.prefix(20))
         nearestFive = Array(sortedPlaces.prefix(5))
         
-        // Detener monitoreo anterior
+        //detener monitoreo anterior
         for region in locationManager.monitoredRegions {
             locationManager.stopMonitoring(for: region)
         }
@@ -136,7 +136,7 @@ class LocationManager: NSObject, ObservableObject {
         //print("Actualizadas las regiones más cercanas. Ahora se monitorean \(closestPlaces.count) lugares.")
     }
 
-    // MARK: - Enviar notificación
+    //Enviar notificación
     private func sendArrivalNotification(for placeName: String) {
         let content = UNMutableNotificationContent()
         content.title = "Llegaste a \(placeName)"
@@ -159,7 +159,7 @@ class LocationManager: NSObject, ObservableObject {
     }
 }
 
-// MARK: - CLLocationManagerDelegate
+//CLLocationManagerDelegate
 extension LocationManager: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         validateLocationAuthorizationStatus()
@@ -196,7 +196,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
-// MARK: - UNUserNotificationCenterDelegate
+//UNUserNotificationCenterDelegate
 extension LocationManager: UNUserNotificationCenterDelegate {
     func userNotificationCenter(
         _ center: UNUserNotificationCenter,

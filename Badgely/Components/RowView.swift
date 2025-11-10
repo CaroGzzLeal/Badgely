@@ -11,7 +11,7 @@ import SwiftData
 struct RowView: View {
     //let title: String
     let places: [Place]
-    //let user: User? //?
+    //let user: User?
     
     let rows = [
         GridItem(.adaptive(minimum: 150))
@@ -35,7 +35,7 @@ struct RowView: View {
 
 
 
-
+//Componente Card
 struct CardView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var users: [User]

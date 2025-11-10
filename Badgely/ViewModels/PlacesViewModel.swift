@@ -38,7 +38,7 @@ final class PlacesViewModel: ObservableObject {
             return "places2.json"
         case "Guadalajara":
             return "places_guadalajara.json"
-        case "Mexico City":
+        case "Ciudad de México":
             return "places_mexicocity.json"
         default:
             return "places2.json"

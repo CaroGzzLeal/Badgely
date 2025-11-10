@@ -244,12 +244,6 @@ struct ContentPlaceListView: View {
     }
 
     var body: some View {
-                //Text("Explora México")
-                //    .foregroundStyle(Color(colorScheme == .dark ? .white : .black))
-                //    .fontWeight(.bold)
-                //    .font(.system(size: 30))
-                //    .font(.custom("SF Pro", size: 30))
-                //    .padding(.horizontal, 10)
                 
                 // Grouped places x category
                 ForEach(grouped, id: \.type) { group in

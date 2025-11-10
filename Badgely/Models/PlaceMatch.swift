@@ -10,10 +10,10 @@ import FoundationModels
 
 
 @available(iOS 26.0, *) //solo funciona if apple intelligence is available“
-@Generable // The @Generable macro makes your custom type compatible with the model.
+@Generable //@Generable macro makes custom type compatible with the model.
 struct PlaceMatch: Equatable {
-    // The @Guide macro provides hints to the model about a property.
-    @Guide(description: "A creative, single phrase title that summarizes the connection between the two places")
+    //@Guide macro givs hints to the model about property.
+    @Guide(description: "A creative short sentence that summarizes the connection between the two places")
     let title: String
     
     @Guide(description: "The name of the first matched place")
@@ -38,11 +38,9 @@ struct SimplifiedPlace: Codable {
     let type: String
 }
 
-// Compatibility helpers for UI previews and navigation.
-// Note: The view now looks up full Place objects from the places array passed to it,
-// so these helpers are no longer needed for navigation but kept for potential future use.
+// Compatibility helpers for UI previews and navigation. no necesarios anymore (futuro uso)
+// Note: The view now looks up full Place objects from the places array passed to it, so these helpers are no longer needed for navigation but kept for potential future use.
 @available(iOS 26.0, *)
 extension PlaceMatch {
-    /// Optional subtitle for UI; not provided by the model generator by default.
     var subtitle: String? { nil }
 }

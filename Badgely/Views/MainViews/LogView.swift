@@ -40,9 +40,7 @@ struct LogView: View {
                         .fontWeight(.light)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
-                        //.fixedSize(horizontal: false, vertical: true)
-                        //.frame(maxWidth: 320)
-
+                    
                     Text(photo.name)
                         //.font(.system(size: .title3, weight: .bold))
                         .font(.title)
@@ -109,23 +107,6 @@ struct LogView: View {
                     }
                     .padding(.top)
                     
-                    //badges como en PlaceDetailView
-      
-                    /*HStack(spacing: -12) {
-                        
-                        Image(photo.badgeName ?? "")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 70, height: 70)
-                        
-                        if let respName = photo.respName, !respName.isEmpty {
-                            Image(respName)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 70, height: 70)
-                        }
-                        
-                    }*/
                     
                 
                 } //vstack
@@ -170,12 +151,6 @@ struct LogView: View {
                 .accessibilityHidden(true)
         }
         
-        
-        //.scrollTargetBehavior(.paging)
-        //.scrollPosition(id: $scrollID)
-        
-        //IndicatorView(imageCount: photos.count, scrollID: $scrollID)
-        //    .padding(.bottom, 10)
     }
     
     func deletePhoto(photo: Photo) {
@@ -308,7 +283,7 @@ struct IndicatorView: View {
 
 
 #Preview {
-    // 1️⃣ Foto de ejemplo
+    //Foto de ejemplo
     let previewPhoto = Photo(
         name: "Atardecer",
         photo: (UIImage(systemName: "sun.max.fill") ?? UIImage()).pngData() ?? Data(),
@@ -318,7 +293,7 @@ struct IndicatorView: View {
         city: "Monterrey"
     )
 
-    // 2️⃣ Usuario de ejemplo (para @Query users)
+    //Usuario de ejemplo (para @Query users)
     let previewUser = User(
         name: "Carolina González",
         avatar: "profile3",
@@ -327,21 +302,21 @@ struct IndicatorView: View {
         specialBadges: []
     )
 
-    // 3️⃣ Contenedor SwiftData en memoria con Photo y User
+    //Contenedor SwiftData en memoria con Photo y User
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
         for: Photo.self, User.self,
         configurations: config
     )
 
-    // 4️⃣ Insertar datos en el contexto
+    //Insertar datos en el contexto
     container.mainContext.insert(previewUser)
     container.mainContext.insert(previewPhoto)
 
-    // 5️⃣ PlacesViewModel de ejemplo
+    //PlacesViewModel de ejemplo
     let placesVM = PlacesViewModel()
 
-    // 6️⃣ Devolver la vista
+    //Devolver la vista
     return LogView(photo: previewPhoto)
         .modelContainer(container)
         .environmentObject(placesVM)
