@@ -24,10 +24,6 @@ struct Log2: View {
     private var user: User? {
         users.first
     }
-
-    /*var avatar: String {
-        user.avatar
-    }*/
    
     let columns = [
         GridItem(.flexible(), spacing: 16),
@@ -93,18 +89,7 @@ struct Log2: View {
                     }
                     .frame(minHeight: 500)
                     
-                    /*LazyVGrid(columns: columns) {
-                        VStack(spacing: 16) {
-                            Image(systemName: "photo.on.rectangle.angled")
-                                .font(.system(size: 60))
-                                .foregroundColor(.gray)
-                            Text("Aún no tienes fotos en \(user?.city ?? "México").")
-                                .foregroundColor(.gray)
-                                .italic()
-                        }
-                    }
-                    .padding()
-                     */
+
                     
                 }
                 else {
@@ -133,7 +118,6 @@ struct Log2: View {
                 }
             }
             //.background(Color(.red))
-            // City change logic (same as ContentView and FavoritesView)
             .sheet(isPresented: $showLocationPicker) {
                 if let user = users.first {
                     LocationPickerView(user: user, placesViewModel: placesViewModel)
@@ -186,7 +170,7 @@ struct Log2: View {
 
 #Preview {
     
-    // 1️⃣ Crear datos de ejemplo
+    //Crear datos de ejemplo
     let previewPhoto1 = Photo(
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
@@ -249,11 +233,11 @@ struct Log2: View {
         specialBadges: []
     )
     
-    // 2️⃣ Crear un contenedor temporal de SwiftData en memoria
+    //Crear un contenedor temporal de SwiftData en memoria
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: Photo.self, User.self, configurations: config)
     
-    // 3️⃣ Insertar los datos de ejemplo (y el usuario para que @Query tenga datos)
+    //Insertar los datos de ejemplo (y el usuario para que @Query tenga datos)
     container.mainContext.insert(previewPhoto1)
     container.mainContext.insert(previewPhoto2)
     container.mainContext.insert(previewPhoto3)
@@ -262,7 +246,7 @@ struct Log2: View {
     container.mainContext.insert(previewPhoto6)
     container.mainContext.insert(previewUser)
     
-    // 4️⃣ Devolver la vista usando el contenedor y el EnvironmentObject necesario
+    //Devolver la vista usando el contenedor y el EnvironmentObject necesario
     return Log2()
         .modelContainer(container)
         .environmentObject(PlacesViewModel())

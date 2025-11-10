@@ -14,7 +14,7 @@ struct LocationPickerView: View {
     @Bindable var user: User
     let placesViewModel: PlacesViewModel
     
-    let cities = ["Monterrey", "Guadalajara", "Mexico City"]
+    let cities = ["Monterrey", "Guadalajara", "Ciudad de México"]
     
     var body: some View {
         NavigationStack {

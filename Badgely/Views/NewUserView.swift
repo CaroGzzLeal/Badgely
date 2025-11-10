@@ -15,7 +15,7 @@ struct NewUserView: View {
     @EnvironmentObject var placesViewModel: PlacesViewModel
     @Environment(\.colorScheme) var colorScheme
     
-    let cities = ["Monterrey", "Guadalajara", "Mexico City"]
+    let cities = ["Monterrey", "Guadalajara", "Ciudad de México"]
     @State private var selectedCity = "Monterrey"
     
     let avatars = ["profile1", "profile2", "profile3", "profile4"]

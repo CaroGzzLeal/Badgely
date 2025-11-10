@@ -17,24 +17,11 @@ struct PhotoCardView: View {
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            // Imagen
             Image(uiImage: image)
                 .resizable()
                 .scaledToFill()
                 .frame(width: 180, height: 280)
                 .clipped()
-            
-            /*// Degradado inferior para que el texto se lea
-            LinearGradient(
-                gradient: Gradient(colors: [
-                    Color.white.opacity(0.0),
-                    Color.white.opacity(0.8)
-                ]),
-                startPoint: .center,
-                endPoint: .bottom
-            )
-            .frame(width: 180, height: 260)
-            */
             HStack(alignment: .bottom) {
                 
                 //badges como en PlaceDetailView

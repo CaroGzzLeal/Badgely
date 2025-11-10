@@ -29,7 +29,7 @@ final class MatchingPlacesViewModel: ObservableObject {
         Your job is to analyze a list of places and select two that share a similar vibe, are related, or have something in common.
         
         The two places must be from different categories.
-        Create a creative, single-phrase title that captures their connection.
+        Create a creative sentence that captures their connection.
         Focus on finding meaningful connections like atmosphere, target audience, cultural significance, or experiential similarities.
         """
     
@@ -44,11 +44,9 @@ final class MatchingPlacesViewModel: ObservableObject {
         self.session = LanguageModelSession(instructions: instructions)
     }
 
-    /// Init a view model with a prefilled match for previews or canvas usage.
-    /// This avoids initializing Foundation Models during Xcode previews.
+    //PARA EL PRWEVIEW
     init(mockMatch: PlaceMatch) {
         self.placeMatch = mockMatch
-        // leave other properties as their default values
     }
     
     // volver a hacer session cuando se refreshea
@@ -75,7 +73,7 @@ final class MatchingPlacesViewModel: ObservableObject {
         session.prewarm()
     }
 
-    // Clear excluded IDs if needed (e.g., when user wants to reset)
+    // Clear excluded IDs if needed (cuando se resetea)
     func resetExcludedPlaces() {
         excludedPlaceIds.removeAll()
     }
@@ -112,7 +110,7 @@ final class MatchingPlacesViewModel: ObservableObject {
                 excludedPlaceIds.removeAll()
                 eligiblePlaces = filterEligiblePlaces(from: allPlaces, visitedBadges: visitedBadges, excludedIds: excludedPlaceIds)
             }
-            print("First list eligible places: ", eligiblePlaces.map { " \($0.name) \($0.type) \($0.id)" })
+            //print("First list eligible places: ", eligiblePlaces.map { " \($0.name) \($0.type) \($0.id)" })
             
             guard eligiblePlaces.count >= 2 else {
                 print("Not enough eligible places to create a match")
@@ -158,12 +156,10 @@ final class MatchingPlacesViewModel: ObservableObject {
             Select exactly two places from different categories that share something in common and could make a great combo for a touristic activity.
             Please provide the ids, and names of the two selected places.
             Don't translate the names, keep it as the original language.
-            Generate a creative title that captures their connection in the language of the phone.
+            Generate a creative sentence that captures their connection in the language of the phone.
             """
             
-            print("\nSending prompt to Foundation Models...")
-            print("Prompt length: \(promptText.count) characters")
-            print("Generation options: greedy sampling")
+            //print("Prompt length: \(promptText.count) characters")
             
             // Generate the match
             let response = try await freshSession.respond(
@@ -192,16 +188,11 @@ final class MatchingPlacesViewModel: ObservableObject {
             
             // Check if this is a model availability issue
             if !isModelAvailable {
-                print("\nFoundation Models is not available. This feature requires:")
-                print("- iOS 26.0 or later")
-                print("- Apple Intelligence enabled in Settings")
-                print("- A supported device (M1+ Mac or A17 Pro+ iPhone)")
-                print("- Model assets downloaded")
+                print("\nFoundation Models is not available.")
             }
         } //do
         
         isGenerating = false
-        print("=== APPLE INTELLIGENCE GENERATION END ===\n")
     } // fun gen match
     
     //Filter function para filtrar places que no han sido visitados y prepare for matching
@@ -227,13 +218,13 @@ final class MatchingPlacesViewModel: ObservableObject {
         // Group by type to ensure we have multiple categories
         let groupedByType = Dictionary(grouping: notExcluded, by: { $0.type }) // before it was unvisitedPlaces
         
-        print("Categories found:")
+        //print("Categories found:")
         for (type, places) in groupedByType.sorted(by: { $0.key < $1.key }) {
-            print("      • \(type): \(places.count) places")
+            //print("      • \(type): \(places.count) places")
         }
         
         guard groupedByType.count >= 2 else {
-            print("Not enough categories (\(groupedByType.count)) - need at least 2")
+            //print("Not enough categories (\(groupedByType.count)) - need at least 2")
             return []
         }
         

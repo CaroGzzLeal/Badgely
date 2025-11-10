@@ -93,11 +93,7 @@ struct ContentView: View {
                     print(user.responsibleBadges)
                 }
                 
-                //print(users[0].badges)
-                //print(users[0].specialBadges)
-                //print(users[0].responsibleBadges)
                 
-                // Pre-warm and generate matching places (iOS 26.0+) first time the app starts.
                 if #available(iOS 26.0, *), !hasGeneratedMatch {
                     let viewModel = MatchingPlacesViewModel()
                     // Only use if model initialized successfully
