@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import MapKit
+import UniformTypeIdentifiers
 
 struct LogView: View {
     @Environment(\.modelContext) private var context
@@ -31,28 +32,28 @@ struct LogView: View {
         
         VStack(spacing: 28) {
             
-            Text(photo.name)
-                .font(.system(size: 30, weight: .bold))
-                .multilineTextAlignment(.center)
-                .lineLimit(nil)
-                .fixedSize(horizontal: false, vertical: true)
-                .frame(maxWidth: 320)
-            
             if let uiImage = UIImage(data: photo.photo) {
                 VStack {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 260)
+                        .frame(width: 260, height: 360)
                         .padding()
-                        .background(
+                        /*.background(
                             RoundedRectangle(cornerRadius: 20)
                             //.fill(Color.blue)
-                        )
+                        )*/
                     
-                    Spacer()
-                    Spacer()
-                    Spacer()
+                    Text(photo.name)
+                        .font(.system(size: 30, weight: .bold))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(nil)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: 320)
+                    
+                    //Spacer()
+                    //Spacer()
+                    //Spacer()
                     
                     HStack {
                         Button(action: {
@@ -64,9 +65,33 @@ struct LogView: View {
                         }
                         
                         Text(photo.place)
-                            .font(.system(size: 18))
-                            .lineSpacing(7)
+                            //.font(.system(size: 14))
+                            .font(.caption)
+                            .fontWeight(.light)
+                            .padding(.horizontal, 7)
+                            .lineSpacing(5)
+                            .font(.custom("SF Pro", size: 27))
                     }
+                    
+                    //badges como en PlaceDetailView
+      
+                    HStack(spacing: -12) {
+                        
+                        Image(photo.badgeName ?? "")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 48, height: 48)
+                        
+                        if let respName = photo.respName, !respName.isEmpty {
+                            Image(respName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48, height: 48)
+                        }
+                        
+                    }
+                    
+                
                 }
                 .alert(isPresented: $showDeleteAlert) {
                     Alert(title: Text("Eliminar foto"), message: Text("¿Estás seguro de eliminar esta foto?"), primaryButton: .destructive(Text("Eliminar")) {
@@ -248,12 +273,13 @@ struct IndicatorView: View {
     // 1️⃣ Foto de ejemplo
     let previewPhoto = Photo(
         name: "Atardecer",
-        photo: UIImage(systemName: "sunset.fill")!.pngData()!,
-        badgeName: "Nature",
+        photo: (UIImage(systemName: "sun.max.fill") ?? UIImage()).pngData() ?? Data(),
+        badgeName: "badge3",
+        respName: "badge1",
         place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910",
         city: "Monterrey"
     )
-    
+
     // 2️⃣ Usuario de ejemplo (para @Query users)
     let previewUser = User(
         name: "Carolina González",
@@ -262,28 +288,21 @@ struct IndicatorView: View {
         badges: [],
         specialBadges: []
     )
-    
+
     // 3️⃣ Contenedor SwiftData en memoria con Photo y User
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
         for: Photo.self, User.self,
         configurations: config
     )
-    
+
     // 4️⃣ Insertar datos en el contexto
     container.mainContext.insert(previewUser)
     container.mainContext.insert(previewPhoto)
-    
+
     // 5️⃣ PlacesViewModel de ejemplo
     let placesVM = PlacesViewModel()
-    // Si quieres que el botón de Mapas tenga algo que encontrar:
-    // placesVM.places = [
-    //     Place(name: previewPhoto.name,
-    //           displayName: "Plaza San Ignacio",
-    //           latitude: 25.643,
-    //           longitude: -100.31)
-    // ]
-    
+
     // 6️⃣ Devolver la vista
     return LogView(photo: previewPhoto)
         .modelContainer(container)

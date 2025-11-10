@@ -104,11 +104,17 @@ struct PhotoApprovalView: View {
     
     private func savePhoto() {
         guard let imageData = image.pngData(), let user = users.first else { return }
+        print("=== SAVING PHOTO ===")
+        print("Place: \(place.displayName)")
+        print("Badge: \(place.badge)")
+        print("Responsible Badge: \(place.responsibleBadge ?? "nil")")
+        
         
         let newPhoto = Photo(
             name: place.displayName,
             photo: imageData,
             badgeName: place.badge,
+            respName: place.responsibleBadge,
             place: place.address,
             city: user.city
         )
@@ -184,3 +190,4 @@ struct PhotoApprovalView: View {
         }
     }
 }
+

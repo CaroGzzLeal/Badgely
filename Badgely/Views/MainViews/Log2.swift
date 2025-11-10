@@ -191,6 +191,7 @@ struct Log2: View {
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
+        respName: "Yolo",
         place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910",
         city: "Monterrey"
     )
@@ -199,6 +200,7 @@ struct Log2: View {
         name: "Montaña Mon",
         photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
         badgeName: "Adventure",
+        respName: "Yolo",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
         city: "Monterrey"
     )
@@ -207,15 +209,16 @@ struct Log2: View {
         name: "Montaña Montaña",
         photo: UIImage(systemName: "balloon.fill")!.pngData()!,
         badgeName: "Adventure",
+        respName: "Yolo",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
         city: "Monterrey"
-        
     )
     
     let previewPhoto4 = Photo(
         name: "Atardecer",
         photo: UIImage(systemName: "sunset.fill")!.pngData()!,
         badgeName: "Nature",
+        respName: "Yolo",
         place: "Plaza San Ignacio 5544 Jardines del Paseo, Monterrey Nuevo León 64910",
         city: "Monterrey"
     )
@@ -224,6 +227,7 @@ struct Log2: View {
         name: "Montaña Mon",
         photo: UIImage(systemName: "mountain.2.fill")!.pngData()!,
         badgeName: "Adventure",
+        respName: "Yolo",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
         city: "Monterrey"
     )
@@ -232,6 +236,7 @@ struct Log2: View {
         name: "Cafe Cacao",
         photo: UIImage(systemName: "balloon.fill")!.pngData()!,
         badgeName: "Adventure",
+        respName: "Yolo",
         place: "Pedregal del coral 7016 Pedregal la Silla Monterrey Nuevo León 64898",
         city: "Monterrey"
     )
@@ -246,22 +251,19 @@ struct Log2: View {
     
     // 2️⃣ Crear un contenedor temporal de SwiftData en memoria
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Photo.self, configurations: config)
+    let container = try! ModelContainer(for: Photo.self, User.self, configurations: config)
     
-    // 3️⃣ Insertar los datos de ejemplo
+    // 3️⃣ Insertar los datos de ejemplo (y el usuario para que @Query tenga datos)
     container.mainContext.insert(previewPhoto1)
     container.mainContext.insert(previewPhoto2)
     container.mainContext.insert(previewPhoto3)
     container.mainContext.insert(previewPhoto4)
     container.mainContext.insert(previewPhoto5)
     container.mainContext.insert(previewPhoto6)
+    container.mainContext.insert(previewUser)
     
-    
-    // 4️⃣ Devolver la vista usando el contenedor
-    
-    //return Log2(user: previewUser)
+    // 4️⃣ Devolver la vista usando el contenedor y el EnvironmentObject necesario
     return Log2()
         .modelContainer(container)
-
+        .environmentObject(PlacesViewModel())
 }
-
